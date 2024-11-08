@@ -24,11 +24,12 @@
 		6E1094C42CCF7A0100FFA1B7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094B72CCF7A0000FFA1B7 /* UIColorExtension.swift */; };
 		6E1094C52CCF7A0100FFA1B7 /* Fen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094B82CCF7A0000FFA1B7 /* Fen.swift */; };
 		6E1094C62CCF7A0100FFA1B7 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094B92CCF7A0000FFA1B7 /* Square.swift */; };
-		6E1094C72CCF7A0100FFA1B7 /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094BA2CCF7A0000FFA1B7 /* RowView.swift */; };
 		6E1094C82CCF7A0100FFA1B7 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094BB2CCF7A0100FFA1B7 /* Move.swift */; };
 		6E1094C92CCF7A0100FFA1B7 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094BC2CCF7A0100FFA1B7 /* Position.swift */; };
 		6E1094CA2CCF7A0100FFA1B7 /* FenDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094BD2CCF7A0100FFA1B7 /* FenDecodable.swift */; };
 		6E1094CB2CCF7A0100FFA1B7 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094BE2CCF7A0100FFA1B7 /* Screen.swift */; };
+		6E39D6012CDEB95600C5D306 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39D6002CDEB95600C5D306 /* RankView.swift */; };
+		6E39D6032CDEBC0500C5D306 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39D6022CDEBC0500C5D306 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,11 +71,12 @@
 		6E1094B72CCF7A0000FFA1B7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		6E1094B82CCF7A0000FFA1B7 /* Fen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fen.swift; sourceTree = "<group>"; };
 		6E1094B92CCF7A0000FFA1B7 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
-		6E1094BA2CCF7A0000FFA1B7 /* RowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
 		6E1094BB2CCF7A0100FFA1B7 /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		6E1094BC2CCF7A0100FFA1B7 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		6E1094BD2CCF7A0100FFA1B7 /* FenDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FenDecodable.swift; sourceTree = "<group>"; };
 		6E1094BE2CCF7A0100FFA1B7 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		6E39D6002CDEB95600C5D306 /* RankView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
+		6E39D6022CDEBC0500C5D306 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 		6E1094802CCF777100FFA1B7 /* ChessMind */ = {
 			isa = PBXGroup;
 			children = (
+				6E39D6002CDEB95600C5D306 /* RankView.swift */,
 				6E1094B62CCF7A0000FFA1B7 /* BoardView.swift */,
 				6E1094B52CCF7A0000FFA1B7 /* Constants.swift */,
 				6E1094B82CCF7A0000FFA1B7 /* Fen.swift */,
@@ -133,13 +136,13 @@
 				6E1094BB2CCF7A0100FFA1B7 /* Move.swift */,
 				6E1094B32CCF7A0000FFA1B7 /* PieceView.swift */,
 				6E1094BC2CCF7A0100FFA1B7 /* Position.swift */,
-				6E1094BA2CCF7A0000FFA1B7 /* RowView.swift */,
 				6E1094BE2CCF7A0100FFA1B7 /* Screen.swift */,
 				6E1094B92CCF7A0000FFA1B7 /* Square.swift */,
 				6E1094B42CCF7A0000FFA1B7 /* SquareView.swift */,
 				6E1094B72CCF7A0000FFA1B7 /* UIColorExtension.swift */,
 				6E1094852CCF777100FFA1B7 /* ViewController.swift */,
 				6E1094B12CCF778100FFA1B7 /* Default */,
+				6E39D6022CDEBC0500C5D306 /* File.swift */,
 			);
 			path = ChessMind;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E39D6012CDEB95600C5D306 /* RankView.swift in Sources */,
 				6E1094C92CCF7A0100FFA1B7 /* Position.swift in Sources */,
 				6E1094C02CCF7A0100FFA1B7 /* PieceView.swift in Sources */,
 				6E1094CA2CCF7A0100FFA1B7 /* FenDecodable.swift in Sources */,
@@ -315,8 +319,8 @@
 				6E1094CB2CCF7A0100FFA1B7 /* Screen.swift in Sources */,
 				6E1094C62CCF7A0100FFA1B7 /* Square.swift in Sources */,
 				6E1094C22CCF7A0100FFA1B7 /* Constants.swift in Sources */,
+				6E39D6032CDEBC0500C5D306 /* File.swift in Sources */,
 				6E1094C42CCF7A0100FFA1B7 /* UIColorExtension.swift in Sources */,
-				6E1094C72CCF7A0100FFA1B7 /* RowView.swift in Sources */,
 				6E1094C32CCF7A0100FFA1B7 /* BoardView.swift in Sources */,
 				6E1094C52CCF7A0100FFA1B7 /* Fen.swift in Sources */,
 				6E1094822CCF777100FFA1B7 /* AppDelegate.swift in Sources */,

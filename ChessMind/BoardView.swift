@@ -10,22 +10,22 @@ final class BoardView: UIView {
   
   weak var delegate: QuizDelegate?
   
-  private(set) var eightRows: [RowView] = []
+  private(set) var eightRanks: [RankView] = []
   
   func configure(withFen fen: String) {
-    let (rows, canCastle) = FenParser.parse(fen: fen)
+    let (rows, _) = FenParser.parse(fen: fen)
     
-    for (index, row) in rows.enumerated() {
-      eightRows[index].configure(withRow: row)
+    for (index, rank) in rows.enumerated() {
+      eightRanks[index].configure(withRank: rank)
     }
   }
   
   func highlight(position: Position) {
-    eightRows[position.row].highlight(item: position.column)
+    eightRanks[position.row].highlight(item: position.column)
   }
   
   func unhilight(position: Position) {
-    eightRows[position.row].unhilight(item: position.column)
+    eightRanks[position.row].unhilight(item: position.column)
   }
   
   // MARK: Init
@@ -33,18 +33,18 @@ final class BoardView: UIView {
   init() {
     super.init(frame: .zero)
     
-    for index in 0..<Constants.boardLength {
-      let rowView = RowView(index: index)
+    for rank in 0..<Constants.boardLength {
+      let rankView = RankView(rank: rank)
       
-      addSubview(rowView)
+      addSubview(rankView)
       
       NSLayoutConstraint.activate([
-        rowView.topAnchor.constraint(equalTo: topAnchor,
-                                     constant: Constants.squareSize * CGFloat(index)),
-        rowView.leftAnchor.constraint(equalTo: leftAnchor)
+        rankView.topAnchor.constraint(equalTo: topAnchor,
+                                     constant: Constants.squareSize * CGFloat(rank)),
+        rankView.leftAnchor.constraint(equalTo: leftAnchor)
       ])
       
-      eightRows.append(rowView)
+      eightRanks.append(rankView)
     }
     
     translatesAutoresizingMaskIntoConstraints = false

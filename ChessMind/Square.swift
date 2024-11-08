@@ -14,12 +14,12 @@ enum Square {
   case queen(white: Bool)
   case rook(white: Bool)
   
-  var imageName: String {
+  var imageName: String? {
     switch self {
       case .bishop(let white):
         return white ? "bishop_white" : "bishop_black"
       case .empty:
-        return ""
+        return nil
       case .knight(let white):
         return white ? "knight_white" : "knight_black"
       case .king(let white):

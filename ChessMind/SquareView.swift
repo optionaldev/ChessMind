@@ -9,7 +9,14 @@ import UIKit
 final class SquareView: UIView {
   
   func configure(square: Square) {
-    pieceImageView.image = UIImage(named: square.imageName)
+    if let imageName = square.imageName {
+      pieceImageView.image = UIImage(named: imageName)
+      pieceImageView.isHidden = false
+      squareLabel.isHidden = true
+    } else {
+      pieceImageView.isHidden = true
+      squareLabel.isHidden = false
+    }
   }
   
   func highlight() {
@@ -26,7 +33,7 @@ final class SquareView: UIView {
   
   // MARK: Init
   
-  init(background: UIColor) {
+  init(background: UIColor, position: String) {
     self.background = background
     
     super.init(frame: .zero)
@@ -34,21 +41,32 @@ final class SquareView: UIView {
     let pieceImageView = UIImageView()
     pieceImageView.translatesAutoresizingMaskIntoConstraints = false
     
+    let squareLabel = UILabel()
+    squareLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+    squareLabel.font = UIFont(name: "Helvetica Neue", size: 13)
+    squareLabel.text = position
+    squareLabel.translatesAutoresizingMaskIntoConstraints = false
+    
     addSubview(pieceImageView)
+    addSubview(squareLabel)
     backgroundColor = background
     translatesAutoresizingMaskIntoConstraints = false
     
     NSLayoutConstraint.activate([
       pieceImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
       pieceImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-      pieceImageView.widthAnchor.constraint(equalTo: widthAnchor),
-      pieceImageView.heightAnchor.constraint(equalTo: heightAnchor),
+      pieceImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+      pieceImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
+      
+      squareLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+      squareLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
       
       widthAnchor.constraint(equalToConstant: Constants.squareSize),
       heightAnchor.constraint(equalToConstant: Constants.squareSize)
     ])
     
     self.pieceImageView = pieceImageView
+    self.squareLabel = squareLabel
   }
   
   required init?(coder: NSCoder) {
@@ -60,4 +78,5 @@ final class SquareView: UIView {
   private let background: UIColor
   
   private weak var pieceImageView: UIImageView!
+  private weak var squareLabel: UILabel!
 }

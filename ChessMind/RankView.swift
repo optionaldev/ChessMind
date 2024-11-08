@@ -10,14 +10,14 @@ protocol BoardDelegate: AnyObject {
   
 }
 
-final class RowView: UIView {
+final class RankView: UIView {
   
   weak var delegate: BoardDelegate?
   
   private(set) var eightSquares: [SquareView] = []
   
-  func configure(withRow row: [Square]) {
-    for (index, square) in row.enumerated() {
+  func configure(withRank rank: [Square]) {
+    for (index, square) in rank.enumerated() {
       eightSquares[index].configure(square: square)
     }
   }
@@ -32,8 +32,8 @@ final class RowView: UIView {
   
   // MARK: Init
   
-  init(index: Int) {
-    let startingWithWhiteSquare = index % 2 == 0
+  init(rank: Int) {
+    let startingWithWhiteSquare = rank % 2 == 0
     super.init(frame: .zero)
     
     for index in 0..<Constants.boardLength {
@@ -46,7 +46,7 @@ final class RowView: UIView {
         background = .blackSquareColor
       }
       
-      let squareView = SquareView(background: background)
+      let squareView = SquareView(background: background, position: "\(File.forIndex(index: index))\(Constants.boardLength - rank)")
       addSubview(squareView)
       
       NSLayoutConstraint.activate([

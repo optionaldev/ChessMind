@@ -32,7 +32,7 @@ enum FenParser {
           currentRow.append(Square.empty)
         }
       } else {
-        let square: Square
+        var square: Square?
         switch character {
           case "r":
             square = .rook(white: false)
@@ -58,18 +58,24 @@ enum FenParser {
             square = .pawn(white: false)
           case "P":
             square = .pawn(white: true)
+          case "/":
+            currentRowIndex += 1
+            allRows.append(currentRow)
+            currentRow = []
+            continue
+          case " ":
+            /// For now, we consider hitting the space character
+            /// as end of parsing. Will parse others later.
+            allRows.append(currentRow)
+            return (allRows, true)
           default:
+            square = .empty
             print("Invalid fen: \"\(fen)\". Found invalid character \"\(character)\".")
-            return ([], false)
+            fatalError()
         }
-        currentRow.append(square)
-      }
-      /// Once we have enough characters to fill
-      /// a row, we move onto the next row
-      if currentRow.count == Constants.boardLength {
-        currentRowIndex += 1
-        allRows.append(currentRow)
-        currentRow = []
+        if let square = square {
+          currentRow.append(square)
+        }
       }
     }
     /// The remaining characters from the fen
