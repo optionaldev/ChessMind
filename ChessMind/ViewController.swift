@@ -18,6 +18,7 @@ class ViewController: UIViewController, QuizDelegate {
     
     let boardView = BoardView()
     boardView.delegate = self
+    boardView.configure(withFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
     
     view.addSubview(boardView)
     view.translatesAutoresizingMaskIntoConstraints = false
