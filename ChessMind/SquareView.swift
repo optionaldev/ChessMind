@@ -8,7 +8,12 @@ import UIKit
 
 final class SquareView: UIView {
   
+  let position: Position
+  
+  private(set) var square: Square
+  
   func configure(square: Square) {
+    self.square = square
     if let imageName = square.imageName {
       pieceImageView.image = UIImage(named: imageName)
       pieceImageView.isHidden = false
@@ -20,6 +25,10 @@ final class SquareView: UIView {
   }
   
   func highlight() {
+    if case .empty = square {
+      return
+    }
+
     if background == .whiteSquareColor {
       backgroundColor = .whiteHighlitedSquareColor
     } else {
@@ -28,13 +37,19 @@ final class SquareView: UIView {
   }
   
   func unhilight() {
+    if case .empty = square {
+      return
+    }
+    
     backgroundColor = background
   }
   
   // MARK: Init
   
-  init(background: UIColor, position: String) {
+  init(background: UIColor, position: Position) {
     self.background = background
+    self.position = position
+    self.square = .empty
     
     super.init(frame: .zero)
     
@@ -44,7 +59,7 @@ final class SquareView: UIView {
     let squareLabel = UILabel()
     squareLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     squareLabel.font = UIFont(name: "Helvetica Neue", size: 13)
-    squareLabel.text = position
+    squareLabel.text = position.notation
     squareLabel.translatesAutoresizingMaskIntoConstraints = false
     
     addSubview(pieceImageView)

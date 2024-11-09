@@ -1,11 +1,11 @@
 //
 // The ChessMind project.
-// Created by optionaldev on 25/10/2024.
+// Created by optionaldev on 09/11/2024.
 // Copyright © 2024 optionaldev. All rights reserved.
 // 
 
-struct Move {
+enum Side {
   
-  let from: Position
-  let to: Position
+  case black
+  case white
 }

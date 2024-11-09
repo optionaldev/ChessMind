@@ -2,7 +2,7 @@
 // The ChessMind project.
 // Created by optionaldev on 25/10/2024.
 // Copyright © 2024 optionaldev. All rights reserved.
-// 
+//
 
 enum Square {
   
@@ -30,6 +30,25 @@ enum Square {
         return white ? "queen_white" : "queen_black"
       case .rook(let white):
         return white ? "rook_white" : "rook_black"
+    }
+  }
+  
+  var piece: Piece? {
+    switch self {
+      case .bishop:
+        return .bishop
+      case .empty:
+        return nil
+      case .knight:
+        return .knight
+      case .king:
+        return .king
+      case .pawn:
+        return .pawn
+      case .queen:
+        return .queen
+      case .rook:
+        return .rook
     }
   }
 }

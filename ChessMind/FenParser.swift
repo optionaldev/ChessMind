@@ -70,8 +70,7 @@ enum FenParser {
             return (allRows, true)
           default:
             square = .empty
-            print("Invalid fen: \"\(fen)\". Found invalid character \"\(character)\".")
-            fatalError()
+            fatalError("Invalid fen: \"\(fen)\". Found invalid character \"\(character)\".")
         }
         if let square = square {
           currentRow.append(square)

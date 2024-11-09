@@ -32,21 +32,21 @@ final class RankView: UIView {
   
   // MARK: Init
   
-  init(rank: Int) {
-    let startingWithWhiteSquare = rank % 2 == 0
+  init(rank: Rank) {
+    let startingWithWhiteSquare = rank.rawValue % 2 == 0
     super.init(frame: .zero)
     
-    for index in 0..<Constants.boardLength {
+    for (index, file) in File.allCases.enumerated() {
       let background: UIColor
-      if (startingWithWhiteSquare && index % 2 == 0) ||
-          (startingWithWhiteSquare == false && index % 2 == 1)
+      if (startingWithWhiteSquare && file.rawValue % 2 == 0) ||
+          (startingWithWhiteSquare == false && file.rawValue % 2 == 1)
       {
         background = .whiteSquareColor
       } else {
         background = .blackSquareColor
       }
       
-      let squareView = SquareView(background: background, position: "\(File.forIndex(index: index))\(Constants.boardLength - rank)")
+      let squareView = SquareView(background: background, position: .init(rank: rank, file: file))
       addSubview(squareView)
       
       NSLayoutConstraint.activate([

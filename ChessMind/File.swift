@@ -4,20 +4,35 @@
 // Copyright © 2024 optionaldev. All rights reserved.
 // 
 
-enum File {
+enum File: Int, CaseIterable {
   
-  static func forIndex(index: Int) -> String {
-    switch index {
-      case 0: return "a"
-      case 1: return "b"
-      case 2: return "c"
-      case 3: return "d"
-      case 4: return "e"
-      case 5: return "f"
-      case 6: return "g"
-      case 7: return "h"
-      default:
-        fatalError()
+  case a
+  case b
+  case c
+  case d
+  case e
+  case f
+  case g
+  case h
+  
+  var notation: String {
+    switch self {
+      case .a:
+        return "a"
+      case .b:
+        return "b"
+      case .c:
+        return "c"
+      case .d:
+        return "d"
+      case .e:
+        return "e"
+      case .f:
+        return "f"
+      case .g:
+        return "g"
+      case .h:
+        return "h"
     }
   }
 }

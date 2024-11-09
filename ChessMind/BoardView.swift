@@ -21,11 +21,15 @@ final class BoardView: UIView {
   }
   
   func highlight(position: Position) {
-    eightRanks[position.row].highlight(item: position.column)
+    eightRanks[position.column].highlight(item: position.row)
   }
   
   func unhilight(position: Position) {
-    eightRanks[position.row].unhilight(item: position.column)
+    eightRanks[position.column].unhilight(item: position.row)
+  }
+  
+  func square(at position: Position) -> SquareView {
+    return eightRanks[position.column].eightSquares[position.row]
   }
   
   // MARK: Init
@@ -33,14 +37,14 @@ final class BoardView: UIView {
   init() {
     super.init(frame: .zero)
     
-    for rank in 0..<Constants.boardLength {
+    for (index, rank) in Rank.allCases.enumerated().reversed() {
       let rankView = RankView(rank: rank)
       
       addSubview(rankView)
       
       NSLayoutConstraint.activate([
         rankView.topAnchor.constraint(equalTo: topAnchor,
-                                     constant: Constants.squareSize * CGFloat(rank)),
+                                      constant: Constants.squareSize * CGFloat(Constants.boardLength - index - 1)),
         rankView.leftAnchor.constraint(equalTo: leftAnchor)
       ])
       
