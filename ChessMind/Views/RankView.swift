@@ -16,9 +16,10 @@ final class RankView: UIView {
   
   private(set) var eightSquares: [SquareView] = []
   
-  func configure(withRank rank: [Square]) {
-    for (index, square) in rank.enumerated() {
-      eightSquares[index].configure(square: square)
+  func configure(withRankContent rankContent: [SquareState]) {
+    for (index, squareState) in rankContent.enumerated() {
+//      print("    Configuring \(index) position = \(eightSquares[index].position) with squareState \(squareState)")
+      eightSquares[index].configure(squareState: squareState)
     }
   }
   

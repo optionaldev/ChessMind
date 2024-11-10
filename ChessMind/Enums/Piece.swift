@@ -4,7 +4,7 @@
 // Copyright © 2024 optionaldev. All rights reserved.
 // 
 
-enum Piece {
+enum Piece: String {
   
   case bishop
   case king

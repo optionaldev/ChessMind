@@ -20,7 +20,7 @@ class ViewController: UIViewController, QuizDelegate {
     
     let boardView = BoardView()
     boardView.delegate = self
-//    boardView.configure(withFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+    boardView.configure(withFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
     
     for rank in boardView.eightRanks {
       for file in rank.eightSquares {
@@ -61,25 +61,45 @@ class ViewController: UIViewController, QuizDelegate {
     guard let squareView = gestureRecognizer.view as? SquareView else {
       fatalError("Shouldn't be possible to find something else other than a \(SquareView.self)")
     }
+    let position = squareView.position
     
     if let highlightedPosition = highlightedPosition {
-      if highlightedPosition == squareView.position {
+      if highlightedPosition == position {
         squareView.unhilight()
         self.highlightedPosition = nil
       } else {
-        boardView.square(at: highlightedPosition).unhilight()
-        /// Need to check for valid highlight option
-        squareView.highlight()
-        self.highlightedPosition = squareView.position
+        let currentlyHighlightedSquare = boardView.square(at: highlightedPosition)
+        guard currentlyHighlightedSquare.position == highlightedPosition else {
+          fatalError("What is happening here?")
+        }
+        currentlyHighlightedSquare.unhilight()
+
+        handleNewHighlightedSquare(position: position)
       }
     } else {
-      if case .empty = squareView.square {
-        return
+      switch squareView.squareState {
+        case .empty:
+          return
+        case .occupied:
+          handleNewHighlightedSquare(position: position)
       }
-      squareView.highlight()
-      highlightedPosition = squareView.position
-      /// TODO: Find legal moves
     }
+  }
+  
+  private func handleNewHighlightedSquare(position: Position) {
+    let squareView = boardView.square(at: position)
+    
+    guard position == squareView.position else {
+      fatalError("These should be equal")
+    }
+    
+    /// Need to check for valid highlight option
+    squareView.highlight()
+    highlightedPosition = position
+    
+    let moves = generateTheoreticalMoves(forPosition: position)
+    
+    print(moves)
   }
   
   /// The idea behind returning Nested array of Moves is that,
@@ -90,7 +110,90 @@ class ViewController: UIViewController, QuizDelegate {
   /// know that we can discard the rest of the subarray. Then
   /// we move on to the next subarray.
   private func generateTheoreticalMoves(forPosition position: Position) -> [[Move]] {
-    return []
+    let squareView = boardView.square(at: position)
+    var result: [[Move]] = []
+    var currentMoves: [Move] = []
+    
+    guard case .occupied(let piece, let side) = squareView.squareState else {
+      return []
+    }
+    
+    switch piece {
+      case .bishop:
+        generateTheoreticalMoves(forDirections: [.bottomLeft, .bottomRight, .topLeft, .topRight],
+                                 position: position)
+      case .king:
+        for direction in Direction.allCases {
+          if let newPosition = position.next(inDirection: direction) {
+            result.append([Move(from: position, to: newPosition)])
+          }
+        }
+        // TODO: Add castling moves
+      case .knight:
+        for direction in KnightDirection.allCases {
+          if let newPosition = position.next(inDirection: direction) {
+            result.append([Move(from: position, to: newPosition)])
+          }
+        }
+      case .pawn:
+        let advanceDirection: Direction
+        let captureDirections: [Direction]
+        switch side {
+          case .black:
+            advanceDirection = .down
+            captureDirections = [.bottomLeft, .bottomRight]
+          case .white:
+            advanceDirection = .up
+            captureDirections = [.topLeft, .topRight]
+        }
+        let canGoTwoSquares = (side == .black && position.rank == .seventh) ||
+        (side == .white && position.rank == .second)
+        
+        if let newPosition = position.next(inDirection: advanceDirection) {
+          currentMoves.append(Move(from: position, to: newPosition))
+          if canGoTwoSquares,
+             let twoSquaresAdvancePosition = newPosition.next(inDirection: advanceDirection)
+          {
+            currentMoves.append(Move(from: position, to: twoSquaresAdvancePosition))
+          }
+        }
+        result.append(currentMoves)
+        
+        for direction in captureDirections {
+          if let newPosition = position.next(inDirection: direction) {
+            result.append([Move(from: position, to: newPosition)])
+          }
+        }
+        
+      case .queen:
+        result = generateTheoreticalMoves(forDirections: Direction.allCases,
+                                          position: position)
+      case .rook:
+        result = generateTheoreticalMoves(forDirections: [.down, .left, .right, .up],
+                                          position: position)
+    }
+    
+    return result
+  }
+  
+  private func generateTheoreticalMoves(forDirections directions: [Direction], position: Position) -> [[Move]] {
+    var result: [[Move]] = []
+    var currentMoves: [Move] = []
+    
+    for direction in directions {
+      var referencePosition = position
+      while let newPosition = referencePosition.next(inDirection: direction) {
+        currentMoves.append(Move(from: position, to: newPosition))
+        referencePosition = newPosition
+      }
+      if currentMoves.isNonEmpty {
+        result.append(currentMoves)
+      }
+      
+      currentMoves = []
+    }
+    
+    return result
   }
 }
 

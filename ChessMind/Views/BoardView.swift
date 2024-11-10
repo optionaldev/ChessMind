@@ -15,8 +15,9 @@ final class BoardView: UIView {
   func configure(withFen fen: String) {
     let (rows, _) = FenParser.parse(fen: fen)
     
-    for (index, rank) in rows.enumerated() {
-      eightRanks[index].configure(withRank: rank)
+    for (index, rankContent) in rows.enumerated() {
+//      print("Configuring #\(index) rank")
+      eightRanks[index].configure(withRankContent: rankContent)
     }
   }
   
@@ -29,7 +30,7 @@ final class BoardView: UIView {
   }
   
   func square(at position: Position) -> SquareView {
-    return eightRanks[position.column].eightSquares[position.row]
+    return eightRanks[position.row].eightSquares[position.column]
   }
   
   // MARK: Init
@@ -37,14 +38,14 @@ final class BoardView: UIView {
   init() {
     super.init(frame: .zero)
     
-    for (index, rank) in Rank.allCases.enumerated().reversed() {
+    for (index, rank) in Rank.allCases.enumerated() {
       let rankView = RankView(rank: rank)
       
       addSubview(rankView)
       
       NSLayoutConstraint.activate([
-        rankView.topAnchor.constraint(equalTo: topAnchor,
-                                      constant: Constants.squareSize * CGFloat(Constants.boardLength - index - 1)),
+        rankView.bottomAnchor.constraint(equalTo: bottomAnchor,
+                                         constant: -Constants.squareSize * CGFloat(index)),
         rankView.leftAnchor.constraint(equalTo: leftAnchor)
       ])
       

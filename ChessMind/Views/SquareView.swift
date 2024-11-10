@@ -10,11 +10,12 @@ final class SquareView: UIView {
   
   let position: Position
   
-  private(set) var square: Square
+  private(set) var squareState: SquareState
   
-  func configure(square: Square) {
-    self.square = square
-    if let imageName = square.imageName {
+  func configure(squareState: SquareState) {
+    self.squareState = squareState
+    
+    if let imageName = squareState.imageName {
       pieceImageView.image = UIImage(named: imageName)
       pieceImageView.isHidden = false
       squareLabel.isHidden = true
@@ -25,23 +26,25 @@ final class SquareView: UIView {
   }
   
   func highlight() {
-    if case .empty = square {
-      return
-    }
-
-    if background == .whiteSquareColor {
-      backgroundColor = .whiteHighlitedSquareColor
-    } else {
-      backgroundColor = .blackHighlitedSquareColor
+    switch squareState {
+      case .empty:
+        return
+      case .occupied:
+        if background == .whiteSquareColor {
+          backgroundColor = .whiteHighlitedSquareColor
+        } else {
+          backgroundColor = .blackHighlitedSquareColor
+        }
     }
   }
   
   func unhilight() {
-    if case .empty = square {
-      return
+    switch squareState {
+      case .empty:
+        return
+      case .occupied:
+        backgroundColor = background
     }
-    
-    backgroundColor = background
   }
   
   // MARK: Init
@@ -49,7 +52,7 @@ final class SquareView: UIView {
   init(background: UIColor, position: Position) {
     self.background = background
     self.position = position
-    self.square = .empty
+    self.squareState = .empty
     
     super.init(frame: .zero)
     

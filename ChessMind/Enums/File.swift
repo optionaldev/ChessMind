@@ -35,4 +35,8 @@ enum File: Int, CaseIterable {
         return "h"
     }
   }
+  
+  func offsetBy(n: Int) -> File {
+    return File(rawValue: rawValue + n)!
+  }
 }

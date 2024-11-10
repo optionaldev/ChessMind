@@ -6,7 +6,7 @@
 
 struct Quiz {
   
-  let rows: [[Square]]
+//  let rows: [[Square]]
   let canCastle: Bool
   let bestMove: Move
   let candidateMoves: [Move]

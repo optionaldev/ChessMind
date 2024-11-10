@@ -4,8 +4,14 @@
 // Copyright © 2024 optionaldev. All rights reserved.
 // 
 
-struct Move {
+struct Move: CustomStringConvertible {
   
   let from: Position
   let to: Position
+  
+  // MARK: CustomStringConvertible conformance
+  
+  var description: String {
+    return "Move(\(from) -> \(to))"
+  }
 }
