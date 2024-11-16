@@ -6,18 +6,12 @@
 
 import UIKit
 
-protocol QuizDelegate: AnyObject {
-  
-  func didTap(position: Position)
-}
-
-class ViewController: UIViewController, QuizDelegate {
+class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     let boardView = BoardView()
-    boardView.delegate = self
     boardView.configure(withFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
     
     for rank in boardView.eightRanks {
@@ -27,7 +21,7 @@ class ViewController: UIViewController, QuizDelegate {
       }
     }
     
-    boardView.eightRanks.forEach { $0.eightSquares.forEach { $0.markRedIfHasKing(sideInCheck: side) }}
+    boardView.eightRanks.forEach { $0.eightSquares.forEach { $0.highlight(type: .kingIsInCheck) }}
     
     let flipButton = UIButton(type: .system)
     flipButton.addTarget(self, action: #selector(flipButtonTapped), for: .touchUpInside)
@@ -51,21 +45,12 @@ class ViewController: UIViewController, QuizDelegate {
     self.boardView = boardView
   }
   
-  // MARK: QuizDelegate conformance
-  
-  func didTap(position: Position) {
-    if let highlightedPosition = highlightedPosition {
-      if position == highlightedPosition {
-        boardView.unhilight(position: position)
-      }
-    }
-  }
-  
   // MARK: - Private
   
   private var boardView: BoardView!
   private var data: [String: Quiz] = [:]
   private var highlightedPosition: Position?
+  private var lastMove: Move?
   private var side: Side = .white
   
   private func animate(move: Move) {
@@ -104,19 +89,31 @@ class ViewController: UIViewController, QuizDelegate {
     
     if let highlightedPosition = highlightedPosition {
       if highlightedPosition == position {
-        squareView.unhilight()
+        squareView.unhilight(type: .isSelected)
         self.highlightedPosition = nil
       } else {
         let currentlyHighlightedSquare = boardView.square(at: highlightedPosition)
         guard currentlyHighlightedSquare.position == highlightedPosition else {
           fatalError("What is happening here?")
         }
-        currentlyHighlightedSquare.unhilight()
+        currentlyHighlightedSquare.unhilight(type: .isSelected)
         
         switch squareView.squareState {
           case .empty:
-            animate(move: Move(from: highlightedPosition, to: position))
-          case .occupied(let piece, let side):
+            if let lastMove = lastMove {
+              boardView.square(at: lastMove.from).unhilight(type: .previousMove(move: .from))
+              boardView.square(at: lastMove.to).unhilight(type: .previousMove(move: .to))
+            }
+            
+            let nextMove = Move(from: highlightedPosition, to: position)
+            animate(move: nextMove)
+            
+            boardView.square(at: nextMove.from).highlight(type: .previousMove(move: .from))
+            boardView.square(at: nextMove.to).highlight(type: .previousMove(move: .to))
+            
+            lastMove = nextMove
+            
+          case .occupied(let piece, _):
             break
         }
 
@@ -140,7 +137,7 @@ class ViewController: UIViewController, QuizDelegate {
     }
     
     /// Need to check for valid highlight option
-    squareView.highlight()
+    squareView.highlight(type: .isSelected)
     highlightedPosition = position
     
     let moves = generateTheoreticalMoves(forPosition: position)

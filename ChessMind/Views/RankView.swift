@@ -6,13 +6,7 @@
 
 import UIKit
 
-protocol BoardDelegate: AnyObject {
-  
-}
-
 final class RankView: UIView {
-  
-  weak var delegate: BoardDelegate?
   
   private(set) var eightSquares: [SquareView] = []
   
@@ -21,14 +15,6 @@ final class RankView: UIView {
 //      print("    Configuring \(index) position = \(eightSquares[index].position) with squareState \(squareState)")
       eightSquares[index].configure(squareState: squareState)
     }
-  }
-  
-  func highlight(item: Int) {
-    eightSquares[item].highlight()
-  }
-  
-  func unhilight(item: Int) {
-    eightSquares[item].unhilight()
   }
   
   // MARK: Init

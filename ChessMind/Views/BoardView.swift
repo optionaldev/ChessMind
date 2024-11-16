@@ -10,8 +10,6 @@ final class BoardView: UIView {
   
   var flipped: Bool = false
   
-  weak var delegate: QuizDelegate?
-  
   private(set) var eightRanks: [RankView] = []
   
   func configure(withFen fen: String) {
@@ -38,16 +36,8 @@ final class BoardView: UIView {
     }
   }
   
-  func highlight(position: Position) {
-    eightRanks[position.column].highlight(item: position.row)
-  }
-  
   func square(at position: Position) -> SquareView {
     return eightRanks[position.row].eightSquares[position.column]
-  }
-  
-  func unhilight(position: Position) {
-    eightRanks[position.column].unhilight(item: position.row)
   }
   
   // MARK: Init
