@@ -2,12 +2,14 @@
 // The ChessMind project.
 // Created by optionaldev on 25/10/2024.
 // Copyright © 2024 optionaldev. All rights reserved.
-// 
+//
+
+import UIKit
 
 struct Position: Equatable, CustomStringConvertible {
   
-  let row: Int
-  let column: Int
+  let row: Int    /// Used to represent ranks
+  let column: Int /// Used to represent files
 //
 //  var isValid: Bool {
 //    return row >= 0 && row <= 8 && column >= 0 && column <= 8
@@ -53,6 +55,18 @@ struct Position: Equatable, CustomStringConvertible {
       case .upRight:
         return Position(row: row + 2, column: column + 1)
     }
+  }
+  
+  func frame(isBoardFlipped boardFlipped: Bool) -> CGRect {
+    let xMultiplier = CGFloat(boardFlipped ? Constants.boardLength - column - 1 : column)
+    let yMultiplier = CGFloat(boardFlipped ? row : Constants.boardLength - row - 1)
+    
+    let offset = (Constants.squareSize - Constants.imageSize) / 2
+    
+    return CGRect(x: xMultiplier * Constants.squareSize + offset,
+                  y: yMultiplier * Constants.squareSize + Constants.boardTopOffset + offset,
+                  width: Constants.imageSize,
+                  height: Constants.imageSize)
   }
   
   // MARK: Init

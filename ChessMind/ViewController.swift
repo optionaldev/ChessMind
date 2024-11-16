@@ -11,8 +11,6 @@ protocol QuizDelegate: AnyObject {
   func didTap(position: Position)
 }
 
-
-
 class ViewController: UIViewController, QuizDelegate {
   
   override func viewDidLoad() {
@@ -29,12 +27,25 @@ class ViewController: UIViewController, QuizDelegate {
       }
     }
     
+    boardView.eightRanks.forEach { $0.eightSquares.forEach { $0.markRedIfHasKing(sideInCheck: side) }}
+    
+    let flipButton = UIButton(type: .system)
+    flipButton.addTarget(self, action: #selector(flipButtonTapped), for: .touchUpInside)
+    flipButton.setImage(UIImage(named: "flip"), for: .normal)
+    flipButton.translatesAutoresizingMaskIntoConstraints = false
+    
     view.addSubview(boardView)
+    view.addSubview(flipButton)
     view.translatesAutoresizingMaskIntoConstraints = false
     
     NSLayoutConstraint.activate([
-      boardView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-      boardView.leftAnchor.constraint(equalTo: view.leftAnchor)
+      boardView.leftAnchor.constraint(equalTo: view.leftAnchor),
+      boardView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.boardTopOffset),
+      
+      flipButton.heightAnchor.constraint(equalToConstant: 50),
+      flipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      flipButton.topAnchor.constraint(equalTo: boardView.bottomAnchor, constant: 50),
+      flipButton.widthAnchor.constraint(equalToConstant: 50)
     ])
     
     self.boardView = boardView
@@ -57,6 +68,34 @@ class ViewController: UIViewController, QuizDelegate {
   private var highlightedPosition: Position?
   private var side: Side = .white
   
+  private func animate(move: Move) {
+    let fromSquare = boardView.square(at: move.from)
+    let toSquare = boardView.square(at: move.to)
+    let destinationSquareState = fromSquare.squareState
+    
+    guard let imageName = fromSquare.squareState.imageName else {
+      fatalError("Moving a piece with no image?")
+    }
+    
+    fromSquare.configure(squareState: .empty)
+    
+    let temporaryPieceView = UIImageView(image: UIImage(named: imageName), highlightedImage: nil)
+    temporaryPieceView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+    temporaryPieceView.frame = fromSquare.position.frame(isBoardFlipped: boardView.flipped)
+    
+    view.addSubview(temporaryPieceView)
+    
+    UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+      guard let self = self else {
+        return
+      }
+      temporaryPieceView.frame = toSquare.position.frame(isBoardFlipped: self.boardView.flipped)
+    }, completion: { _ in
+      toSquare.configure(squareState: destinationSquareState)
+      temporaryPieceView.removeFromSuperview()
+    })
+  }
+  
   @objc private func didTapSquare(_ gestureRecognizer: UITapGestureRecognizer) {
     guard let squareView = gestureRecognizer.view as? SquareView else {
       fatalError("Shouldn't be possible to find something else other than a \(SquareView.self)")
@@ -73,6 +112,13 @@ class ViewController: UIViewController, QuizDelegate {
           fatalError("What is happening here?")
         }
         currentlyHighlightedSquare.unhilight()
+        
+        switch squareView.squareState {
+          case .empty:
+            animate(move: Move(from: highlightedPosition, to: position))
+          case .occupied(let piece, let side):
+            break
+        }
 
         handleNewHighlightedSquare(position: position)
       }
@@ -120,8 +166,8 @@ class ViewController: UIViewController, QuizDelegate {
     
     switch piece {
       case .bishop:
-        generateTheoreticalMoves(forDirections: [.bottomLeft, .bottomRight, .topLeft, .topRight],
-                                 position: position)
+        result = generateTheoreticalMoves(forDirections: [.bottomLeft, .bottomRight, .topLeft, .topRight],
+                                          position: position)
       case .king:
         for direction in Direction.allCases {
           if let newPosition = position.next(inDirection: direction) {
@@ -194,6 +240,10 @@ class ViewController: UIViewController, QuizDelegate {
     }
     
     return result
+  }
+  
+  @objc private func flipButtonTapped() {
+    boardView.flip()
   }
 }
 

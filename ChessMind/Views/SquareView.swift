@@ -25,6 +25,13 @@ final class SquareView: UIView {
     }
   }
   
+  func handleNewOrientation(_ flipped: Bool) {
+    let transform: CGAffineTransform = flipped ? .init(rotationAngle: .pi) : .identity
+    
+    pieceImageView.transform = transform
+    squareLabel.transform = transform
+  }
+  
   func highlight() {
     switch squareState {
       case .empty:
@@ -38,6 +45,35 @@ final class SquareView: UIView {
     }
   }
   
+  func markRed() {
+    if gradientLayer == nil {
+      let gradientLayer = CAGradientLayer()
+      gradientLayer.frame = bounds
+      gradientLayer.type = .radial
+      gradientLayer.colors = [ UIColor.red.cgColor,
+                               UIColor.red.cgColor,
+                               UIColor.clear.cgColor]
+      gradientLayer.locations = [0, 0.5, 1]
+      gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
+      gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+      layer.addSublayer(gradientLayer)
+      
+      bringSubviewToFront(pieceImageView)
+      
+      self.gradientLayer = gradientLayer
+    }
+    
+    gradientLayer?.isHidden = false
+  }
+  
+  func markRedIfHasKing(sideInCheck: Side) {
+    if case .occupied(let piece, let side) = squareState {
+      if piece == .king && sideInCheck == side {
+        markRed()
+      }
+    }
+  }
+  
   func unhilight() {
     switch squareState {
       case .empty:
@@ -45,6 +81,17 @@ final class SquareView: UIView {
       case .occupied:
         backgroundColor = background
     }
+  }
+  
+  func unmarkRed() {
+    gradientLayer?.isHidden = true
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    
+    gradientLayer?.frame = bounds
   }
   
   // MARK: Init
@@ -73,8 +120,8 @@ final class SquareView: UIView {
     NSLayoutConstraint.activate([
       pieceImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
       pieceImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-      pieceImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
-      pieceImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
+      pieceImageView.widthAnchor.constraint(equalToConstant: Constants.imageSize),
+      pieceImageView.heightAnchor.constraint(equalToConstant: Constants.imageSize),
       
       squareLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
       squareLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -97,4 +144,5 @@ final class SquareView: UIView {
   
   private weak var pieceImageView: UIImageView!
   private weak var squareLabel: UILabel!
+  private weak var gradientLayer: CAGradientLayer?
 }

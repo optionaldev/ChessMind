@@ -8,6 +8,8 @@ import UIKit
 
 final class BoardView: UIView {
   
+  var flipped: Bool = false
+  
   weak var delegate: QuizDelegate?
   
   private(set) var eightRanks: [RankView] = []
@@ -16,8 +18,23 @@ final class BoardView: UIView {
     let (rows, _) = FenParser.parse(fen: fen)
     
     for (index, rankContent) in rows.enumerated() {
-//      print("Configuring #\(index) rank")
       eightRanks[index].configure(withRankContent: rankContent)
+    }
+  }
+  
+  func flip() {
+    flipped.toggle()
+    
+    if flipped {
+      transform = CGAffineTransform(rotationAngle: .pi)
+    } else {
+      transform = CGAffineTransform.identity
+    }
+    
+    for rank in eightRanks {
+      for square in rank.eightSquares {
+        square.handleNewOrientation(flipped)
+      }
     }
   }
   
@@ -25,12 +42,12 @@ final class BoardView: UIView {
     eightRanks[position.column].highlight(item: position.row)
   }
   
-  func unhilight(position: Position) {
-    eightRanks[position.column].unhilight(item: position.row)
-  }
-  
   func square(at position: Position) -> SquareView {
     return eightRanks[position.row].eightSquares[position.column]
+  }
+  
+  func unhilight(position: Position) {
+    eightRanks[position.column].unhilight(item: position.row)
   }
   
   // MARK: Init
