@@ -43,10 +43,11 @@ class ViewController: UIViewController {
   
   // MARK: - Private
   
-  private var boardView: BoardView!
+  private var boardSettings = BoardSettings()
   private var data: [String: Quiz] = [:]
   private var highlightedPosition: Position?
-  private var side: Side = .white
+  
+  private weak var boardView: BoardView!
   
   private var allSquares: [SquareView] {
     return boardView.eightRanks.flatMap { $0.eightSquares }
@@ -242,6 +243,6 @@ class ViewController: UIViewController {
   
   @objc private func flipButtonTapped() {
     boardView.flip()
+    print("currentFen = \(FenParser.fen(fromSquares: allSquares.map { $0.squareState }, settings: boardSettings))")
   }
 }
-

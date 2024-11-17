@@ -4,12 +4,29 @@
 // Copyright © 2024 optionaldev. All rights reserved.
 // 
 
-enum Piece: String {
+enum Piece: Character {
   
-  case bishop
-  case king
-  case knight
-  case pawn
-  case queen
-  case rook
+  case bishop = "b"
+  case king   = "k"
+  case knight = "n"
+  case pawn   = "p"
+  case queen  = "q"
+  case rook   = "r"
+  
+  var fullName: String {
+    switch self {
+      case .bishop:
+        return "bishop"
+      case .king:
+        return "king"
+      case .knight:
+        return "knight"
+      case .pawn:
+        return "pawn"
+      case .queen:
+        return "queen"
+      case .rook:
+        return "rook"
+    }
+  }
 }

@@ -4,8 +4,11 @@
 // Copyright © 2024 optionaldev. All rights reserved.
 // 
 
-enum CastlingSide {
+struct CastlingSide: OptionSet {
   
-  case kingSide
-  case queenSide
+  let rawValue: Int
+  
+  static let kingSide  = Self(rawValue: 1 << 0)
+  static let queenSide = Self(rawValue: 1 << 1)
 }
+

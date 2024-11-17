@@ -4,16 +4,28 @@
 // Copyright © 2024 optionaldev. All rights reserved.
 //
 
+private extension Constants {
+  
+  static let fenSeparator = " "
+}
+
 enum FenParser {
   
   /// Failure is represented by an empty arrow
   static func parse(fen: String) -> (allRows: [[SquareState]], boardSettings: BoardSettings) {
-    let fenComponents = fen.components(separatedBy: " ")
+    let fenComponents = fen.components(separatedBy: Constants.fenSeparator)
     
     let fenBoard = fenComponents[0]
     let fenTurn = fenComponents[1]
     let fenCastlingRights = fenComponents[2]
-//    let fenEnPassant = fenComponents[3]
+    let fenEnPassant = fenComponents[3]
+    
+    guard let fenPlies = Int(fenComponents[4]) else {
+      fatalError("Received something that isn't a digit for number of plies.")
+    }
+    guard let fenBlackMoves = Int(fenComponents[5]) else {
+      fatalError("Received something that isn't a digit for number of black moves.")
+    }
     
     var currentRow: [SquareState] = []
     var currentRowIndex = 0
@@ -39,57 +51,17 @@ enum FenParser {
           currentRow.append(.empty)
         }
       } else {
-        var piece: Piece
-        var side: Side
-        switch character {
-          case "r":
-            piece = .rook
-            side = .black
-          case "R":
-            piece = .rook
-            side = .white
-          case "b":
-            piece = .bishop
-            side = .black
-          case "B":
-            piece = .bishop
-            side = .white
-          case "n":
-            piece = .knight
-            side = .black
-          case "N":
-            piece = .knight
-            side = .white
-          case "q":
-            piece = .queen
-            side = .black
-          case "Q":
-            piece = .queen
-            side = .white
-          case "k":
-            piece = .king
-            side = .black
-          case "K":
-            piece = .king
-            side = .white
-          case "p":
-            piece = .pawn
-            side = .black
-          case "P":
-            piece = .pawn
-            side = .white
-          case "/":
-            /// Forward slash ends the row
-            currentRowIndex += 1
-            allRows.append(currentRow)
-            currentRow = []
-            continue
-          default:
+        if let (piece, side) = FenHelper.pieceAndSide(forCharacter: character) {
+          currentRow.append(SquareState.occupied(piece: piece, side: side))
+        } else if character ==  "/" {
+          /// Forward slash ends the row
+          currentRowIndex += 1
+          allRows.append(currentRow)
+          currentRow = []
+          continue
+        } else {
             fatalError("Invalid fen: \"\(fen)\". Found invalid character \"\(character)\".")
         }
-        let squareState = SquareState.occupied(piece: piece, side: side)
-        
-        currentRow.append(squareState)
       }
     }
     allRows.append(currentRow)
@@ -99,10 +71,93 @@ enum FenParser {
     let settings = BoardSettings(
       blackCastling: [fenCastlingRights.contains("k") ? .kingSide : nil,
                       fenCastlingRights.contains("q") ? .queenSide : nil].compactMap { $0 },
+      blackMoves: fenBlackMoves,
+      enPassant: fenEnPassant,
+      plies: fenPlies,
+      turn: fenTurn == "w" ? .white : .black,
       whiteCastling: [fenCastlingRights.contains("K") ? .kingSide : nil,
-                      fenCastlingRights.contains("Q") ? .queenSide : nil].compactMap { $0 },
-      turn: fenTurn == "w" ? .white : .black)
+                      fenCastlingRights.contains("Q") ? .queenSide : nil].compactMap { $0 })
     
     return (allRows, settings)
+  }
+  
+  static func fen(fromSquares squares: [SquareState], settings: BoardSettings) -> String {
+    var result = ""
+    var currentEmptySquares = 0
+    var currentColumn = 0
+    var currentRow = 0
+    
+    for square in squares {
+      switch square {
+        case .empty:
+          currentEmptySquares += 1
+        case .occupied(let piece, let side):
+          if currentEmptySquares != 0 {
+            result += "\(currentEmptySquares)"
+          }
+          
+          result.append(FenHelper.notation(forPiece: piece, side: side))
+          
+      }
+      if currentColumn + 1 == Constants.boardLength {
+        if currentEmptySquares != 0 {
+          result += "\(currentEmptySquares)"
+        }
+        if currentRow + 1 != Constants.boardLength {
+          result += "/"
+          currentEmptySquares = 0
+          currentColumn = 0
+          currentRow += 1
+        }
+      } else {
+        currentColumn += 1
+      }
+    }
+    
+    result += Constants.fenSeparator
+    
+    switch settings.turn {
+      case .white:
+        result += "w"
+      case .black:
+        result += "b"
+    }
+    
+    result += Constants.fenSeparator
+    
+    if settings.blackCastling.isEmpty && settings.whiteCastling.isEmpty {
+      result += Constants.fenEmptyField
+    } else {
+      if settings.whiteCastling.contains(.kingSide) {
+        result += "K"
+      }
+      if settings.whiteCastling.contains(.queenSide) {
+        result += "Q"
+      }
+      if settings.blackCastling.contains(.kingSide) {
+        result += "k"
+      }
+      if settings.blackCastling.contains(.queenSide) {
+        result += "q"
+      }
+    }
+    
+    result += Constants.fenSeparator
+    
+    if let enPassant = settings.enPassant {
+      result += enPassant
+    } else {
+      result += Constants.fenEmptyField
+    }
+    
+    result += Constants.fenSeparator
+    
+    result += "\(settings.plies)"
+    
+    result += Constants.fenSeparator
+    
+    result += "\(settings.blackMoves)"
+    
+    return result
   }
 }
