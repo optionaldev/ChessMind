@@ -9,6 +9,11 @@ struct Move: CustomStringConvertible {
   let from: Position
   let to: Position
   
+  init(from: Position, to: Position) {
+    self.from = from
+    self.to = to
+  }
+  
   // MARK: CustomStringConvertible conformance
   
   var description: String {

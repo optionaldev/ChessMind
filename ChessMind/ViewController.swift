@@ -8,11 +8,11 @@ import UIKit
 
 class ViewController: UIViewController {
   
+  // MARK: Overrides
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     let boardView = BoardView()
-    boardView.configure(withFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
     
     let flipButton = UIButton(type: .system)
     flipButton.addTarget(self, action: #selector(flipButtonTapped), for: .touchUpInside)
@@ -39,6 +39,15 @@ class ViewController: UIViewController {
       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
       $0.addGestureRecognizer(tapGestureRecognizer)
     }
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    let (squareStates, boardSettings) = FenParser.parse(fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+    
+    boardView.configure(withSquareStates: squareStates)
+    self.boardSettings = boardSettings
   }
   
   // MARK: - Private

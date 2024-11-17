@@ -23,6 +23,17 @@ enum Rank: Int, CaseIterable, Strideable {
     return Rank(rawValue: rawValue + n)!
   }
   
+  // MARK: Init
+  
+  init?(character: Character) {
+    if let intValue = Int(character),
+       let rank = Rank(rawValue: intValue)
+    {
+      self = rank
+    }
+    return nil
+  }
+  
   // MARK: Strideable conformance
   
   func distance(to other: Rank) -> Int {

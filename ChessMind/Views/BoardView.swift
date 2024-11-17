@@ -12,10 +12,8 @@ final class BoardView: UIView {
   
   private(set) var eightRanks: [RankView] = []
   
-  func configure(withFen fen: String) {
-    let (rows, _) = FenParser.parse(fen: fen)
-    
-    for (index, rankContent) in rows.enumerated() {
+  func configure(withSquareStates squareStates: [[SquareState]]) {
+    for (index, rankContent) in squareStates.enumerated() {
       eightRanks[index].configure(withRankContent: rankContent)
     }
   }

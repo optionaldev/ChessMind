@@ -29,12 +29,12 @@ enum FenParser {
     
     var currentRow: [SquareState] = []
     var currentRowIndex = 0
-    var allRows: [[SquareState]] = []
+    var board: [[SquareState]] = []
     var remainingCharacters = ""
     
     for character in fenBoard {
-      if allRows.count == Constants.boardLength &&
-          allRows.last?.count == Constants.boardLength
+      if board.count == Constants.boardLength &&
+          board.last?.count == Constants.boardLength
       {
         /// We have finished parsing the squares
         /// Extra information remaining that we parse
@@ -56,7 +56,7 @@ enum FenParser {
         } else if character ==  "/" {
           /// Forward slash ends the row
           currentRowIndex += 1
-          allRows.append(currentRow)
+          board.append(currentRow)
           currentRow = []
           continue
         } else {
@@ -64,9 +64,9 @@ enum FenParser {
         }
       }
     }
-    allRows.append(currentRow)
+    board.append(currentRow)
     
-    allRows = allRows.reversed()
+    board = board.reversed()
     
     let settings = BoardSettings(
       blackCastling: [fenCastlingRights.contains("k") ? .kingSide : nil,
@@ -78,7 +78,7 @@ enum FenParser {
       whiteCastling: [fenCastlingRights.contains("K") ? .kingSide : nil,
                       fenCastlingRights.contains("Q") ? .queenSide : nil].compactMap { $0 })
     
-    return (allRows, settings)
+    return (board, settings)
   }
   
   static func fen(fromSquares squares: [SquareState], settings: BoardSettings) -> String {

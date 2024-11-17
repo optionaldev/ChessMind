@@ -15,7 +15,7 @@ enum File: Int, CaseIterable {
   case g
   case h
   
-  var notation: String {
+  var notation: Character {
     switch self {
       case .a:
         return "a"
@@ -38,5 +38,14 @@ enum File: Int, CaseIterable {
   
   func offsetBy(n: Int) -> File {
     return File(rawValue: rawValue + n)!
+  }
+  
+  // MARK: Init
+  
+  init?(character: Character) {
+    if let file = File.allCases.first(where: { $0.notation == character }) {
+      self = file
+    }
+    return nil
   }
 }

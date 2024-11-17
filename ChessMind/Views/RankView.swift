@@ -12,7 +12,6 @@ final class RankView: UIView {
   
   func configure(withRankContent rankContent: [SquareState]) {
     for (index, squareState) in rankContent.enumerated() {
-//      print("    Configuring \(index) position = \(eightSquares[index].position) with squareState \(squareState)")
       eightSquares[index].configure(squareState: squareState)
     }
   }
@@ -20,7 +19,7 @@ final class RankView: UIView {
   // MARK: Init
   
   init(rank: Rank) {
-    let startingWithWhiteSquare = rank.rawValue % 2 == 0
+    let startingWithWhiteSquare = rank.rawValue % 2 == 1
     super.init(frame: .zero)
     
     for (index, file) in File.allCases.enumerated() {
