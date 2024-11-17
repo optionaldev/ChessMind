@@ -15,7 +15,7 @@ extension UIColor {
               alpha: alpha)
   }
   
-  static let blackSquareColor = UIColor(red: 0, green: 140, blue: 0)
+  static let blackSquareColor = UIColor(red: 0, green: 160, blue: 0)
   static let blackHighlitedSquareColor = UIColor(red: 244, green: 187, blue: 68)
   
   static let whiteSquareColor = UIColor(red: 240, green: 240, blue: 240)

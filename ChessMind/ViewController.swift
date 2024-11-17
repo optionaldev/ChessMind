@@ -14,15 +14,6 @@ class ViewController: UIViewController {
     let boardView = BoardView()
     boardView.configure(withFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
     
-    for rank in boardView.eightRanks {
-      for file in rank.eightSquares {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
-        file.addGestureRecognizer(tapGestureRecognizer)
-      }
-    }
-    
-    boardView.eightRanks.forEach { $0.eightSquares.forEach { $0.highlight(type: .kingIsInCheck) }}
-    
     let flipButton = UIButton(type: .system)
     flipButton.addTarget(self, action: #selector(flipButtonTapped), for: .touchUpInside)
     flipButton.setImage(UIImage(named: "flip"), for: .normal)
@@ -43,6 +34,11 @@ class ViewController: UIViewController {
     ])
     
     self.boardView = boardView
+    
+    allSquares.forEach {
+      let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
+      $0.addGestureRecognizer(tapGestureRecognizer)
+    }
   }
   
   // MARK: - Private
@@ -50,8 +46,11 @@ class ViewController: UIViewController {
   private var boardView: BoardView!
   private var data: [String: Quiz] = [:]
   private var highlightedPosition: Position?
-  private var lastMove: Move?
   private var side: Side = .white
+  
+  private var allSquares: [SquareView] {
+    return boardView.eightRanks.flatMap { $0.eightSquares }
+  }
   
   private func animate(move: Move) {
     let fromSquare = boardView.square(at: move.from)
@@ -89,29 +88,25 @@ class ViewController: UIViewController {
     
     if let highlightedPosition = highlightedPosition {
       if highlightedPosition == position {
-        squareView.unhilight(type: .isSelected)
+        squareView.unhighlight(type: .isSelected)
+        allSquares.forEach { $0.unhighlight(type: .canMove) }
         self.highlightedPosition = nil
       } else {
         let currentlyHighlightedSquare = boardView.square(at: highlightedPosition)
         guard currentlyHighlightedSquare.position == highlightedPosition else {
           fatalError("What is happening here?")
         }
-        currentlyHighlightedSquare.unhilight(type: .isSelected)
+        currentlyHighlightedSquare.unhighlight(type: .isSelected)
         
         switch squareView.squareState {
           case .empty:
-            if let lastMove = lastMove {
-              boardView.square(at: lastMove.from).unhilight(type: .previousMove(move: .from))
-              boardView.square(at: lastMove.to).unhilight(type: .previousMove(move: .to))
-            }
-            
+            allSquares.forEach { $0.unhighlight(type: .previousMove(move: .from)) }
+
             let nextMove = Move(from: highlightedPosition, to: position)
             animate(move: nextMove)
             
             boardView.square(at: nextMove.from).highlight(type: .previousMove(move: .from))
             boardView.square(at: nextMove.to).highlight(type: .previousMove(move: .to))
-            
-            lastMove = nextMove
             
           case .occupied(let piece, _):
             break
@@ -130,6 +125,8 @@ class ViewController: UIViewController {
   }
   
   private func handleNewHighlightedSquare(position: Position) {
+    allSquares.forEach { $0.unhighlight(type: .canMove) }
+    
     let squareView = boardView.square(at: position)
     
     guard position == squareView.position else {
@@ -140,9 +137,13 @@ class ViewController: UIViewController {
     squareView.highlight(type: .isSelected)
     highlightedPosition = position
     
-    let moves = generateTheoreticalMoves(forPosition: position)
+    let movesMatrix = generateTheoreticalMoves(forPosition: position)
     
-    print(moves)
+    for movesArray in movesMatrix {
+      for move in movesArray {
+        boardView.square(at: move.to).highlight(type: .canMove)
+      }
+    }
   }
   
   /// The idea behind returning Nested array of Moves is that,

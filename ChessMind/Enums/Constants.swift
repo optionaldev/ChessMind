@@ -11,6 +11,6 @@ enum Constants {
   static let boardLength = 8
   static let boardTopOffset: CGFloat = 50
   static let imageSize: CGFloat = squareSize * 0.8
-  static let previousMoveImageSize: CGFloat = squareSize * 0.3
+  static let previousMoveImageSize: CGFloat = squareSize * 0.37
   static let squareSize: CGFloat = Screen.width / CGFloat(boardLength)
 }

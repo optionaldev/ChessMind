@@ -52,10 +52,13 @@ final class SquareView: UIView {
     }
   }
   
-  func unhilight(type unhighlightType: HighlightType) {
+  func unhighlight(type unhighlightType: HighlightType) {
     switch unhighlightType {
       case .canMove:
-        layer.borderWidth = 0
+        canMoveImageView?.alpha = 0
+        canMoveImageView?.isHidden = true
+        canMovePulseTimer?.invalidate()
+        canMovePulseTimer = nil
       case .kingIsInCheck:
         kingIsInCheckLayer?.isHidden = true
       case .isSelected:
@@ -78,7 +81,7 @@ final class SquareView: UIView {
     pieceImageView.translatesAutoresizingMaskIntoConstraints = false
     
     let squareLabel = UILabel()
-    squareLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+    squareLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
     squareLabel.font = UIFont(name: "Helvetica Neue", size: 13)
     squareLabel.text = position.notation
     squareLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -109,14 +112,29 @@ final class SquareView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  // MARK: Overrides
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    kingIsInCheckLayer?.frame = bounds
+  }
+  
   // MARK: - Private
   
   private let background: UIColor
   
+  private var canMovePulseTimer: Timer?
+  
+  private weak var canMoveImageView: UIImageView?
   private weak var kingIsInCheckLayer: CAGradientLayer?
   private weak var pieceImageView: UIImageView!
   private weak var previousMoveLayer: CAShapeLayer?
   private weak var squareLabel: UILabel!
+  
+  private var canMoveStartingColor: CGColor {
+    return background == UIColor.whiteSquareColor ? UIColor(red: 200, green: 60, blue: 200).cgColor : UIColor(red: 0, green: 0, blue: 0).cgColor
+  }
   
   private func createPreviousMoveTriangleIfNeeded() {
     if previousMoveLayer == nil {
@@ -129,6 +147,7 @@ final class SquareView: UIView {
       let triangleLayer = CAShapeLayer()
       triangleLayer.path = trianglePath.cgPath
       triangleLayer.fillColor = UIColor.systemPink.cgColor
+      triangleLayer.zPosition = 5
       
       layer.addSublayer(triangleLayer)
       
@@ -137,24 +156,55 @@ final class SquareView: UIView {
   }
   
   private func highlightCanMove() {
-    layer.borderColor = UIColor.red.cgColor
-    layer.borderWidth = 5
+    if canMoveImageView == nil {
+      let imageName = background == UIColor.whiteSquareColor ? "frame_white" : "frame_black"
+      let canMoveImageView = UIImageView(image: UIImage(named: imageName))
+      canMoveImageView.translatesAutoresizingMaskIntoConstraints = false
+      canMoveImageView.alpha = 0
+      
+      addSubview(canMoveImageView)
+      
+      NSLayoutConstraint.activate([
+        canMoveImageView.topAnchor.constraint(equalTo: topAnchor),
+        canMoveImageView.leftAnchor.constraint(equalTo: leftAnchor),
+        canMoveImageView.rightAnchor.constraint(equalTo: rightAnchor),
+        canMoveImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      ])
+      
+      self.canMoveImageView = canMoveImageView
+    }
+    
+    UIView.animate(withDuration: 0.2) { [weak self] in
+      self?.canMoveImageView?.alpha = 1
+    }
+    canMoveImageView?.isHidden = false
+    
+    canMovePulseTimer = Timer.scheduledTimer(withTimeInterval: 8, repeats: true) { _ in
+      UIView.animate(withDuration: 0.6, animations: { [weak self] in
+        self?.canMoveImageView?.alpha = 0.4
+        
+      }, completion: { _ in
+        UIView.animate(withDuration: 0.6) { [weak self] in
+          self?.canMoveImageView?.alpha = 1
+        }
+      })
+    }
   }
   
   private func highlightKingIsInCheck() {
     if kingIsInCheckLayer == nil {
       let kingIsInCheckLayer = CAGradientLayer()
-      kingIsInCheckLayer.frame = bounds
       kingIsInCheckLayer.type = .radial
-      kingIsInCheckLayer.colors = [ UIColor.red.cgColor,
-                               UIColor.red.cgColor,
-                               UIColor.clear.cgColor]
-      kingIsInCheckLayer.locations = [0, 0.5, 1]
+      kingIsInCheckLayer.colors = [UIColor.red.cgColor,
+                                   UIColor.red.cgColor,
+                                   UIColor.red.withAlphaComponent(0.1).cgColor]
+      kingIsInCheckLayer.locations = [0, 0.4, 1]
       kingIsInCheckLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
       kingIsInCheckLayer.endPoint = CGPoint(x: 1, y: 1)
       layer.addSublayer(kingIsInCheckLayer)
       
-      bringSubviewToFront(pieceImageView)
+      [pieceImageView, squareLabel, canMoveImageView].compactMap { $0 }
+        .forEach { bringSubviewToFront($0) }
       
       self.kingIsInCheckLayer = kingIsInCheckLayer
     }
