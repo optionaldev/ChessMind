@@ -235,9 +235,9 @@
 		6E39D6152CE110BE00C5D306 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				6EF8038D2CEA81A60068E0AA /* BoardHelper.swift */,
 				6EF803892CEA08EB0068E0AA /* FenHelper.swift */,
 				6E1094B22CCF7A0000FFA1B7 /* FenParser.swift */,
-				6EF8038D2CEA81A60068E0AA /* BoardHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

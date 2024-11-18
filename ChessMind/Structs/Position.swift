@@ -76,7 +76,7 @@ struct Position: Equatable, CustomStringConvertible {
     column = file.rawValue
   }
   
-  private init?(row: Int, column: Int) {
+  init?(row: Int, column: Int) {
     guard row >= 0 && row < 8 && column >= 0 && column < 8 else {
       return nil
     }

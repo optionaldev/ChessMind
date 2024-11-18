@@ -26,12 +26,14 @@ enum Rank: Int, CaseIterable, Strideable {
   // MARK: Init
   
   init?(character: Character) {
+    print("Trying to create rank character = \(character) Intvalue?? \(Int(character))")
     if let intValue = Int(character),
-       let rank = Rank(rawValue: intValue)
+       let rank = Rank(rawValue: intValue - 1)
     {
       self = rank
+    } else {
+      return nil
     }
-    return nil
   }
   
   // MARK: Strideable conformance
