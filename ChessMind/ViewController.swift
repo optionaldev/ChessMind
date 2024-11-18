@@ -43,8 +43,7 @@ class ViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
-    let (squareStates, boardSettings) = FenParser.parse(fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+    let (squareStates, boardSettings) = FenParser.parse(fen: "3r4/q5b1/1p6/2PPB2p/n1BKP1Pr/2NBN3/8/3r4 w - - 0 1")
     
     boardView.configure(withSquareStates: squareStates)
     self.boardSettings = boardSettings
@@ -109,27 +108,26 @@ class ViewController: UIViewController {
         currentlyHighlightedSquare.unhighlight(type: .isSelected)
         
         switch squareView.squareState {
-          case .empty:
-            allSquares.forEach { $0.unhighlight(type: .previousMove(move: .from)) }
-
-            let nextMove = Move(from: highlightedPosition, to: position)
-            animate(move: nextMove)
-            
-            boardView.square(at: nextMove.from).highlight(type: .previousMove(move: .from))
-            boardView.square(at: nextMove.to).highlight(type: .previousMove(move: .to))
-            
-          case .occupied(let piece, _):
-            break
+        case .empty:
+          allSquares.forEach { $0.unhighlight(type: .previousMove(move: .from)) }
+          
+          let nextMove = Move(from: highlightedPosition, to: position)
+          animate(move: nextMove)
+          
+          boardView.square(at: nextMove.from).highlight(type: .previousMove(move: .from))
+          boardView.square(at: nextMove.to).highlight(type: .previousMove(move: .to))
+          
+        case .occupied(let piece, _):
+          break
         }
-
         handleNewHighlightedSquare(position: position)
       }
     } else {
       switch squareView.squareState {
-        case .empty:
-          return
-        case .occupied:
-          handleNewHighlightedSquare(position: position)
+      case .empty:
+        break
+      case .occupied:
+        handleNewHighlightedSquare(position: position)
       }
     }
   }
@@ -147,13 +145,54 @@ class ViewController: UIViewController {
     squareView.highlight(type: .isSelected)
     highlightedPosition = position
     
-    let movesMatrix = generateTheoreticalMoves(forPosition: position)
+    let theoreticalDestinationsMatrix = generateTheoreticalDestinations(forPosition: position)
     
-    for movesArray in movesMatrix {
-      for move in movesArray {
-        boardView.square(at: move.to).highlight(type: .canMove)
+    let possibleDestinationsMatrix = generatePossibleDestinations(fromTheoretical: theoreticalDestinationsMatrix, forPosition: position)
+    
+    for destinationsArray in possibleDestinationsMatrix {
+      for destination in destinationsArray {
+        boardView.square(at: destination).highlight(type: .canMove)
       }
     }
+  }
+  
+  private func generatePossibleDestinations(fromTheoretical theoreticalDestinationsMatrix: [[Position]], forPosition position: Position) -> [[Position]] {
+    guard case .occupied(let piece, let side) = boardView.square(at: position) .squareState else {
+      return []
+    }
+    
+    var result: [[Position]] = []
+    var currentPositions: [Position] = []
+    
+    for destinationsArray in theoreticalDestinationsMatrix {
+      for destination in destinationsArray {
+        switch boardView.square(at: destination).squareState {
+        case .empty:
+          /// If the square is empty, we can move there.
+          currentPositions.append(destination)
+        case .occupied(let targetPiece, let targetSide):
+          /// If the square is not empty, we need to check if it's on our side.
+          if side != targetSide {
+            currentPositions.append(destination)
+          }
+          
+          result.append(currentPositions)
+          currentPositions = []
+          
+        }
+        if currentPositions.isEmpty {
+          /// We can't break the for loop from inside the switch,
+          /// so we do it here.
+          break
+        }
+      }
+    }
+    
+    if currentPositions.isNonEmpty {
+      result.append(currentPositions)
+    }
+    
+    return result
   }
   
   /// The idea behind returning Nested array of Moves is that,
@@ -163,88 +202,106 @@ class ViewController: UIViewController {
   /// encounter a piece on the 5th possible move, we
   /// know that we can discard the rest of the subarray. Then
   /// we move on to the next subarray.
-  private func generateTheoreticalMoves(forPosition position: Position) -> [[Move]] {
+  private func generateTheoreticalDestinations(forPosition position: Position) -> [[Position]] {
     let squareView = boardView.square(at: position)
-    var result: [[Move]] = []
-    var currentMoves: [Move] = []
+    var result: [[Position]] = []
+    var currentMoves: [Position] = []
+    
+    let pinnedDirections = pinnedDirections(forPosition: position)
     
     guard case .occupied(let piece, let side) = squareView.squareState else {
       return []
     }
     
     switch piece {
-      case .bishop:
-        result = generateTheoreticalMoves(forDirections: [.bottomLeft, .bottomRight, .topLeft, .topRight],
-                                          position: position)
-      case .king:
-        for direction in Direction.allCases {
-          if let newPosition = position.next(inDirection: direction) {
-            result.append([Move(from: position, to: newPosition)])
-          }
+    case .bishop:
+      let directions = computeDirections([.bottomLeft, .bottomRight, .topLeft, .topRight], withPinnedDirections: pinnedDirections)
+      result = generateTheoreticalDestinations(forDirections: directions,
+                                               position: position)
+    case .king:
+      // TODO: Add castling moves
+      /// King can never be pinned.
+      for direction in Direction.allCases {
+        if let newPosition = position.next(inDirection: direction) {
+          result.append([newPosition])
         }
-        // TODO: Add castling moves
-      case .knight:
+      }
+    case .knight:
+      /// If knight is pinned, knight can never capture its pinner.
+      if pinnedDirections.isEmpty {
         for direction in KnightDirection.allCases {
           if let newPosition = position.next(inDirection: direction) {
-            result.append([Move(from: position, to: newPosition)])
+            result.append([newPosition])
           }
         }
-      case .pawn:
-        let advanceDirection: Direction
-        let captureDirections: [Direction]
-        switch side {
-          case .black:
-            advanceDirection = .down
-            captureDirections = [.bottomLeft, .bottomRight]
-          case .white:
-            advanceDirection = .up
-            captureDirections = [.topLeft, .topRight]
-        }
-        let canGoTwoSquares = (side == .black && position.rank == .seventh) ||
-        (side == .white && position.rank == .second)
-        
+      }
+    case .pawn:
+      let advanceDirection: Direction?
+      let captureDirections: [Direction]
+      switch side {
+      case .black:
+        advanceDirection = computeDirections([.down], withPinnedDirections: pinnedDirections).first
+        captureDirections = computeDirections([.bottomLeft, .bottomRight], withPinnedDirections: pinnedDirections)
+      case .white:
+        advanceDirection = computeDirections([.up], withPinnedDirections: pinnedDirections).first
+        captureDirections = computeDirections([.topLeft, .topRight], withPinnedDirections: pinnedDirections)
+      }
+      let canGoTwoSquares = (side == .black && position.rank == .seventh) ||
+      (side == .white && position.rank == .second)
+      
+      if let advanceDirection = advanceDirection {
         if let newPosition = position.next(inDirection: advanceDirection) {
-          currentMoves.append(Move(from: position, to: newPosition))
+          currentMoves.append(newPosition)
           if canGoTwoSquares,
              let twoSquaresAdvancePosition = newPosition.next(inDirection: advanceDirection)
           {
-            currentMoves.append(Move(from: position, to: twoSquaresAdvancePosition))
+            currentMoves.append(twoSquaresAdvancePosition)
           }
         }
-        result.append(currentMoves)
-        
-        for direction in captureDirections {
-          if let newPosition = position.next(inDirection: direction) {
-            result.append([Move(from: position, to: newPosition)])
+      }
+      result.append(currentMoves)
+      
+      for direction in captureDirections {
+        if let newPosition = position.next(inDirection: direction) {
+          switch boardView.square(at: newPosition).squareState {
+          case .empty:
+            break
+          case .occupied(_, let targetSide):
+            if targetSide != side {
+              result.append([newPosition])
+            }
           }
         }
-        
-      case .queen:
-        result = generateTheoreticalMoves(forDirections: Direction.allCases,
-                                          position: position)
-      case .rook:
-        result = generateTheoreticalMoves(forDirections: [.down, .left, .right, .up],
-                                          position: position)
+      }
+      
+    case .queen:
+      let directions = computeDirections(Direction.allCases, withPinnedDirections: pinnedDirections)
+      result = generateTheoreticalDestinations(forDirections: directions,
+                                               position: position)
+    case .rook:
+      let directions = computeDirections([.down, .left, .right, .up], withPinnedDirections: pinnedDirections)
+      result = generateTheoreticalDestinations(forDirections: directions,
+                                               position: position)
     }
     
     return result
   }
   
-  private func generateTheoreticalMoves(forDirections directions: [Direction], position: Position) -> [[Move]] {
-    var result: [[Move]] = []
-    var currentMoves: [Move] = []
+  private func generateTheoreticalDestinations(forDirections directions: [Direction], position: Position) -> [[Position]] {
+    var result: [[Position]] = []
+    var currentDestinations: [Position] = []
     
     for direction in directions {
       var referencePosition = position
       while let newPosition = referencePosition.next(inDirection: direction) {
-        currentMoves.append(Move(from: position, to: newPosition))
+        currentDestinations.append(newPosition)
         referencePosition = newPosition
       }
-      if currentMoves.isNonEmpty {
-        result.append(currentMoves)
+      if currentDestinations.isNonEmpty {
+        result.append(currentDestinations)
       }
       
-      currentMoves = []
+      currentDestinations = []
     }
     
     return result
@@ -253,5 +310,113 @@ class ViewController: UIViewController {
   @objc private func flipButtonTapped() {
     boardView.flip()
     print("currentFen = \(FenParser.fen(fromSquares: allSquares.map { $0.squareState }, settings: boardSettings))")
+  }
+  /// The aim of this method is to find directions for which a position is pinned
+  /// If for example, the king is on e1 and the position we're trying to
+  /// calculate for is e2, then we know that e2 can be pinned up / down,
+  /// but not left / right. This means that a pawn will be able to advance,
+  /// but not capture. A queen will be able to advance anywhere on the
+  /// file, including capturing the pinner.
+  private func pinnedDirections(forPosition position: Position) -> [Direction] {
+    
+    let result: [Direction] = []
+    let squareView = boardView.square(at: position)
+    
+    guard case .occupied(let piece, let side) = squareView.squareState else {
+      return []
+    }
+    
+    /// There's no point in calculating pinnings for king,
+    /// whether it's white or black king.
+    guard piece != .king else {
+      return []
+    }
+    
+    var kingDirection: Direction?
+    
+    for direction in Direction.allCases {
+      if let foundKingDirection = findDirectionOfKing(forPosition: position, direction: direction) {
+        kingDirection = foundKingDirection
+      }
+    }
+    
+    guard let kingDirection = kingDirection else {
+      return []
+    }
+    
+    let possiblePinnedDirections = [kingDirection, kingDirection.opposite]
+    
+    for direction in possiblePinnedDirections {
+      let result = findPossiblePins(forPosition: position, direction: direction, possiblePinnedDirections: possiblePinnedDirections)
+      
+      if result.isNonEmpty {
+        return result
+      }
+    }
+    
+    return []
+  }
+  
+  private func computeDirections(_ directions: [Direction], withPinnedDirections pinnedDirections: [Direction]) -> [Direction] {
+    guard pinnedDirections.isNonEmpty else {
+      return directions
+    }
+    
+    return directions.filter { pinnedDirections.contains($0) }
+  }
+  
+  private func findDirectionOfKing(forPosition position: Position, direction: Direction) -> Direction? {
+    guard case .occupied(let piece, let side) = boardView.square(at: position).squareState else {
+      return nil
+    }
+    var referencePosition = position
+    
+    while let newPosition = referencePosition.next(inDirection: direction) {
+      switch boardView.square(at: newPosition).squareState {
+      case .empty:
+        break
+      case .occupied(let referencePiece, let referenceSide):
+        if referencePiece == .king && side == referenceSide {
+          return direction
+        } else {
+          /// We break because we found another piece and we're looking
+          /// for the king. If the king is futher than the piece we found,
+          /// there's no pin happening.
+          return nil
+        }
+      }
+      referencePosition = newPosition
+    }
+    
+    return nil
+  }
+  
+  private func findPossiblePins(forPosition position: Position, direction: Direction, possiblePinnedDirections: [Direction]) -> [Direction] {
+    var referencePosition = position
+    while let newPosition = referencePosition.next(inDirection: direction) {
+      switch boardView.square(at: newPosition).squareState {
+      case .empty:
+        break
+      case .occupied(let referencePiece, let referenceSide):
+        if referenceSide != boardSettings.turn {
+          if direction.isDiagonal && (referencePiece == .queen || referencePiece == .bishop) {
+            /// Only bishops and queens can pin on diagonals.
+            return possiblePinnedDirections
+            
+          } else if direction.isDiagonal == false && (referencePiece == .queen || referencePiece == .rook) {
+            /// Only queens and rooks can pin on ranks / files.
+            return possiblePinnedDirections
+          } else {
+            return []
+          }
+        } else {
+          return []
+        }
+      }
+      
+      referencePosition = newPosition
+    }
+    
+    return []
   }
 }

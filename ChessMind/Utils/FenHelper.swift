@@ -14,7 +14,6 @@ enum FenHelper {
   }
   
   static func notation(forPiece piece: Piece, side: Side) -> String {
-    let character = piece.rawValue
     switch side {
       case .black:
         return piece.rawValue.string
