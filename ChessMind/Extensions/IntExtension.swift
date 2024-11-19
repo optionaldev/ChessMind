@@ -7,7 +7,6 @@
 extension Int {
   
   init?(_ character: Character) {
-    print("Trying to create int from character = \(character) str = \(String(character)) int = \(Int(String(character)))")
     if let value = Int(String(character)) {
       self = value
     } else {

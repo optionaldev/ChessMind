@@ -31,6 +31,17 @@ class BoardSettings {
   var turn: Turn = .white
   var whiteCastling: [CastlingSide] = []
   
+  var currentSideCastlingRights: [CastlingSide] {
+    switch turn {
+    case .black:
+      return blackCastling
+    case .white:
+      return whiteCastling
+    }
+  }
+  
+  // MARK: Init
+  
   init() {}
   
   init(blackCastling: [CastlingSide], blackMoves: Int, enPassant: String?, plies: Int, turn: Turn, whiteCastling: [CastlingSide]) {

@@ -12,6 +12,8 @@ enum Constants {
   static let boardTopOffset: CGFloat = 50
   static let fenEmptyField = "-"
   static let imageSize: CGFloat = squareSize * 0.8
+  static let longCastlingNotation = "O-O-O"
   static let previousMoveImageSize: CGFloat = squareSize * 0.37
+  static let shortCastlingNotation = "O-O"
   static let squareSize: CGFloat = Screen.width / CGFloat(boardLength)
 }

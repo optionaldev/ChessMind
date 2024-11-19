@@ -26,8 +26,8 @@ enum Rank: Int, CaseIterable, Strideable {
   // MARK: Init
   
   init?(character: Character) {
-    print("Trying to create rank character = \(character) Intvalue?? \(Int(character))")
     if let intValue = Int(character),
+       /// We subtract one because notation is from 1 to 8
        let rank = Rank(rawValue: intValue - 1)
     {
       self = rank

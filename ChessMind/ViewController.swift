@@ -43,7 +43,8 @@ class ViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    let (squareStates, boardSettings) = FenParser.parse(fen: "3r4/q5b1/1p6/2PPB2p/n1BKP1Pr/2NBN3/8/3r4 w - - 0 1")
+    let (squareStates, boardSettings) = FenParser.parse(fen: "r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1")
+//    let (squareStates, boardSettings) = FenParser.parse(fen: "2kr4/q5b1/1p6/2PPB2p/n1BKP1Pr/2NBN3/8/3r4 b - - 0 1")
     
     boardView.configure(withSquareStates: squareStates)
     self.boardSettings = boardSettings
@@ -116,6 +117,9 @@ class ViewController: UIViewController {
           allSquares.forEach { $0.unhighlight(type: .previousMove(move: .from)) }
           
           let nextMove = Move(from: highlightedPosition, to: position)
+          
+          handleCastlingIfNeeded(move: nextMove)
+          
           animate(move: nextMove)
           
           boardView.square(at: nextMove.from).highlight(type: .previousMove(move: .from))
@@ -136,13 +140,28 @@ class ViewController: UIViewController {
     }
   }
   
+  private func handleCastlingIfNeeded(move: Move) {
+    guard case .occupied(let piece, _) = boardView.square(at: move.from).squareState,
+          piece == .king,
+          abs(move.from.file.rawValue - move.to.file.rawValue) == 2 else
+    {
+      return
+    }
+     
+    if move.to.file == .c {
+      animate(move: Move(from: Position(rank: move.from.rank, file: .a), to: Position(rank: move.from.rank, file: .d)))
+    } else {
+      animate(move: Move(from: Position(rank: move.from.rank, file: .h), to: Position(rank: move.from.rank, file: .f)))
+    }
+  }
+  
   private func handleNewHighlightedSquare(position: Position) {
     allSquares.forEach { $0.unhighlight(type: .canMove) }
     
     let squareView = boardView.square(at: position)
     
     guard position == squareView.position else {
-      fatalError("These should be equal")
+      fatalError("These should be equal.")
     }
     
     /// Need to check for valid highlight option
@@ -151,7 +170,7 @@ class ViewController: UIViewController {
     
     let possibleDestinationsMatrix = BoardHelper.generatePossibleDestinations(forPosition: position,
                                                                               onBoard: allSquareStates,
-                                                                              turn: boardSettings.turn)
+                                                                              boardSettings: boardSettings)
     
     for destinationsArray in possibleDestinationsMatrix {
       for destination in destinationsArray {
@@ -161,9 +180,9 @@ class ViewController: UIViewController {
   }
   
   
-    @objc private func flipButtonTapped() {
-      boardView.flip()
-//      print("currentFen = \(FenParser.fen(fromSquares: allSquares.map { $0.squareState }, settings: boardSettings))")
-      print("get move \(BoardHelper.move(forNotation: "Ne2", onBoard: allSquareStates, turn: boardSettings.turn))")
-    }
+  @objc private func flipButtonTapped() {
+    boardView.flip()
+    print("currentFen = \(FenParser.fen(fromSquares: allSquares.map { $0.squareState }, settings: boardSettings))")
+  }
+  
 }
