@@ -145,7 +145,7 @@ enum FenParser {
     result += Constants.fenSeparator
     
     if let enPassant = settings.enPassant {
-      result += enPassant
+      result += enPassant.notation
     } else {
       result += Constants.fenEmptyField
     }

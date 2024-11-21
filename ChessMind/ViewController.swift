@@ -55,6 +55,7 @@ class ViewController: UIViewController {
   private var boardSettings = BoardSettings()
   private var data: [String: Quiz] = [:]
   private var highlightedPosition: Position?
+  private var legalDestination: [Position] = []
   
   private weak var boardView: BoardView!
   
@@ -66,7 +67,7 @@ class ViewController: UIViewController {
     return boardView.eightRanks.map { $0.eightSquares.map { $0.squareState }}
   }
   
-  private func animate(move: Move) {
+  private func animate(move: Move, updateSide: Bool) {
     let fromSquare = boardView.square(at: move.from)
     let toSquare = boardView.square(at: move.to)
     let destinationSquareState = fromSquare.squareState
@@ -88,10 +89,42 @@ class ViewController: UIViewController {
         return
       }
       temporaryPieceView.frame = toSquare.position.frame(isBoardFlipped: self.boardView.flipped)
-    }, completion: { _ in
+    }, completion: { [weak self] _ in
       toSquare.configure(squareState: destinationSquareState)
       temporaryPieceView.removeFromSuperview()
+      
+      self?.handleAnimationCompletion(move: move, updateSide: updateSide)
     })
+  }
+  
+  private func handleAnimationCompletion(move: Move, updateSide: Bool) {
+    if BoardHelper.isKingUnderAttack(onBoard: allSquareStates, boardSettings: boardSettings) {
+      // TODO: Handle king in check
+    }
+    
+    if boardSettings.enPassant == move.to,
+       case .occupied(let piece, _) = boardView.square(at: move.from).squareState,
+       piece == .pawn
+    {
+      // Remove the pawn that passed the capturing pawn.
+      let offset: Int
+      switch boardSettings.turn {
+      case .black:
+        offset = -1
+      case .white:
+        offset = 1
+      }
+      if let position = Position(row: move.to.row + offset, column: move.to.column) {
+        boardView.square(at: position).configure(squareState: .empty)
+      }
+    }
+    
+    if updateSide {
+      boardSettings.turn.toggle()
+    }
+    
+    highlightedPosition = nil
+    boardView.isUserInteractionEnabled = true
   }
   
   @objc private func didTapSquare(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -101,43 +134,92 @@ class ViewController: UIViewController {
     let position = squareView.position
     
     if let highlightedPosition = highlightedPosition {
+      allSquares.forEach { $0.unhighlight(type: .canMove) }
+      /// If we already have a highlighted positions, there's 4 scenarios:
       if highlightedPosition == position {
+        print("Case 1, tapped on same square")
+        /// 1) Tapping the same square, resulting in deselection.
         squareView.unhighlight(type: .isSelected)
-        allSquares.forEach { $0.unhighlight(type: .canMove) }
         self.highlightedPosition = nil
       } else {
         let currentlyHighlightedSquare = boardView.square(at: highlightedPosition)
         guard currentlyHighlightedSquare.position == highlightedPosition else {
-          fatalError("What is happening here?")
+          fatalError("These positions should be the same (\(highlightedPosition) and \(currentlyHighlightedSquare.position). What is happening?")
         }
         currentlyHighlightedSquare.unhighlight(type: .isSelected)
         
         switch squareView.squareState {
         case .empty:
+          guard legalDestination.contains(position) else {
+            self.highlightedPosition = nil
+            return
+          }
+          boardView.isUserInteractionEnabled = false
+          
+          print("Case 2, tapped on empty square. We make a move.")
+          /// 2) Tapped on an empty square. Should move selected piece here.
           allSquares.forEach { $0.unhighlight(type: .previousMove(move: .from)) }
           
           let nextMove = Move(from: highlightedPosition, to: position)
           
           handleCastlingIfNeeded(move: nextMove)
           
-          animate(move: nextMove)
+          boardSettings.enPassant = nil
+          handleEnPassant(move: nextMove)
+          
+          animate(move: nextMove, updateSide: true)
           
           boardView.square(at: nextMove.from).highlight(type: .previousMove(move: .from))
           boardView.square(at: nextMove.to).highlight(type: .previousMove(move: .to))
           
-        case .occupied:
-          break
+        case .occupied(_, let side):
+          if side == boardSettings.turn {
+            print("Case 3, piece from same side. We select it.")
+            /// 3) Tapped on a piece from the same side.
+            handleNewHighlightedSquare(position: position)
+          } else {
+            guard legalDestination.contains(position) else {
+              return
+            }
+            print("Case 4, capturing enemy piece. We make a move.")
+            /// 4) Tapped on an enemy piece. Should capture.
+            
+            boardView.isUserInteractionEnabled = false
+            
+            allSquares.forEach { $0.unhighlight(type: .previousMove(move: .from)) }
+            
+            let nextMove = Move(from: highlightedPosition, to: position)
+            
+            animate(move: nextMove, updateSide: true)
+            
+            boardView.square(at: nextMove.from).highlight(type: .previousMove(move: .from))
+            boardView.square(at: nextMove.to).highlight(type: .previousMove(move: .to))
+          }
         }
-        handleNewHighlightedSquare(position: position)
       }
     } else {
       switch squareView.squareState {
       case .empty:
-        break
-      case .occupied:
-        handleNewHighlightedSquare(position: position)
+        squareView.unhighlight(type: .isSelected)
+        allSquares.forEach { $0.unhighlight(type: .canMove) }
+      case .occupied(_, let side):
+        if side == boardSettings.turn {
+          handleNewHighlightedSquare(position: position)
+        }
       }
     }
+  }
+  
+  private func handleEnPassant(move: Move) {
+    guard case .occupied(let piece, _) = boardView.square(at: move.from).squareState,
+          piece == .pawn,
+          abs(move.from.rank.rawValue - move.to.rank.rawValue) == 2 else
+    {
+      return
+    }
+    boardSettings.enPassant = Position(row: max(move.to.row, move.from.row) - 1,
+                                       /// For column, it doesn't matter if it's "from" or "to". They're the same
+                                       column: move.from.column)
   }
   
   private func handleCastlingIfNeeded(move: Move) {
@@ -149,9 +231,9 @@ class ViewController: UIViewController {
     }
      
     if move.to.file == .c {
-      animate(move: Move(from: Position(rank: move.from.rank, file: .a), to: Position(rank: move.from.rank, file: .d)))
+      animate(move: Move(from: Position(rank: move.from.rank, file: .a), to: Position(rank: move.from.rank, file: .d)), updateSide: false)
     } else {
-      animate(move: Move(from: Position(rank: move.from.rank, file: .h), to: Position(rank: move.from.rank, file: .f)))
+      animate(move: Move(from: Position(rank: move.from.rank, file: .h), to: Position(rank: move.from.rank, file: .f)), updateSide: false)
     }
   }
   
@@ -168,15 +250,14 @@ class ViewController: UIViewController {
     squareView.highlight(type: .isSelected)
     highlightedPosition = position
     
-    let possibleDestinationsMatrix = BoardHelper.generatePossibleDestinations(forPosition: position,
-                                                                              onBoard: allSquareStates,
-                                                                              boardSettings: boardSettings)
+    let legalDestinations = BoardHelper.generateLegalDestinations(forPosition: position,
+                                                                  onBoard: allSquareStates,
+                                                                  boardSettings: boardSettings)
     
-    for destinationsArray in possibleDestinationsMatrix {
-      for destination in destinationsArray {
-        boardView.square(at: destination).highlight(type: .canMove)
-      }
+    for destination in legalDestinations {
+      boardView.square(at: destination).highlight(type: .canMove)
     }
+    self.legalDestination = legalDestinations
   }
   
   

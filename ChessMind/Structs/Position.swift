@@ -85,6 +85,21 @@ struct Position: Equatable, CustomStringConvertible {
     self.column = column
   }
   
+  init?(notation: String) {
+    guard notation.count == 2,
+          let fileCharacter = notation.first,
+          let rankCharacter = notation.last,
+          let file = File(character: fileCharacter),
+          let rank = Rank(character: rankCharacter)
+    else
+    {
+      return nil
+    }
+    
+    self.row = rank.rawValue
+    self.column = file.rawValue
+  }
+  
   /// Rank is row, but in a chess representation
   /// values from 1 to 8
   var rank: Rank {

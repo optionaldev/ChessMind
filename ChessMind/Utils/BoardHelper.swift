@@ -6,6 +6,70 @@
 
 enum BoardHelper {
   
+  static func isKingUnderAttack(onBoard board: [[SquareState]],
+                                boardSettings: BoardSettings) -> Bool
+  {
+    var kingPosition: Position?
+    for (row, boardRow) in board.enumerated() {
+      for (column, squareState) in boardRow.enumerated() {
+        if case .occupied(let piece, let side) = squareState,
+           piece == .king && side == boardSettings.turn
+        {
+          kingPosition = Position(row: row, column: column)
+        }
+      }
+    }
+    
+    guard let kingPosition = kingPosition else {
+      fatalError("There should always be a king on the board.")
+    }
+    
+    return isPositionUnderAttack(kingPosition, onBoard: board, boardSettings: boardSettings)
+  }
+  
+  static func generateLegalDestinations(forPosition position: Position,
+                                        onBoard board: [[SquareState]],
+                                        boardSettings: BoardSettings) -> [Position]
+  {
+    let theoreticalDestinationsMatrix = generateTheoreticalDestinations(forPosition: position, onBoard: board, boardSettings: boardSettings)
+    
+    guard case .occupied(_, let side) = board[position.row][position.column] else {
+      return []
+    }
+    
+    var result: [[Position]] = []
+    var currentPositions: [Position] = []
+    
+    for destinationsArray in theoreticalDestinationsMatrix {
+      for destination in destinationsArray {
+        switch board[destination.row][destination.column] {
+        case .empty:
+          /// If the square is empty, we can move there.
+          currentPositions.append(destination)
+        case .occupied(_, let targetSide):
+          /// If the square is not empty, we need to check if it's on our side.
+          if side != targetSide {
+            currentPositions.append(destination)
+          }
+          
+          result.append(currentPositions)
+          currentPositions = []
+        }
+        if currentPositions.isEmpty {
+          /// We can't break the for loop from inside the switch,
+          /// so we do it here.
+          break
+        }
+      }
+    }
+    
+    if currentPositions.isNonEmpty {
+      result.append(currentPositions)
+    }
+    
+    return result.flatMap { $0 }
+  }
+  
   /// Example of possible cases to handle:
   /// a4 -> Pawn moves to a4, could be from a2 or a3.
   /// dxc5 -> Pawn from d file captured piece on c5.
@@ -135,49 +199,6 @@ enum BoardHelper {
     return []
   }
   
-  static func generatePossibleDestinations(forPosition position: Position,
-                                           onBoard board: [[SquareState]],
-                                           boardSettings: BoardSettings) -> [[Position]] 
-  {
-    let theoreticalDestinationsMatrix = generateTheoreticalDestinations(forPosition: position, onBoard: board, boardSettings: boardSettings)
-    
-    guard case .occupied(_, let side) = board[position.row][position.column] else {
-      return []
-    }
-    
-    var result: [[Position]] = []
-    var currentPositions: [Position] = []
-    
-    for destinationsArray in theoreticalDestinationsMatrix {
-      for destination in destinationsArray {
-        switch board[destination.row][destination.column] {
-        case .empty:
-          /// If the square is empty, we can move there.
-          currentPositions.append(destination)
-        case .occupied(_, let targetSide):
-          /// If the square is not empty, we need to check if it's on our side.
-          if side != targetSide {
-            currentPositions.append(destination)
-          }
-          
-          result.append(currentPositions)
-          currentPositions = []
-        }
-        if currentPositions.isEmpty {
-          /// We can't break the for loop from inside the switch,
-          /// so we do it here.
-          break
-        }
-      }
-    }
-    
-    if currentPositions.isNonEmpty {
-      result.append(currentPositions)
-    }
-    
-    return result
-  }
-  
   // MARK: - Private
   
   private static func castlingMoves(forNotation notation: String,
@@ -205,7 +226,7 @@ enum BoardHelper {
   }
     
   private static func checkIfPosition(position: Position,
-                                      canMoveTo destionation: Position,
+                                      canMoveTo destination: Position,
                                       onBoard board: [[SquareState]],
                                       boardSettings: BoardSettings,
                                       forPiece expectedPiece: Piece,
@@ -216,8 +237,8 @@ enum BoardHelper {
       return false
     case .occupied(let piece, let side):
       if piece == expectedPiece && side == boardSettings.turn {
-        let possibleDestinations = generatePossibleDestinations(forPosition: position, onBoard: board, boardSettings: boardSettings)
-        if possibleDestinations.flatMap({ $0 }).contains(destionation) {
+        let legalDestinations = generateLegalDestinations(forPosition: position, onBoard: board, boardSettings: boardSettings)
+        if legalDestinations.contains(destination) {
           return true
         }
       }
@@ -381,17 +402,6 @@ enum BoardHelper {
         castlingRank = .first
       }
       
-      let allEnemySquares = board.flatMap { $0 }.filter {
-        if case .occupied(let piece, let side) = $0 {
-          /// It is actually possible for a king to prevent castling, but for the
-          /// purpose of this app, we don't go that far into quizzes to
-          /// be worth handling the case, because it can cause
-          /// infinite loops.
-          return side != boardSettings.turn && piece != .king
-        }
-        return false
-      }
-      
       for castlingRight in boardSettings.currentSideCastlingRights {
         if castlingRight == CastlingSide.kingSide &&
             isPositionUnderAttack(Position(rank: castlingRank, file: .f),
@@ -433,14 +443,19 @@ enum BoardHelper {
         advanceDirection = computeDirections([.up], withPinnedDirections: pinnedDirections).first
         captureDirections = computeDirections([.topLeft, .topRight], withPinnedDirections: pinnedDirections)
       }
-      let canGoTwoSquares = (side == .black && position.rank == .seventh) ||
-      (side == .white && position.rank == .second)
       
       if let advanceDirection = advanceDirection {
-        if let newPosition = position.next(inDirection: advanceDirection) {
+        if let newPosition = position.next(inDirection: advanceDirection),
+           case .empty = board[newPosition.row][newPosition.column]
+        {
           currentMoves.append(newPosition)
+          
+          let canGoTwoSquares = (side == .black && position.rank == .seventh) ||
+          (side == .white && position.rank == .second)
+          
           if canGoTwoSquares,
-             let twoSquaresAdvancePosition = newPosition.next(inDirection: advanceDirection)
+             let twoSquaresAdvancePosition = newPosition.next(inDirection: advanceDirection),
+             case .empty = board[twoSquaresAdvancePosition.row][twoSquaresAdvancePosition.column]
           {
             currentMoves.append(twoSquaresAdvancePosition)
           }
@@ -452,7 +467,11 @@ enum BoardHelper {
         if let newPosition = position.next(inDirection: direction) {
           switch board[newPosition.row][newPosition.column] {
           case .empty:
-            break
+            if let enPassantPosition = boardSettings.enPassant {
+              if newPosition == enPassantPosition {
+                result.append([newPosition])
+              }
+            }
           case .occupied(_, let targetSide):
             if targetSide != side {
               result.append([newPosition])
@@ -497,10 +516,10 @@ enum BoardHelper {
   
   private static func isPositionUnderAttack(_ position: Position, 
                                             onBoard board: [[SquareState]],
-                                            boardSettings: BoardSettings) -> Bool 
+                                            boardSettings: BoardSettings) -> Bool
   {
-    for (row, boardRow) in board.enumerated() {
-      for (column, squareState) in boardRow.enumerated() {
+    for (_, boardRow) in board.enumerated() {
+      for (_, squareState) in boardRow.enumerated() {
         switch squareState {
         case .empty:
           break

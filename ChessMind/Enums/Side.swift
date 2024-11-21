@@ -10,4 +10,12 @@ enum Side: String {
   
   case black
   case white
+  
+  mutating func toggle() {
+    if self == .black {
+      self = .white
+    } else {
+      self = .black
+    }
+  }
 }

@@ -4,7 +4,7 @@
 // Copyright © 2024 optionaldev. All rights reserved.
 // 
 
-class BoardSettings {
+class BoardSettings: CustomStringConvertible {
   
   var blackCastling: [CastlingSide] = []
   
@@ -20,7 +20,13 @@ class BoardSettings {
   /// adjacent pawns, although this is present
   /// even if there's no pawns that can
   /// capture it.
-  var enPassant: String?
+  var enPassant: Position? {
+    didSet {
+      if let enPassant = enPassant {
+        print("new enPassant = \(enPassant)")
+      }
+    }
+  }
   
   /// There is a 50 move draw rule. If a player
   /// has not moved a pawn or captured a piece,
@@ -47,9 +53,22 @@ class BoardSettings {
   init(blackCastling: [CastlingSide], blackMoves: Int, enPassant: String?, plies: Int, turn: Turn, whiteCastling: [CastlingSide]) {
     self.blackCastling = blackCastling
     self.blackMoves = blackMoves
-    self.enPassant = enPassant == Constants.fenEmptyField ? nil : enPassant
+    
+    if let enPassant = enPassant,
+       enPassant != Constants.fenEmptyField
+    {
+      self.enPassant = Position(notation: enPassant)
+    } else {
+      self.enPassant = nil
+    }
     self.plies = plies
     self.turn = turn
     self.whiteCastling = whiteCastling
+  }
+  
+  // MARK: CustomStringConvertible conformance
+  
+  var description: String {
+    return "BoardSettings: turn = \(turn) | whiteCastling = \(whiteCastling) | blackCastling = \(blackCastling) | enPassant = \(String(describing: enPassant)) | plies = \(plies) | blackMoves = \(blackMoves)"
   }
 }
