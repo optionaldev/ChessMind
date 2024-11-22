@@ -37,6 +37,8 @@ class BoardSettings: CustomStringConvertible {
   var turn: Turn = .white
   var whiteCastling: [CastlingSide] = []
   
+  var kingIsInCheck: Bool = false
+  
   var currentSideCastlingRights: [CastlingSide] {
     switch turn {
     case .black:

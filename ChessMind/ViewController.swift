@@ -98,10 +98,6 @@ class ViewController: UIViewController {
   }
   
   private func handleAnimationCompletion(move: Move, updateSide: Bool) {
-    if BoardHelper.isKingUnderAttack(onBoard: allSquareStates, boardSettings: boardSettings) {
-      // TODO: Handle king in check
-    }
-    
     if boardSettings.enPassant == move.to,
        case .occupied(let piece, _) = boardView.square(at: move.from).squareState,
        piece == .pawn
@@ -121,6 +117,12 @@ class ViewController: UIViewController {
     
     if updateSide {
       boardSettings.turn.toggle()
+    }
+    
+    if BoardHelper.isKingInCheck(onBoard: allSquareStates, boardSettings: boardSettings) {
+      let kingPosition = BoardHelper.findKing(onBoard: allSquareStates, boardSettings: boardSettings)
+      boardView.square(at: kingPosition).highlight(type: .kingIsInCheck)
+      boardSettings.kingIsInCheck = true
     }
     
     highlightedPosition = nil

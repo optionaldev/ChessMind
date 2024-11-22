@@ -6,23 +6,26 @@
 
 enum BoardHelper {
   
-  static func isKingUnderAttack(onBoard board: [[SquareState]],
-                                boardSettings: BoardSettings) -> Bool
+  static func findKing(onBoard board: [[SquareState]],
+                       boardSettings: BoardSettings) -> Position
   {
-    var kingPosition: Position?
     for (row, boardRow) in board.enumerated() {
       for (column, squareState) in boardRow.enumerated() {
         if case .occupied(let piece, let side) = squareState,
-           piece == .king && side == boardSettings.turn
+           piece == .king && side == boardSettings.turn,
+           let position = Position(row: row, column: column)
         {
-          kingPosition = Position(row: row, column: column)
+          return position
         }
       }
     }
-    
-    guard let kingPosition = kingPosition else {
-      fatalError("There should always be a king on the board.")
-    }
+    fatalError("Should always have a king")
+  }
+  
+  static func isKingInCheck(onBoard board: [[SquareState]],
+                            boardSettings: BoardSettings) -> Bool
+  {
+    let kingPosition = findKing(onBoard: board, boardSettings: boardSettings)
     
     return isPositionUnderAttack(kingPosition, onBoard: board, boardSettings: boardSettings)
   }
@@ -31,7 +34,22 @@ enum BoardHelper {
                                         onBoard board: [[SquareState]],
                                         boardSettings: BoardSettings) -> [Position]
   {
-    let theoreticalDestinationsMatrix = generateTheoreticalDestinations(forPosition: position, onBoard: board, boardSettings: boardSettings)
+    var potentialBlockingSquares: [Position] = []
+    
+    if boardSettings.kingIsInCheck {
+      let kingPosition = findKing(onBoard: board, boardSettings: boardSettings)
+      let directionOfCheck = findDirectionOfCheck(onBoard: board, boardSettings: boardSettings)
+      let enemyPosition = enemyAttackPosition(kingPosition, onBoard: board, boardSettings: boardSettings)
+      
+      var referencePosition = kingPosition
+      while var newPosition = referencePosition.next(inDirection: directionOfCheck) {
+        potentialBlockingSquares.append(newPosition)
+        referencePosition = newPosition
+      }
+    }
+    let theoreticalDestinationsMatrix = generateTheoreticalDestinations(forPosition: position,
+                                                                        onBoard: board,
+                                                                        boardSettings: boardSettings)
     
     guard case .occupied(_, let side) = board[position.row][position.column] else {
       return []
@@ -42,23 +60,25 @@ enum BoardHelper {
     
     for destinationsArray in theoreticalDestinationsMatrix {
       for destination in destinationsArray {
-        switch board[destination.row][destination.column] {
-        case .empty:
-          /// If the square is empty, we can move there.
-          currentPositions.append(destination)
-        case .occupied(_, let targetSide):
-          /// If the square is not empty, we need to check if it's on our side.
-          if side != targetSide {
-            currentPositions.append(destination)
+        if potentialBlockingSquares.isEmpty || potentialBlockingSquares.contains(destination) {
+          switch board[destination.row][destination.column] {
+            case .empty:
+              /// If the square is empty, we can move there.
+              currentPositions.append(destination)
+            case .occupied(_, let targetSide):
+              /// If the square is not empty, we need to check if it's on our side.
+              if side != targetSide {
+                currentPositions.append(destination)
+              }
+              
+              result.append(currentPositions)
+              currentPositions = []
           }
-          
-          result.append(currentPositions)
-          currentPositions = []
-        }
-        if currentPositions.isEmpty {
-          /// We can't break the for loop from inside the switch,
-          /// so we do it here.
-          break
+          if currentPositions.isEmpty {
+            /// We can't break the for loop from inside the switch,
+            /// so we do it here.
+            break
+          }
         }
       }
     }
@@ -254,6 +274,21 @@ enum BoardHelper {
     return directions.filter { pinnedDirections.contains($0) }
   }
   
+  static private func findDirectionOfCheck(onBoard board: [[SquareState]],
+                                           boardSettings: BoardSettings) -> Direction
+  {
+    let kingPosition = findKing(onBoard: board, boardSettings: boardSettings) 
+    
+    if let enemy = enemyAttackPosition(kingPosition, onBoard: board, boardSettings: boardSettings) {
+      for direction in Direction.allCases {
+        if kingPosition.next(inDirection: direction) == enemy {
+          return direction
+        }
+      }
+    }
+    fatalError("Should always have a direction, otherwise the king is not in check.")
+  }
+  
   static private func findDirectionOfKing(forPosition position: Position,
                                           onBoard board: [[SquareState]],
                                           direction: Direction) -> Direction? {
@@ -390,7 +425,9 @@ enum BoardHelper {
     case .king:
       /// King can never be pinned.
       for direction in Direction.allCases {
-        if let newPosition = position.next(inDirection: direction) {
+        if let newPosition = position.next(inDirection: direction),
+           isPositionUnderAttack(newPosition, onBoard: board, boardSettings: boardSettings) == false
+        {
           result.append([newPosition])
         }
       }
@@ -513,24 +550,38 @@ enum BoardHelper {
     
     return result
   }
-  
   private static func isPositionUnderAttack(_ position: Position, 
                                             onBoard board: [[SquareState]],
                                             boardSettings: BoardSettings) -> Bool
   {
-    for (_, boardRow) in board.enumerated() {
-      for (_, squareState) in boardRow.enumerated() {
+    return enemyAttackPosition(position, onBoard: board, boardSettings: boardSettings) != nil
+  }
+  
+  private static func enemyAttackPosition(_ position: Position,
+                                          onBoard board: [[SquareState]],
+                                          boardSettings: BoardSettings) -> Position?
+  {
+    for (row, boardRow) in board.enumerated() {
+      for (column, squareState) in boardRow.enumerated() {
         switch squareState {
-        case .empty:
-          break
-        case .occupied(let piece, let side):
-          guard piece != .king && side != boardSettings.turn else {
+          case .empty:
             break
-          }
+          case .occupied(let piece, let side):
+            guard piece != .king && side != boardSettings.turn else {
+              break
+            }
+            if let enemyPosition = Position(row: row, column: column) {
+              let legalDestinations = generateLegalDestinations(forPosition: enemyPosition,
+                                                                onBoard: board,
+                                                                boardSettings: boardSettings)
+              if legalDestinations.contains(position) {
+                return enemyPosition
+              }
+            }
         }
       }
     }
-    return false
+    return nil
   }
   
   /// The aim of this method is to find directions for which a position is pinned
