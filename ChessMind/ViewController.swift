@@ -43,7 +43,14 @@ class ViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    let (squareStates, boardSettings) = FenParser.parse(fen: "r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1")
+    
+    /// Testing checks
+    let (squareStates, boardSettings) = FenParser.parse(fen: "3qkr2/npp3pp/r2bN3/2n3b1/2N5/3B4/8/R1BQR1K1 w Q - 0 1")
+    
+    /// Testing castling
+//    let (squareStates, boardSettings) = FenParser.parse(fen: "r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1")
+    
+    /// Testing pins
 //    let (squareStates, boardSettings) = FenParser.parse(fen: "2kr4/q5b1/1p6/2PPB2p/n1BKP1Pr/2NBN3/8/3r4 b - - 0 1")
     
     boardView.configure(withSquareStates: squareStates)
@@ -67,7 +74,7 @@ class ViewController: UIViewController {
     return boardView.eightRanks.map { $0.eightSquares.map { $0.squareState }}
   }
   
-  private func animate(move: Move, updateSide: Bool) {
+  private func animate(move: Move, updateSide: Bool = false) {
     let fromSquare = boardView.square(at: move.from)
     let toSquare = boardView.square(at: move.to)
     let destinationSquareState = fromSquare.squareState
@@ -93,8 +100,19 @@ class ViewController: UIViewController {
       toSquare.configure(squareState: destinationSquareState)
       temporaryPieceView.removeFromSuperview()
       
-      self?.handleAnimationCompletion(move: move, updateSide: updateSide)
+      if updateSide {
+        self?.handleAnimationCompletion(move: move, updateSide: updateSide)
+      }
     })
+  }
+  
+  private func handle(move: Move, updateSide: Bool) {
+    allSquares.forEach { $0.unhighlight(type: .kingIsInCheck) }
+    
+    animate(move: move, updateSide: updateSide)
+    
+    boardView.square(at: move.from).highlight(type: .previousMove(move: .from))
+    boardView.square(at: move.to).highlight(type: .previousMove(move: .to))
   }
   
   private func handleAnimationCompletion(move: Move, updateSide: Bool) {
@@ -135,6 +153,7 @@ class ViewController: UIViewController {
     }
     let position = squareView.position
     
+    
     if let highlightedPosition = highlightedPosition {
       allSquares.forEach { $0.unhighlight(type: .canMove) }
       /// If we already have a highlighted positions, there's 4 scenarios:
@@ -157,8 +176,7 @@ class ViewController: UIViewController {
             return
           }
           boardView.isUserInteractionEnabled = false
-          
-          print("Case 2, tapped on empty square. We make a move.")
+          print("Case 2, tapped on empty square. We make a move. Disabling board interaction.")
           /// 2) Tapped on an empty square. Should move selected piece here.
           allSquares.forEach { $0.unhighlight(type: .previousMove(move: .from)) }
           
@@ -169,7 +187,7 @@ class ViewController: UIViewController {
           boardSettings.enPassant = nil
           handleEnPassant(move: nextMove)
           
-          animate(move: nextMove, updateSide: true)
+          handle(move: nextMove, updateSide: true)
           
           boardView.square(at: nextMove.from).highlight(type: .previousMove(move: .from))
           boardView.square(at: nextMove.to).highlight(type: .previousMove(move: .to))
@@ -183,7 +201,7 @@ class ViewController: UIViewController {
             guard legalDestination.contains(position) else {
               return
             }
-            print("Case 4, capturing enemy piece. We make a move.")
+            print("Case 4, capturing enemy piece. We make a move. Disabling board interaction.")
             /// 4) Tapped on an enemy piece. Should capture.
             
             boardView.isUserInteractionEnabled = false
@@ -192,10 +210,8 @@ class ViewController: UIViewController {
             
             let nextMove = Move(from: highlightedPosition, to: position)
             
-            animate(move: nextMove, updateSide: true)
+            handle(move: nextMove, updateSide: true)
             
-            boardView.square(at: nextMove.from).highlight(type: .previousMove(move: .from))
-            boardView.square(at: nextMove.to).highlight(type: .previousMove(move: .to))
           }
         }
       }
@@ -233,9 +249,11 @@ class ViewController: UIViewController {
     }
      
     if move.to.file == .c {
-      animate(move: Move(from: Position(rank: move.from.rank, file: .a), to: Position(rank: move.from.rank, file: .d)), updateSide: false)
+      animate(move: Move(from: Position(rank: move.from.rank, file: .a),
+                         to: Position(rank: move.from.rank, file: .d)))
     } else {
-      animate(move: Move(from: Position(rank: move.from.rank, file: .h), to: Position(rank: move.from.rank, file: .f)), updateSide: false)
+      animate(move: Move(from: Position(rank: move.from.rank, file: .h),
+                         to: Position(rank: move.from.rank, file: .f)))
     }
   }
   
@@ -252,9 +270,9 @@ class ViewController: UIViewController {
     squareView.highlight(type: .isSelected)
     highlightedPosition = position
     
-    let legalDestinations = BoardHelper.generateLegalDestinations(forPosition: position,
-                                                                  onBoard: allSquareStates,
-                                                                  boardSettings: boardSettings)
+    let legalDestinations = BoardHelper.calculateLegalDestinations(forPieceAtPosition: position,
+                                                                   onBoard: allSquareStates,
+                                                                   boardSettings: boardSettings)
     
     for destination in legalDestinations {
       boardView.square(at: destination).highlight(type: .canMove)

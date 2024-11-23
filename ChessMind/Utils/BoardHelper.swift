@@ -6,6 +6,12 @@
 
 enum BoardHelper {
   
+  /// Find the king for the side that is next to move.
+  ///
+  /// This method assumes that both sides have a king on the board.
+  ///
+  /// - Returns: The position of the king for the side that is next
+  /// to move.
   static func findKing(onBoard board: [[SquareState]],
                        boardSettings: BoardSettings) -> Position
   {
@@ -19,66 +25,146 @@ enum BoardHelper {
         }
       }
     }
-    fatalError("Should always have a king")
+    fatalError("Should always have a king (on both sides).")
   }
   
+  /// Method for finding out if the king for the
+  /// side that is next to move is in check.
+  ///
+  /// It's important to know whether the king is
+  /// in check or not because the amount of
+  /// legal moves that exist on the board if the
+  /// king is in check is always lower.
+  ///
+  /// - Returns: true if king is in check, false
+  /// otherwise.
   static func isKingInCheck(onBoard board: [[SquareState]],
                             boardSettings: BoardSettings) -> Bool
   {
-    let kingPosition = findKing(onBoard: board, boardSettings: boardSettings)
-    
-    return isPositionUnderAttack(kingPosition, onBoard: board, boardSettings: boardSettings)
+    if case .notInCheck = computeCheckState(onBoard: board, boardSettings: boardSettings) {
+      return false
+    }
+    return true
   }
   
-  static func generateLegalDestinations(forPosition position: Position,
-                                        onBoard board: [[SquareState]],
-                                        boardSettings: BoardSettings) -> [Position]
+  /// Method for calculating on which squares the piece from the
+  /// input position can move.
+  ///
+  /// This method takes into account:
+  /// - whether the piece is pinned
+  /// - whether the piece can block a check if
+  /// needed
+  /// - whether the piece can capture the
+  /// piece that is checking the king
+  ///
+  /// - Parameters:
+  ///   - forPieceAtPosition: the position of the
+  ///   piece for which the calculations are
+  ///   being done.
+  /// - Returns: an array of destination squares
+  /// that the input piece can go to.
+  static func calculateLegalDestinations(forPieceAtPosition position: Position,
+                                         onBoard board: [[SquareState]],
+                                         boardSettings: BoardSettings) -> [Position]
   {
-    var potentialBlockingSquares: [Position] = []
-    
-    if boardSettings.kingIsInCheck {
-      let kingPosition = findKing(onBoard: board, boardSettings: boardSettings)
-      let directionOfCheck = findDirectionOfCheck(onBoard: board, boardSettings: boardSettings)
-      let enemyPosition = enemyAttackPosition(kingPosition, onBoard: board, boardSettings: boardSettings)
-      
-      var referencePosition = kingPosition
-      while var newPosition = referencePosition.next(inDirection: directionOfCheck) {
-        potentialBlockingSquares.append(newPosition)
-        referencePosition = newPosition
-      }
+    guard case .occupied(let piece, let side) = board[position.row][position.column] else {
+      fatalError("Should not call this method with position being an empty square.")
     }
-    let theoreticalDestinationsMatrix = generateTheoreticalDestinations(forPosition: position,
+    
+    /// This method is called for both white pieces
+    /// and black pieces. If it's the side for which
+    /// the current turn is, we need to also look
+    /// if the king is in check.
+    let checkState: CheckState
+    if side == boardSettings.turn {
+      checkState = computeCheckState(onBoard: board, boardSettings: boardSettings)
+    } else {
+      checkState = .notInCheck
+    }
+    print("calculateLegalDestinations called for \(side) \(piece) at \(position) checkState = \(checkState)")
+    
+    var validPositionsDueToCheck: [Position] = []
+    
+    /// When the king is in check, he cannot walk in
+    /// the opposite direction of the check direciton.
+    var oppositePositionOfCheck: Position?
+    
+    switch checkState {
+      case .notInCheck:
+        /// When the king is not in check, legal
+        /// moves are not affected.
+        break
+      case .checkedByOnePiece(let attackingPosition, let attackingDirection):
+        /// When the king is checked by one enemy piece, we need
+        /// to find all the squares between the attacking piece
+        /// and the king that are empty, because those could be
+        /// occupied by the current moving side's pieces to stop
+        /// the check.
+        validPositionsDueToCheck.append(attackingPosition)
+        var referencePosition = findKing(onBoard: board, boardSettings: boardSettings)
+        oppositePositionOfCheck = referencePosition.next(inDirection: attackingDirection.opposite)
+      
+      outerLoop:
+        while let newPosition = referencePosition.next(inDirection: attackingDirection) {
+          switch board[newPosition.row][newPosition.column] {
+            case .empty:
+              validPositionsDueToCheck.append(newPosition)
+            case .occupied:
+              break outerLoop
+          }
+          
+          referencePosition = newPosition
+        }
+      case .checkedByTwoPieces:
+        /// When the king is in check by two pieces (also
+        /// known as double check), the king has to move,
+        /// because no piece can block two attacks at
+        /// the same time.
+        if side == boardSettings.turn && piece != .king {
+          return []
+        }
+    }
+    
+    let theoreticalDestinationMatrix = calculateTheoreticalDestinations(forPieceAtPosition: position,
                                                                         onBoard: board,
                                                                         boardSettings: boardSettings)
-    
-    guard case .occupied(_, let side) = board[position.row][position.column] else {
-      return []
-    }
     
     var result: [[Position]] = []
     var currentPositions: [Position] = []
     
-    for destinationsArray in theoreticalDestinationsMatrix {
-      for destination in destinationsArray {
-        if potentialBlockingSquares.isEmpty || potentialBlockingSquares.contains(destination) {
-          switch board[destination.row][destination.column] {
-            case .empty:
-              /// If the square is empty, we can move there.
-              currentPositions.append(destination)
-            case .occupied(_, let targetSide):
-              /// If the square is not empty, we need to check if it's on our side.
-              if side != targetSide {
-                currentPositions.append(destination)
-              }
-              
-              result.append(currentPositions)
-              currentPositions = []
-          }
-          if currentPositions.isEmpty {
-            /// We can't break the for loop from inside the switch,
-            /// so we do it here.
-            break
-          }
+    if case .checkedByOnePiece = checkState {
+      print("validPositionsDueToCheck = \(validPositionsDueToCheck)")
+    }
+    
+    if position == Position(rank: .first, file: .d) {
+      print("What's happening here?")
+    }
+    
+    func addDestinationIfValid(destination: Position) {
+      if destination != oppositePositionOfCheck &&
+          (validPositionsDueToCheck.isEmpty || validPositionsDueToCheck.contains(destination) || piece == .king)
+      {
+        currentPositions.append(destination)
+      }
+    }
+    
+    for destinationArray in theoreticalDestinationMatrix {
+    innerFor:
+      for destination in destinationArray {
+        switch board[destination.row][destination.column] {
+          case .empty:
+            /// If the square is empty, we can move there.
+            addDestinationIfValid(destination: destination)
+          case .occupied(_, let targetSide):
+            /// If the square is not empty, we need to check if
+            /// it's on our side.
+            if side != targetSide {
+              addDestinationIfValid(destination: destination)
+            }
+            
+            result.append(currentPositions)
+            currentPositions = []
+            break innerFor
         }
       }
     }
@@ -226,25 +312,25 @@ enum BoardHelper {
                                     turn: Turn) -> [Move]
   {
     switch turn {
-    case .black:
-      if notation == Constants.shortCastlingNotation {
-        return [Move(from: Position(rank: .eighth, file: .h), to: Position(rank: .eighth, file: .f)),
-                Move(from: Position(rank: .eighth, file: .e), to: Position(rank: .eighth, file: .g))]
-      } else {
-        return [Move(from: Position(rank: .eighth, file: .a), to: Position(rank: .eighth, file: .d)),
-                Move(from: Position(rank: .eighth, file: .e), to: Position(rank: .eighth, file: .c))]
-      }
-    case .white:
-      if notation == Constants.shortCastlingNotation {
-        return [Move(from: Position(rank: .first, file: .h), to: Position(rank: .first, file: .f)),
-                Move(from: Position(rank: .first, file: .e), to: Position(rank: .first, file: .g))]
-      } else {
-        return [Move(from: Position(rank: .first, file: .a), to: Position(rank: .first, file: .d)),
-                Move(from: Position(rank: .first, file: .e), to: Position(rank: .first, file: .c))]
-      }
+      case .black:
+        if notation == Constants.shortCastlingNotation {
+          return [Move(from: Position(rank: .eighth, file: .h), to: Position(rank: .eighth, file: .f)),
+                  Move(from: Position(rank: .eighth, file: .e), to: Position(rank: .eighth, file: .g))]
+        } else {
+          return [Move(from: Position(rank: .eighth, file: .a), to: Position(rank: .eighth, file: .d)),
+                  Move(from: Position(rank: .eighth, file: .e), to: Position(rank: .eighth, file: .c))]
+        }
+      case .white:
+        if notation == Constants.shortCastlingNotation {
+          return [Move(from: Position(rank: .first, file: .h), to: Position(rank: .first, file: .f)),
+                  Move(from: Position(rank: .first, file: .e), to: Position(rank: .first, file: .g))]
+        } else {
+          return [Move(from: Position(rank: .first, file: .a), to: Position(rank: .first, file: .d)),
+                  Move(from: Position(rank: .first, file: .e), to: Position(rank: .first, file: .c))]
+        }
     }
   }
-    
+  
   private static func checkIfPosition(position: Position,
                                       canMoveTo destination: Position,
                                       onBoard board: [[SquareState]],
@@ -253,15 +339,17 @@ enum BoardHelper {
                                       squareState: SquareState) -> Bool
   {
     switch squareState {
-    case .empty:
-      return false
-    case .occupied(let piece, let side):
-      if piece == expectedPiece && side == boardSettings.turn {
-        let legalDestinations = generateLegalDestinations(forPosition: position, onBoard: board, boardSettings: boardSettings)
-        if legalDestinations.contains(destination) {
-          return true
+      case .empty:
+        return false
+      case .occupied(let piece, let side):
+        if piece == expectedPiece && side == boardSettings.turn {
+          let legalDestinations = calculateLegalDestinations(forPieceAtPosition: position,
+                                                             onBoard: board,
+                                                             boardSettings: boardSettings)
+          if legalDestinations.contains(destination) {
+            return true
+          }
         }
-      }
     }
     return false
   }
@@ -274,19 +362,36 @@ enum BoardHelper {
     return directions.filter { pinnedDirections.contains($0) }
   }
   
-  static private func findDirectionOfCheck(onBoard board: [[SquareState]],
-                                           boardSettings: BoardSettings) -> Direction
+  /// Assuming we already know the king is in check, this
+  /// method computes the type of check.
+  ///
+  /// Check CheckState for more info on type of checks.
+  static private func computeCheckState(onBoard board: [[SquareState]],
+                                        boardSettings: BoardSettings) -> CheckState
   {
-    let kingPosition = findKing(onBoard: board, boardSettings: boardSettings) 
+    let kingPosition = findKing(onBoard: board, boardSettings: boardSettings)
     
-    if let enemy = enemyAttackPosition(kingPosition, onBoard: board, boardSettings: boardSettings) {
+    let enemyPositions = findEnemiesAttackingPosition(kingPosition, onBoard: board, boardSettings: boardSettings)
+    
+    if enemyPositions.isEmpty {
+      return .notInCheck
+    } else if enemyPositions.count == 2 {
+      return .checkedByTwoPieces
+    } else if enemyPositions.count == 1,
+              let enemyPosition = enemyPositions.first
+    {
       for direction in Direction.allCases {
-        if kingPosition.next(inDirection: direction) == enemy {
-          return direction
+        var referencePosition = kingPosition
+        while let newPosition = referencePosition.next(inDirection: direction) {
+          if newPosition == enemyPosition {
+            return .checkedByOnePiece(atPosition: enemyPosition, fromDirection: direction)
+          }
+          referencePosition = newPosition
         }
       }
     }
-    fatalError("Should always have a direction, otherwise the king is not in check.")
+    
+    fatalError("Somehow, we've avoided all possible check types: \(enemyPositions)")
   }
   
   static private func findDirectionOfKing(forPosition position: Position,
@@ -299,17 +404,17 @@ enum BoardHelper {
     
     while let newPosition = referencePosition.next(inDirection: direction) {
       switch board[newPosition.row][newPosition.column] {
-      case .empty:
-        break
-      case .occupied(let referencePiece, let referenceSide):
-        if referencePiece == .king && side == referenceSide {
-          return direction
-        } else {
-          /// We break because we found another piece and we're looking
-          /// for the king. If the king is futher than the piece we found,
-          /// there's no pin happening.
-          return nil
-        }
+        case .empty:
+          break
+        case .occupied(let referencePiece, let referenceSide):
+          if referencePiece == .king && side == referenceSide {
+            return direction
+          } else {
+            /// We break because we found another piece and we're looking
+            /// for the king. If the king is futher than the piece we found,
+            /// there's no pin happening.
+            return nil
+          }
       }
       referencePosition = newPosition
     }
@@ -379,23 +484,23 @@ enum BoardHelper {
     var referencePosition = position
     while let newPosition = referencePosition.next(inDirection: direction) {
       switch board[newPosition.row][newPosition.column] {
-      case .empty:
-        break
-      case .occupied(let referencePiece, let referenceSide):
-        if referenceSide != turn {
-          if direction.isDiagonal && (referencePiece == .queen || referencePiece == .bishop) {
-            /// Only bishops and queens can pin on diagonals.
-            return possiblePinnedDirections
-            
-          } else if direction.isDiagonal == false && (referencePiece == .queen || referencePiece == .rook) {
-            /// Only queens and rooks can pin on ranks / files.
-            return possiblePinnedDirections
+        case .empty:
+          break
+        case .occupied(let referencePiece, let referenceSide):
+          if referenceSide != turn {
+            if direction.isDiagonal && (referencePiece == .queen || referencePiece == .bishop) {
+              /// Only bishops and queens can pin on diagonals.
+              return possiblePinnedDirections
+              
+            } else if direction.isDiagonal == false && (referencePiece == .queen || referencePiece == .rook) {
+              /// Only queens and rooks can pin on ranks / files.
+              return possiblePinnedDirections
+            } else {
+              return []
+            }
           } else {
             return []
           }
-        } else {
-          return []
-        }
       }
       
       referencePosition = newPosition
@@ -404,9 +509,9 @@ enum BoardHelper {
     return []
   }
   
-  static private func generateTheoreticalDestinations(forPosition position: Position,
-                                                      onBoard board: [[SquareState]],
-                                                      boardSettings: BoardSettings) -> [[Position]]
+  private static func calculateTheoreticalDestinations(forPieceAtPosition position: Position,
+                                                       onBoard board: [[SquareState]],
+                                                       boardSettings: BoardSettings) -> [[Position]]
   {
     guard case .occupied(let piece, let side) = board[position.row][position.column] else {
       return []
@@ -415,116 +520,118 @@ enum BoardHelper {
     var result: [[Position]] = []
     var currentMoves: [Position] = []
     
-    let pinnedDirections = pinnedDirections(forPosition: position, onBoard: board, turn: side)
+    let pinnedDirections = calculatePinnedDirections(forPieceAtPosition: position,
+                                                     onBoard: board,
+                                                     turn: side)
     
     switch piece {
-    case .bishop:
-      let directions = computeDirections([.bottomLeft, .bottomRight, .topLeft, .topRight], withPinnedDirections: pinnedDirections)
-      result = generateTheoreticalDestinations(forDirections: directions,
-                                               position: position)
-    case .king:
-      /// King can never be pinned.
-      for direction in Direction.allCases {
-        if let newPosition = position.next(inDirection: direction),
-           isPositionUnderAttack(newPosition, onBoard: board, boardSettings: boardSettings) == false
-        {
-          result.append([newPosition])
-        }
-      }
-      let castlingRank: Rank
-      switch boardSettings.turn {
-      case .black:
-        castlingRank = .eighth
-      case .white:
-        castlingRank = .first
-      }
-      
-      for castlingRight in boardSettings.currentSideCastlingRights {
-        if castlingRight == CastlingSide.kingSide &&
-            isPositionUnderAttack(Position(rank: castlingRank, file: .f),
-                                  onBoard: board,
-                                  boardSettings: boardSettings) == false &&
-            isPositionUnderAttack(Position(rank: castlingRank, file: .g),
-                                  onBoard: board,
-                                  boardSettings: boardSettings) == false
-        {
-          result.append([Position(rank: castlingRank, file: .g)])
-        } else if castlingRight == CastlingSide.queenSide &&
-                    isPositionUnderAttack(Position(rank: castlingRank, file: .d),
-                                          onBoard: board,
-                                          boardSettings: boardSettings) == false &&
-                    isPositionUnderAttack(Position(rank: castlingRank, file: .c),
-                                          onBoard: board,
-                                          boardSettings: boardSettings) == false
-        {
-          result.append([Position(rank: castlingRank, file: .c)])
-        }
-      }
-    case .knight:
-      /// If knight is pinned, knight can never capture its pinner.
-      if pinnedDirections.isEmpty {
-        for direction in KnightDirection.allCases {
-          if let newPosition = position.next(inDirection: direction) {
+      case .bishop:
+        let directions = computeDirections([.bottomLeft, .bottomRight, .topLeft, .topRight], withPinnedDirections: pinnedDirections)
+        result = generateTheoreticalDestinations(forDirections: directions,
+                                                 position: position)
+      case .king:
+        /// King can never be pinned.
+        for direction in Direction.allCases {
+          if let newPosition = position.next(inDirection: direction),
+             isPositionUnderAttack(newPosition, onBoard: board, boardSettings: boardSettings) == false
+          {
             result.append([newPosition])
           }
         }
-      }
-    case .pawn:
-      let advanceDirection: Direction?
-      let captureDirections: [Direction]
-      switch side {
-      case .black:
-        advanceDirection = computeDirections([.down], withPinnedDirections: pinnedDirections).first
-        captureDirections = computeDirections([.bottomLeft, .bottomRight], withPinnedDirections: pinnedDirections)
-      case .white:
-        advanceDirection = computeDirections([.up], withPinnedDirections: pinnedDirections).first
-        captureDirections = computeDirections([.topLeft, .topRight], withPinnedDirections: pinnedDirections)
-      }
-      
-      if let advanceDirection = advanceDirection {
-        if let newPosition = position.next(inDirection: advanceDirection),
-           case .empty = board[newPosition.row][newPosition.column]
-        {
-          currentMoves.append(newPosition)
-          
-          let canGoTwoSquares = (side == .black && position.rank == .seventh) ||
-          (side == .white && position.rank == .second)
-          
-          if canGoTwoSquares,
-             let twoSquaresAdvancePosition = newPosition.next(inDirection: advanceDirection),
-             case .empty = board[twoSquaresAdvancePosition.row][twoSquaresAdvancePosition.column]
+        let castlingRank: Rank
+        switch boardSettings.turn {
+          case .black:
+            castlingRank = .eighth
+          case .white:
+            castlingRank = .first
+        }
+        
+        for castlingRight in boardSettings.currentSideCastlingRights {
+          if castlingRight == CastlingSide.kingSide &&
+              isPositionUnderAttack(Position(rank: castlingRank, file: .f),
+                                    onBoard: board,
+                                    boardSettings: boardSettings) == false &&
+              isPositionUnderAttack(Position(rank: castlingRank, file: .g),
+                                    onBoard: board,
+                                    boardSettings: boardSettings) == false
           {
-            currentMoves.append(twoSquaresAdvancePosition)
+            result.append([Position(rank: castlingRank, file: .g)])
+          } else if castlingRight == CastlingSide.queenSide &&
+                      isPositionUnderAttack(Position(rank: castlingRank, file: .d),
+                                            onBoard: board,
+                                            boardSettings: boardSettings) == false &&
+                      isPositionUnderAttack(Position(rank: castlingRank, file: .c),
+                                            onBoard: board,
+                                            boardSettings: boardSettings) == false
+          {
+            result.append([Position(rank: castlingRank, file: .c)])
           }
         }
-      }
-      result.append(currentMoves)
-      
-      for direction in captureDirections {
-        if let newPosition = position.next(inDirection: direction) {
-          switch board[newPosition.row][newPosition.column] {
-          case .empty:
-            if let enPassantPosition = boardSettings.enPassant {
-              if newPosition == enPassantPosition {
-                result.append([newPosition])
-              }
-            }
-          case .occupied(_, let targetSide):
-            if targetSide != side {
+      case .knight:
+        /// If knight is pinned, knight can never capture its pinner.
+        if pinnedDirections.isEmpty {
+          for direction in KnightDirection.allCases {
+            if let newPosition = position.next(inDirection: direction) {
               result.append([newPosition])
             }
           }
         }
-      }
-      
-    case .queen:
-      let directions = computeDirections(Direction.allCases, withPinnedDirections: pinnedDirections)
-      result = generateTheoreticalDestinations(forDirections: directions,
-                                               position: position)
-    case .rook:
-      let directions = computeDirections([.down, .left, .right, .up], withPinnedDirections: pinnedDirections)
-      result = generateTheoreticalDestinations(forDirections: directions,
-                                               position: position)
+      case .pawn:
+        let advanceDirection: Direction?
+        let captureDirections: [Direction]
+        switch side {
+          case .black:
+            advanceDirection = computeDirections([.down], withPinnedDirections: pinnedDirections).first
+            captureDirections = computeDirections([.bottomLeft, .bottomRight], withPinnedDirections: pinnedDirections)
+          case .white:
+            advanceDirection = computeDirections([.up], withPinnedDirections: pinnedDirections).first
+            captureDirections = computeDirections([.topLeft, .topRight], withPinnedDirections: pinnedDirections)
+        }
+        
+        if let advanceDirection = advanceDirection {
+          if let newPosition = position.next(inDirection: advanceDirection),
+             case .empty = board[newPosition.row][newPosition.column]
+          {
+            currentMoves.append(newPosition)
+            
+            let canGoTwoSquares = (side == .black && position.rank == .seventh) ||
+            (side == .white && position.rank == .second)
+            
+            if canGoTwoSquares,
+               let twoSquaresAdvancePosition = newPosition.next(inDirection: advanceDirection),
+               case .empty = board[twoSquaresAdvancePosition.row][twoSquaresAdvancePosition.column]
+            {
+              currentMoves.append(twoSquaresAdvancePosition)
+            }
+          }
+        }
+        result.append(currentMoves)
+        
+        for direction in captureDirections {
+          if let newPosition = position.next(inDirection: direction) {
+            switch board[newPosition.row][newPosition.column] {
+              case .empty:
+                if let enPassantPosition = boardSettings.enPassant {
+                  if newPosition == enPassantPosition {
+                    result.append([newPosition])
+                  }
+                }
+              case .occupied(_, let targetSide):
+                if targetSide != side {
+                  result.append([newPosition])
+                }
+            }
+          }
+        }
+        
+      case .queen:
+        let directions = computeDirections(Direction.allCases, withPinnedDirections: pinnedDirections)
+        result = generateTheoreticalDestinations(forDirections: directions,
+                                                 position: position)
+      case .rook:
+        let directions = computeDirections([.down, .left, .right, .up], withPinnedDirections: pinnedDirections)
+        result = generateTheoreticalDestinations(forDirections: directions,
+                                                 position: position)
     }
     
     return result
@@ -550,49 +657,71 @@ enum BoardHelper {
     
     return result
   }
-  private static func isPositionUnderAttack(_ position: Position, 
+  private static func isPositionUnderAttack(_ position: Position,
                                             onBoard board: [[SquareState]],
                                             boardSettings: BoardSettings) -> Bool
   {
-    return enemyAttackPosition(position, onBoard: board, boardSettings: boardSettings) != nil
+    return findEnemiesAttackingPosition(position, onBoard: board, boardSettings: boardSettings).isNonEmpty
   }
   
-  private static func enemyAttackPosition(_ position: Position,
-                                          onBoard board: [[SquareState]],
-                                          boardSettings: BoardSettings) -> Position?
+  /// This method finds all positions of enemy pieces
+  /// that are attacking the particular square. The
+  /// targeted square could be empty.
+  ///
+  /// - Parameters:
+  ///   - atPosition: Position of the square being attacked.
+  /// - Returns: An array of positions for all pieces that
+  /// have the targeted square as a legal destionation.
+  private static func findEnemiesAttackingPosition(_ position: Position,
+                                                   onBoard board: [[SquareState]],
+                                                   boardSettings: BoardSettings) -> [Position]
   {
+    var enemyPositions: [Position] = []
+    
     for (row, boardRow) in board.enumerated() {
       for (column, squareState) in boardRow.enumerated() {
         switch squareState {
           case .empty:
             break
           case .occupied(let piece, let side):
+            /// A king can't put the other king in check.
             guard piece != .king && side != boardSettings.turn else {
               break
             }
             if let enemyPosition = Position(row: row, column: column) {
-              let legalDestinations = generateLegalDestinations(forPosition: enemyPosition,
-                                                                onBoard: board,
-                                                                boardSettings: boardSettings)
+              let legalDestinations = calculateLegalDestinations(forPieceAtPosition: enemyPosition,
+                                                                 onBoard: board,
+                                                                 boardSettings: boardSettings)
               if legalDestinations.contains(position) {
-                return enemyPosition
+                enemyPositions.append(enemyPosition)
               }
             }
         }
       }
     }
-    return nil
+    
+    return enemyPositions
   }
   
-  /// The aim of this method is to find directions for which a position is pinned
-  /// If for example, the king is on e1 and the position we're trying to
-  /// calculate for is e2, then we know that e2 can be pinned up / down,
-  /// but not left / right. This means that a pawn will be able to advance,
-  /// but not capture. A queen will be able to advance anywhere on the
-  /// file, including capturing the pinner.
-  static private func pinnedDirections(forPosition position: Position,
-                                       onBoard board: [[SquareState]],
-                                       turn: Turn) -> [Direction]
+  /// This method finds all the directions on which the piece at the
+  /// input position is pinned.
+  ///
+  /// When talking in the code about "pinned piece", we're only
+  /// talking about a piece being pinned to the king.
+  /// If a piece is pinned, it's pinned in at least 2 directions
+  /// (up and down, top left and bottom right, etc), but it can also
+  /// be pinned by multiple pieces, e.g: a rook on up/down and a
+  /// bishop on top left / bottom right
+  ///
+  /// - Parameters:
+  ///   - forPieceAtPosition: Position of the piece for which we
+  ///   are calculating the directions on which it is pinned.
+  ///
+  /// - Returns: An array of directions on which the inputted piece
+  /// is pinned.
+  static private func calculatePinnedDirections(forPieceAtPosition position: Position,
+                                                onBoard board: [[SquareState]],
+                                                turn: Turn) -> [Direction]
   {
     guard case .occupied(let piece, _) = board[position.row][position.column] else {
       return []

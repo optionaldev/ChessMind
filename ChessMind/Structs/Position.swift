@@ -10,11 +10,7 @@ struct Position: Equatable, CustomStringConvertible {
   
   let row: Int    /// Used to represent ranks
   let column: Int /// Used to represent files
-//
-//  var isValid: Bool {
-//    return row >= 0 && row <= 8 && column >= 0 && column <= 8
-//  }
-//
+
   func next(inDirection direction: Direction) -> Position? {
     switch direction {
       case .up:
@@ -76,6 +72,14 @@ struct Position: Equatable, CustomStringConvertible {
     column = file.rawValue
   }
   
+  /// Initialize a position from a row and column.
+  ///
+  /// The reason it's a failable initializer is
+  /// because we want be able to travel from a
+  /// position into a certaion direction until
+  /// position is no longer within the board,
+  /// which is much better than always checking
+  /// if we're at the edge for both rank and file.
   init?(row: Int, column: Int) {
     guard row >= 0 && row < 8 && column >= 0 && column < 8 else {
       return nil
