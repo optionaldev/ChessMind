@@ -14,7 +14,7 @@ enum SquareState: CustomStringConvertible {
       case .empty:
         return nil
       case .occupied(let piece, let side):
-        return "\(piece.fullName)_\(side.rawValue)"
+        return piece.imageName(forSide: side) 
     }
   }
   

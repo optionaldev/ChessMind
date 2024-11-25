@@ -12,7 +12,7 @@ final class RankView: UIView {
   
   func configure(withRankContent rankContent: [SquareState]) {
     for (index, squareState) in rankContent.enumerated() {
-      eightSquares[index].configure(squareState: squareState)
+      eightSquares[index].configure(squareState: squareState, shouldHideUntilAnimationFinishes: false)
     }
   }
   

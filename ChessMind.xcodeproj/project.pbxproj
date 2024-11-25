@@ -37,6 +37,12 @@
 		6E39D60F2CE1104600C5D306 /* CastlingSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39D60E2CE1104600C5D306 /* CastlingSide.swift */; };
 		6E39D6142CE1108400C5D306 /* KnightDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39D6132CE1108400C5D306 /* KnightDirection.swift */; };
 		6E39D6182CE1146500C5D306 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39D6172CE1146500C5D306 /* ArrayExtension.swift */; };
+		6E56B1042CF26058001B6B19 /* check.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E56B1022CF26058001B6B19 /* check.mp3 */; };
+		6E56B1072CF260BA001B6B19 /* SoundSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E56B1062CF260BA001B6B19 /* SoundSingleton.swift */; };
+		6E56B10A2CF2621C001B6B19 /* move.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E56B1092CF2621C001B6B19 /* move.mp3 */; };
+		6E56B10C2CF26678001B6B19 /* capture.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E56B10B2CF26678001B6B19 /* capture.mp3 */; };
+		6E56B10E2CF26697001B6B19 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E56B10D2CF26697001B6B19 /* Sound.swift */; };
+		6E56B1102CF34575001B6B19 /* CheckInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E56B10F2CF34575001B6B19 /* CheckInfo.swift */; };
 		6E8784FE2CE951E000059A48 /* HighlightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8784FD2CE951E000059A48 /* HighlightType.swift */; };
 		6EF8038A2CEA08EB0068E0AA /* FenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF803892CEA08EB0068E0AA /* FenHelper.swift */; };
 		6EF8038C2CEA0EB60068E0AA /* CharacterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF8038B2CEA0EB60068E0AA /* CharacterExtension.swift */; };
@@ -97,6 +103,12 @@
 		6E39D60E2CE1104600C5D306 /* CastlingSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastlingSide.swift; sourceTree = "<group>"; };
 		6E39D6132CE1108400C5D306 /* KnightDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightDirection.swift; sourceTree = "<group>"; };
 		6E39D6172CE1146500C5D306 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		6E56B1022CF26058001B6B19 /* check.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = check.mp3; sourceTree = "<group>"; };
+		6E56B1062CF260BA001B6B19 /* SoundSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundSingleton.swift; sourceTree = "<group>"; };
+		6E56B1092CF2621C001B6B19 /* move.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = move.mp3; sourceTree = "<group>"; };
+		6E56B10B2CF26678001B6B19 /* capture.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = capture.mp3; sourceTree = "<group>"; };
+		6E56B10D2CF26697001B6B19 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
+		6E56B10F2CF34575001B6B19 /* CheckInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInfo.swift; sourceTree = "<group>"; };
 		6E8784FD2CE951E000059A48 /* HighlightType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightType.swift; sourceTree = "<group>"; };
 		6EF803892CEA08EB0068E0AA /* FenHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenHelper.swift; sourceTree = "<group>"; };
 		6EF8038B2CEA0EB60068E0AA /* CharacterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtension.swift; sourceTree = "<group>"; };
@@ -157,6 +169,8 @@
 				6E1094B12CCF778100FFA1B7 /* Default */,
 				6E39D6112CE1105C00C5D306 /* Enums */,
 				6E39D6162CE1110F00C5D306 /* Extensions */,
+				6E56B1012CF25EE2001B6B19 /* Resources */,
+				6E56B1082CF260BF001B6B19 /* Singletons */,
 				6E39D6102CE1105600C5D306 /* Structs */,
 				6E39D6152CE110BE00C5D306 /* Utils */,
 				6E39D6122CE1106A00C5D306 /* Views */,
@@ -202,6 +216,7 @@
 				6E1094BD2CCF7A0100FFA1B7 /* FenDecodable.swift */,
 				6E1094BB2CCF7A0100FFA1B7 /* Move.swift */,
 				6E1094BC2CCF7A0100FFA1B7 /* Position.swift */,
+				6E56B10F2CF34575001B6B19 /* CheckInfo.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -221,6 +236,7 @@
 				6E1094BE2CCF7A0100FFA1B7 /* Screen.swift */,
 				6E39D6042CDEC48E00C5D306 /* Side.swift */,
 				6E1094B92CCF7A0000FFA1B7 /* SquareState.swift */,
+				6E56B10D2CF26697001B6B19 /* Sound.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -254,6 +270,24 @@
 				6EF8038F2CEA89400068E0AA /* IntExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6E56B1012CF25EE2001B6B19 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6E56B10B2CF26678001B6B19 /* capture.mp3 */,
+				6E56B1022CF26058001B6B19 /* check.mp3 */,
+				6E56B1092CF2621C001B6B19 /* move.mp3 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6E56B1082CF260BF001B6B19 /* Singletons */ = {
+			isa = PBXGroup;
+			children = (
+				6E56B1062CF260BA001B6B19 /* SoundSingleton.swift */,
+			);
+			path = Singletons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,8 +395,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E10948E2CCF777300FFA1B7 /* LaunchScreen.storyboard in Resources */,
+				6E56B1042CF26058001B6B19 /* check.mp3 in Resources */,
 				6E10948B2CCF777300FFA1B7 /* Assets.xcassets in Resources */,
+				6E56B10C2CF26678001B6B19 /* capture.mp3 in Resources */,
 				6E1094892CCF777100FFA1B7 /* Main.storyboard in Resources */,
+				6E56B10A2CF2621C001B6B19 /* move.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +429,7 @@
 				6E39D6052CDEC48E00C5D306 /* Side.swift in Sources */,
 				6E39D6012CDEB95600C5D306 /* RankView.swift in Sources */,
 				6EF8038E2CEA81A60068E0AA /* BoardHelper.swift in Sources */,
+				6E56B1102CF34575001B6B19 /* CheckInfo.swift in Sources */,
 				6E39D60B2CE09F7B00C5D306 /* Direction.swift in Sources */,
 				6EF803922CF103DF0068E0AA /* CheckType.swift in Sources */,
 				6E1094C92CCF7A0100FFA1B7 /* Position.swift in Sources */,
@@ -402,7 +440,9 @@
 				6E1094862CCF777100FFA1B7 /* ViewController.swift in Sources */,
 				6E1094C82CCF7A0100FFA1B7 /* Move.swift in Sources */,
 				6EF8038C2CEA0EB60068E0AA /* CharacterExtension.swift in Sources */,
+				6E56B10E2CF26697001B6B19 /* Sound.swift in Sources */,
 				6EF803902CEA89400068E0AA /* IntExtension.swift in Sources */,
+				6E56B1072CF260BA001B6B19 /* SoundSingleton.swift in Sources */,
 				6E1094C12CCF7A0100FFA1B7 /* SquareView.swift in Sources */,
 				6E1094CB2CCF7A0100FFA1B7 /* Screen.swift in Sources */,
 				6E1094C62CCF7A0100FFA1B7 /* SquareState.swift in Sources */,

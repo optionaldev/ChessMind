@@ -12,17 +12,21 @@ final class SquareView: UIView {
   
   private(set) var squareState: SquareState
   
-  func configure(squareState: SquareState) {
+  func configure(squareState: SquareState, shouldHideUntilAnimationFinishes: Bool) {
     self.squareState = squareState
     
     if let imageName = squareState.imageName {
       pieceImageView.image = UIImage(named: imageName)
-      pieceImageView.isHidden = false
+      pieceImageView.isHidden = shouldHideUntilAnimationFinishes
       squareLabel.isHidden = true
     } else {
       pieceImageView.isHidden = true
       squareLabel.isHidden = false
     }
+  }
+  
+  func show() {
+    pieceImageView.isHidden = false
   }
   
   func handleNewOrientation(_ flipped: Bool) {

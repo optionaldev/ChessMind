@@ -29,4 +29,8 @@ enum Piece: Character {
         return "rook"
     }
   }
+  
+  func imageName(forSide side: Side) -> String {
+    return "\(fullName)_\(side.rawValue)"
+  }
 }

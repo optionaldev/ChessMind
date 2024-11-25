@@ -68,15 +68,29 @@ enum FenParser {
     
     board = board.reversed()
     
+    var blackCastling: Set<CastlingSide> = []
+    if fenCastlingRights.contains("k") {
+      blackCastling.insert(.kingSide)
+    }
+    if fenCastlingRights.contains("q") {
+      blackCastling.insert(.queenSide)
+    }
+    
+    var whiteCastling: Set<CastlingSide> = []
+    if fenCastlingRights.contains("K") {
+      whiteCastling.insert(.kingSide)
+    }
+    if fenCastlingRights.contains("Q") {
+      whiteCastling.insert(.queenSide)
+    }
+    
     let settings = BoardSettings(
-      blackCastling: [fenCastlingRights.contains("k") ? .kingSide : nil,
-                      fenCastlingRights.contains("q") ? .queenSide : nil].compactMap { $0 },
+      blackCastling: blackCastling,
       blackMoves: fenBlackMoves,
       enPassant: fenEnPassant,
       plies: fenPlies,
       turn: fenTurn == "w" ? .white : .black,
-      whiteCastling: [fenCastlingRights.contains("K") ? .kingSide : nil,
-                      fenCastlingRights.contains("Q") ? .queenSide : nil].compactMap { $0 })
+      whiteCastling: whiteCastling)
     
     return (board, settings)
   }

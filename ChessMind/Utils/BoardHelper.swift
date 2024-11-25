@@ -71,78 +71,46 @@ enum BoardHelper {
       fatalError("Should not call this method with position being an empty square.")
     }
     
-    /// This method is called for both white pieces
-    /// and black pieces. If it's the side for which
-    /// the current turn is, we need to also look
-    /// if the king is in check.
-    let checkState: CheckState
-    if side == boardSettings.turn {
-      checkState = computeCheckState(onBoard: board, boardSettings: boardSettings)
-    } else {
-      checkState = .notInCheck
+    
+    guard let (nonKingValidPositionsDuringCheck, oppositePositionOfCheck) =
+            calculatePositionsWhenChecked(forPieceAtPosition: position,
+                                          onBoard: board,
+                                          boardSettings: boardSettings) else
+    {
+      return []
     }
-    print("calculateLegalDestinations called for \(side) \(piece) at \(position) checkState = \(checkState)")
     
-    var validPositionsDueToCheck: [Position] = []
-    
-    /// When the king is in check, he cannot walk in
-    /// the opposite direction of the check direciton.
-    var oppositePositionOfCheck: Position?
-    
-    switch checkState {
-      case .notInCheck:
-        /// When the king is not in check, legal
-        /// moves are not affected.
-        break
-      case .checkedByOnePiece(let attackingPosition, let attackingDirection):
-        /// When the king is checked by one enemy piece, we need
-        /// to find all the squares between the attacking piece
-        /// and the king that are empty, because those could be
-        /// occupied by the current moving side's pieces to stop
-        /// the check.
-        validPositionsDueToCheck.append(attackingPosition)
-        var referencePosition = findKing(onBoard: board, boardSettings: boardSettings)
-        oppositePositionOfCheck = referencePosition.next(inDirection: attackingDirection.opposite)
-      
-      outerLoop:
-        while let newPosition = referencePosition.next(inDirection: attackingDirection) {
-          switch board[newPosition.row][newPosition.column] {
-            case .empty:
-              validPositionsDueToCheck.append(newPosition)
-            case .occupied:
-              break outerLoop
-          }
-          
-          referencePosition = newPosition
-        }
-      case .checkedByTwoPieces:
-        /// When the king is in check by two pieces (also
-        /// known as double check), the king has to move,
-        /// because no piece can block two attacks at
-        /// the same time.
-        if side == boardSettings.turn && piece != .king {
-          return []
-        }
-    }
+    print("nonKingValidPositionsDuringCheck = \(nonKingValidPositionsDuringCheck)")
+    print("oppositePositionOfCheck = \(oppositePositionOfCheck)")
     
     let theoreticalDestinationMatrix = calculateTheoreticalDestinations(forPieceAtPosition: position,
+                                                                        isKingInCheck: oppositePositionOfCheck != nil,
                                                                         onBoard: board,
                                                                         boardSettings: boardSettings)
+    
+    
     
     var result: [[Position]] = []
     var currentPositions: [Position] = []
     
-    if case .checkedByOnePiece = checkState {
-      print("validPositionsDueToCheck = \(validPositionsDueToCheck)")
-    }
-    
-    if position == Position(rank: .first, file: .d) {
-      print("What's happening here?")
-    }
-    
     func addDestinationIfValid(destination: Position) {
+      /// We check for opposite position, because king can't
+      /// stay on the same file/rank/diagonal he was checked on.
       if destination != oppositePositionOfCheck &&
-          (validPositionsDueToCheck.isEmpty || validPositionsDueToCheck.contains(destination) || piece == .king)
+          /// If the king is the one moving, he cannot capture
+          /// a piece that is protected (a queen protected by
+          /// a rook, a knight protected by a pawn, etc)
+          (piece == .king && (isProtectedSquare(destination,
+                                               onBoard: board,
+                                               boardSettings: boardSettings) == false ||
+                              (nonKingValidPositionsDuringCheck.isNonEmpty)
+          ) ||
+           /// In case nonKingValidPositionsDuringCheck is empty,
+           /// we're not in check, so we can move anywhere. Otherwise,
+           /// we need to know if it's a valid destination when the
+           /// king is in check.
+           (piece != .king && (nonKingValidPositionsDuringCheck.isEmpty ||
+                               nonKingValidPositionsDuringCheck.contains(destination))))
       {
         currentPositions.append(destination)
       }
@@ -307,6 +275,72 @@ enum BoardHelper {
   
   // MARK: - Private
   
+  private static func calculatePositionsWhenChecked(forPieceAtPosition position: Position,
+                                                    onBoard board: [[SquareState]],
+                                                    boardSettings: BoardSettings) -> CheckInfo
+  {
+    guard case .occupied(let piece, let side) = board[position.row][position.column] else {
+      return nil
+    }
+    
+    /// This method is called for both white pieces
+    /// and black pieces. If it's the side for which
+    /// the current turn is, we need to also look
+    /// if the king is in check.
+    let checkState: CheckState
+    if side == boardSettings.turn {
+      checkState = computeCheckState(onBoard: board, boardSettings: boardSettings)
+    } else {
+      checkState = .notInCheck
+    }
+    
+    var nonKingValidPositionsDuringCheck: [Position] = []
+    
+    /// When the king is in check, he cannot walk in
+    /// the opposite direction of the check direciton.
+    var oppositePositionOfCheck: Position?
+    
+    switch checkState {
+      case .notInCheck:
+        /// When the king is not in check, legal
+        /// moves are not affected.
+        break
+      case .checkedByOnePiece(let attackingPosition, let attackingDirection):
+        /// When the king is checked by one enemy piece, we need
+        /// to find all the squares between the attacking piece
+        /// and the king that are empty, because those could be
+        /// occupied by the current moving side's pieces to stop
+        /// the check.
+        nonKingValidPositionsDuringCheck.append(attackingPosition)
+        var referencePosition = findKing(onBoard: board, boardSettings: boardSettings)
+        oppositePositionOfCheck = referencePosition.next(inDirection: attackingDirection.opposite)
+        
+      outerLoop:
+        while let newPosition = referencePosition.next(inDirection: attackingDirection) {
+          switch board[newPosition.row][newPosition.column] {
+            case .empty:
+              nonKingValidPositionsDuringCheck.append(newPosition)
+            case .occupied:
+              break outerLoop
+          }
+          
+          referencePosition = newPosition
+        }
+      case .checkedByKnight(let opponentKnightPosition):
+        nonKingValidPositionsDuringCheck.append(opponentKnightPosition)
+      case .checkedByTwoPieces:
+        /// When the king is in check by two pieces (also
+        /// known as double check), the king has to move,
+        /// because no piece can block two attacks at
+        /// the same time.
+        if side == boardSettings.turn && piece != .king {
+          return nil
+        }
+    }
+    
+    return (nonKingValidPositionsDuringCheck, oppositePositionOfCheck)
+  }
+  
   private static func castlingMoves(forNotation notation: String,
                                     onBoard board: [[SquareState]],
                                     turn: Turn) -> [Move]
@@ -389,12 +423,60 @@ enum BoardHelper {
           referencePosition = newPosition
         }
       }
+      
+      return .checkedByKnight(atPosition: enemyPosition)
     }
     
     fatalError("Somehow, we've avoided all possible check types: \(enemyPositions)")
   }
   
-  static private func findDirectionOfKing(forPosition position: Position,
+  /// A method for checking if a piece is protected by another piece
+  /// from the same side.
+  ///
+  /// This method is used when a king is in check and we want to know
+  /// if an opponent piece is protected. Based on this, we will know
+  /// if the king can capture that piece or not.
+  ///
+  private static func isProtectedSquare(_ position: Position,
+                                        onBoard board: [[SquareState]],
+                                        boardSettings: BoardSettings) -> Bool
+  {
+    guard case .occupied(_, let side) = board[position.row][position.column] else {
+      return false
+    }
+    
+    /// Since we only use this method when a king is in check, we only
+    /// need to know if the opponent's pieces are protected.
+    guard side != boardSettings.turn else {
+      return false
+    }
+    
+    for (row, boardRow) in board.enumerated() {
+      for (column, squareState) in boardRow.enumerated() {
+        switch squareState {
+          case .empty:
+            break
+          case .occupied(_, let foundSide):
+            if side == foundSide,
+               let allyPosition = Position(row: row, column: column)
+            {
+              let theoreticalDestinations = calculateTheoreticalDestinations(forPieceAtPosition: allyPosition,
+                                                                             isKingInCheck: false,
+                                                                             onBoard: board,
+                                                                             boardSettings: boardSettings)
+                .flatMap { $0 }
+              
+              if theoreticalDestinations.contains(position) {
+                return true
+              }
+            }
+        }
+      }
+    }
+    return false
+  }
+  
+  private static func findDirectionOfKing(forPosition position: Position,
                                           onBoard board: [[SquareState]],
                                           direction: Direction) -> Direction? {
     guard case .occupied(_, let side) = board[position.row][position.column] else {
@@ -510,6 +592,7 @@ enum BoardHelper {
   }
   
   private static func calculateTheoreticalDestinations(forPieceAtPosition position: Position,
+                                                       isKingInCheck: Bool,
                                                        onBoard board: [[SquareState]],
                                                        boardSettings: BoardSettings) -> [[Position]]
   {
@@ -538,33 +621,36 @@ enum BoardHelper {
             result.append([newPosition])
           }
         }
-        let castlingRank: Rank
-        switch boardSettings.turn {
-          case .black:
-            castlingRank = .eighth
-          case .white:
-            castlingRank = .first
-        }
         
-        for castlingRight in boardSettings.currentSideCastlingRights {
-          if castlingRight == CastlingSide.kingSide &&
-              isPositionUnderAttack(Position(rank: castlingRank, file: .f),
-                                    onBoard: board,
-                                    boardSettings: boardSettings) == false &&
-              isPositionUnderAttack(Position(rank: castlingRank, file: .g),
-                                    onBoard: board,
-                                    boardSettings: boardSettings) == false
-          {
-            result.append([Position(rank: castlingRank, file: .g)])
-          } else if castlingRight == CastlingSide.queenSide &&
-                      isPositionUnderAttack(Position(rank: castlingRank, file: .d),
-                                            onBoard: board,
-                                            boardSettings: boardSettings) == false &&
-                      isPositionUnderAttack(Position(rank: castlingRank, file: .c),
-                                            onBoard: board,
-                                            boardSettings: boardSettings) == false
-          {
-            result.append([Position(rank: castlingRank, file: .c)])
+        if isKingInCheck == false {
+          let castlingRank: Rank
+          switch boardSettings.turn {
+            case .black:
+              castlingRank = .eighth
+            case .white:
+              castlingRank = .first
+          }
+          
+          for castlingRight in boardSettings.currentSideCastlingRights {
+            if castlingRight == CastlingSide.kingSide &&
+                isPositionUnderAttack(Position(rank: castlingRank, file: .f),
+                                      onBoard: board,
+                                      boardSettings: boardSettings) == false &&
+                isPositionUnderAttack(Position(rank: castlingRank, file: .g),
+                                      onBoard: board,
+                                      boardSettings: boardSettings) == false
+            {
+              result.append([Position(rank: castlingRank, file: .g)])
+            } else if castlingRight == CastlingSide.queenSide &&
+                        isPositionUnderAttack(Position(rank: castlingRank, file: .d),
+                                              onBoard: board,
+                                              boardSettings: boardSettings) == false &&
+                        isPositionUnderAttack(Position(rank: castlingRank, file: .c),
+                                              onBoard: board,
+                                              boardSettings: boardSettings) == false
+            {
+              result.append([Position(rank: castlingRank, file: .c)])
+            }
           }
         }
       case .knight:

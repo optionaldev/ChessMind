@@ -6,7 +6,7 @@
 
 class BoardSettings: CustomStringConvertible {
   
-  var blackCastling: [CastlingSide] = []
+  var blackCastling: Set<CastlingSide> = []
   
   /// Use for knowing how many moves there were
   /// in the game for both sides.
@@ -35,11 +35,11 @@ class BoardSettings: CustomStringConvertible {
   /// Also known as half moves.
   var plies: Int = 0
   var turn: Turn = .white
-  var whiteCastling: [CastlingSide] = []
+  var whiteCastling: Set<CastlingSide> = []
   
   var kingIsInCheck: Bool = false
   
-  var currentSideCastlingRights: [CastlingSide] {
+  var currentSideCastlingRights: Set<CastlingSide> {
     switch turn {
     case .black:
       return blackCastling
@@ -52,7 +52,7 @@ class BoardSettings: CustomStringConvertible {
   
   init() {}
   
-  init(blackCastling: [CastlingSide], blackMoves: Int, enPassant: String?, plies: Int, turn: Turn, whiteCastling: [CastlingSide]) {
+  init(blackCastling: Set<CastlingSide>, blackMoves: Int, enPassant: String?, plies: Int, turn: Turn, whiteCastling: Set<CastlingSide>) {
     self.blackCastling = blackCastling
     self.blackMoves = blackMoves
     
@@ -71,6 +71,6 @@ class BoardSettings: CustomStringConvertible {
   // MARK: CustomStringConvertible conformance
   
   var description: String {
-    return "BoardSettings: turn = \(turn) | whiteCastling = \(whiteCastling) | blackCastling = \(blackCastling) | enPassant = \(String(describing: enPassant)) | plies = \(plies) | blackMoves = \(blackMoves)"
+    return "\(Self.self): turn = \(turn) | whiteCastling = \(whiteCastling) | blackCastling = \(blackCastling) | enPassant = \(String(describing: enPassant)) | plies = \(plies) | blackMoves = \(blackMoves)"
   }
 }
