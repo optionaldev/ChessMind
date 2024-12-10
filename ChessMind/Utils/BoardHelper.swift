@@ -72,23 +72,17 @@ enum BoardHelper {
     }
     
     
-    guard let (nonKingValidPositionsDuringCheck, oppositePositionOfCheck) =
-            calculatePositionsWhenChecked(forPieceAtPosition: position,
-                                          onBoard: board,
-                                          boardSettings: boardSettings) else
+    guard let checkInfo = calculatePositionsWhenChecked(forPieceAtPosition: position,
+                                                        onBoard: board,
+                                                        boardSettings: boardSettings) else
     {
       return []
     }
     
-    print("nonKingValidPositionsDuringCheck = \(nonKingValidPositionsDuringCheck)")
-    print("oppositePositionOfCheck = \(oppositePositionOfCheck)")
-    
     let theoreticalDestinationMatrix = calculateTheoreticalDestinations(forPieceAtPosition: position,
-                                                                        isKingInCheck: oppositePositionOfCheck != nil,
+                                                                        isKingInCheck: checkInfo.isInCheck,
                                                                         onBoard: board,
                                                                         boardSettings: boardSettings)
-    
-    
     
     var result: [[Position]] = []
     var currentPositions: [Position] = []
@@ -96,21 +90,21 @@ enum BoardHelper {
     func addDestinationIfValid(destination: Position) {
       /// We check for opposite position, because king can't
       /// stay on the same file/rank/diagonal he was checked on.
-      if destination != oppositePositionOfCheck &&
+      if destination != checkInfo.oppositeSideOfCheck &&
           /// If the king is the one moving, he cannot capture
           /// a piece that is protected (a queen protected by
           /// a rook, a knight protected by a pawn, etc)
           (piece == .king && (isProtectedSquare(destination,
                                                onBoard: board,
                                                boardSettings: boardSettings) == false ||
-                              (nonKingValidPositionsDuringCheck.isNonEmpty)
+                              (checkInfo.validPositionsForNonKingPieces.isNonEmpty)
           ) ||
-           /// In case nonKingValidPositionsDuringCheck is empty,
+           /// In case validPositionsForNonKingPieces is empty,
            /// we're not in check, so we can move anywhere. Otherwise,
            /// we need to know if it's a valid destination when the
            /// king is in check.
-           (piece != .king && (nonKingValidPositionsDuringCheck.isEmpty ||
-                               nonKingValidPositionsDuringCheck.contains(destination))))
+           (piece != .king && (checkInfo.validPositionsForNonKingPieces.isEmpty ||
+                               checkInfo.validPositionsForNonKingPieces.contains(destination))))
       {
         currentPositions.append(destination)
       }
@@ -277,7 +271,7 @@ enum BoardHelper {
   
   private static func calculatePositionsWhenChecked(forPieceAtPosition position: Position,
                                                     onBoard board: [[SquareState]],
-                                                    boardSettings: BoardSettings) -> CheckInfo
+                                                    boardSettings: BoardSettings) -> CheckInfo?
   {
     guard case .occupied(let piece, let side) = board[position.row][position.column] else {
       return nil
@@ -338,7 +332,9 @@ enum BoardHelper {
         }
     }
     
-    return (nonKingValidPositionsDuringCheck, oppositePositionOfCheck)
+    return CheckInfo(checkState: checkState,
+                     validPositionsForNonKingPieces: nonKingValidPositionsDuringCheck,
+                     oppositeSideOfCheck: oppositePositionOfCheck)
   }
   
   private static func castlingMoves(forNotation notation: String,

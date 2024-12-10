@@ -6,7 +6,16 @@
 
 struct CheckInfo {
   
-  let isInCheck: Bool
+  let checkState: CheckState
   let validPositionsForNonKingPieces: [Position]
-  let oppositeSideOfCheck: Position
+  let oppositeSideOfCheck: Position?
+  
+  var isInCheck: Bool {
+    switch checkState {
+      case .notInCheck:
+        return false
+      case .checkedByOnePiece, .checkedByKnight, .checkedByTwoPieces:
+        return true
+    }
+  }
 }
