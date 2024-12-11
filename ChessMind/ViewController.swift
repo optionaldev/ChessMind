@@ -199,7 +199,7 @@ class ViewController: UIViewController {
           fatalError("These positions should be the same (\(highlightedPosition) and \(currentlyHighlightedSquare.position). What is happening?")
         }
         
-        guard case .occupied(let piece, let side) = currentlyHighlightedSquare.squareState else {
+        guard case .occupied = currentlyHighlightedSquare.squareState else {
           fatalError("Trying to move an empty square????")
         }
         
@@ -282,7 +282,6 @@ class ViewController: UIViewController {
     }
     
     let fromSquare = boardView.square(at: fromPosition)
-    let toSquare = boardView.square(at: toPosition)
     
     boardView.square(at: toPosition).configure(squareState: fromSquare.squareState, shouldHideUntilAnimationFinishes: true)
     boardView.square(at: fromPosition).configure(squareState: .empty, shouldHideUntilAnimationFinishes: false)

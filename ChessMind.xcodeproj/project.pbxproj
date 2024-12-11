@@ -43,6 +43,7 @@
 		6E56B10C2CF26678001B6B19 /* capture.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E56B10B2CF26678001B6B19 /* capture.mp3 */; };
 		6E56B10E2CF26697001B6B19 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E56B10D2CF26697001B6B19 /* Sound.swift */; };
 		6E56B1102CF34575001B6B19 /* CheckInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E56B10F2CF34575001B6B19 /* CheckInfo.swift */; };
+		6E76D7AF2D09FCFD000351A5 /* temp.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E76D7AE2D09FCFD000351A5 /* temp.json */; };
 		6E8784FE2CE951E000059A48 /* HighlightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8784FD2CE951E000059A48 /* HighlightType.swift */; };
 		6EF8038A2CEA08EB0068E0AA /* FenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF803892CEA08EB0068E0AA /* FenHelper.swift */; };
 		6EF8038C2CEA0EB60068E0AA /* CharacterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF8038B2CEA0EB60068E0AA /* CharacterExtension.swift */; };
@@ -109,6 +110,7 @@
 		6E56B10B2CF26678001B6B19 /* capture.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = capture.mp3; sourceTree = "<group>"; };
 		6E56B10D2CF26697001B6B19 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		6E56B10F2CF34575001B6B19 /* CheckInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInfo.swift; sourceTree = "<group>"; };
+		6E76D7AE2D09FCFD000351A5 /* temp.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = temp.json; sourceTree = "<group>"; };
 		6E8784FD2CE951E000059A48 /* HighlightType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightType.swift; sourceTree = "<group>"; };
 		6EF803892CEA08EB0068E0AA /* FenHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenHelper.swift; sourceTree = "<group>"; };
 		6EF8038B2CEA0EB60068E0AA /* CharacterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtension.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 		6E56B1012CF25EE2001B6B19 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6E76D7AE2D09FCFD000351A5 /* temp.json */,
 				6E56B10B2CF26678001B6B19 /* capture.mp3 */,
 				6E56B1022CF26058001B6B19 /* check.mp3 */,
 				6E56B1092CF2621C001B6B19 /* move.mp3 */,
@@ -400,6 +403,7 @@
 				6E56B10C2CF26678001B6B19 /* capture.mp3 in Resources */,
 				6E1094892CCF777100FFA1B7 /* Main.storyboard in Resources */,
 				6E56B10A2CF2621C001B6B19 /* move.mp3 in Resources */,
+				6E76D7AF2D09FCFD000351A5 /* temp.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
