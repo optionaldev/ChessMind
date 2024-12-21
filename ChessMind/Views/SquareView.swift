@@ -137,7 +137,7 @@ final class SquareView: UIView {
   private weak var squareLabel: UILabel!
   
   private var canMoveStartingColor: CGColor {
-    return background == UIColor.whiteSquareColor ? UIColor(red: 200, green: 60, blue: 200).cgColor : UIColor(red: 0, green: 0, blue: 0).cgColor
+    return background == UIColor.lightSquareColor ? UIColor(red: 200, green: 60, blue: 200).cgColor : UIColor(red: 0, green: 0, blue: 0).cgColor
   }
   
   private func createPreviousMoveTriangleIfNeeded() {
@@ -161,7 +161,7 @@ final class SquareView: UIView {
   
   private func highlightCanMove() {
     if canMoveImageView == nil {
-      let imageName = background == UIColor.whiteSquareColor ? "frame_white" : "frame_black"
+      let imageName = background == UIColor.lightSquareColor ? "frame_white" : "frame_black"
       let canMoveImageView = UIImageView(image: UIImage(named: imageName))
       canMoveImageView.translatesAutoresizingMaskIntoConstraints = false
       canMoveImageView.alpha = 0
@@ -221,10 +221,10 @@ final class SquareView: UIView {
       case .empty:
         return
       case .occupied:
-        if background == .whiteSquareColor {
-          backgroundColor = .whiteHighlitedSquareColor
+        if background == .lightSquareColor {
+          backgroundColor = .lightHighlitedSquareColor
         } else {
-          backgroundColor = .blackHighlitedSquareColor
+          backgroundColor = .darkHighlitedSquareColor
         }
     }
   }

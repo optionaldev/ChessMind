@@ -6,7 +6,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class BoardViewController: UIViewController {
   
   // MARK: Overrides
   
@@ -40,6 +40,8 @@ class ViewController: UIViewController {
       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
       $0.addGestureRecognizer(tapGestureRecognizer)
     }
+    
+    print("Got quizes \(quizes.count)")
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -61,9 +63,9 @@ class ViewController: UIViewController {
   // MARK: - Private
   
   private var boardSettings = BoardSettings()
-  private var data: [String: Quiz] = [:]
-  private var highlightedPosition: Position?
   private var legalDestination: [Position] = []
+  private var highlightedPosition: Position?
+  private var quizes: [String: Quiz] = [:]
   
   private weak var boardView: BoardView!
   

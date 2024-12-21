@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6E1094822CCF777100FFA1B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094812CCF777100FFA1B7 /* AppDelegate.swift */; };
 		6E1094842CCF777100FFA1B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094832CCF777100FFA1B7 /* SceneDelegate.swift */; };
-		6E1094862CCF777100FFA1B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094852CCF777100FFA1B7 /* ViewController.swift */; };
+		6E1094862CCF777100FFA1B7 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094852CCF777100FFA1B7 /* BoardViewController.swift */; };
 		6E1094892CCF777100FFA1B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E1094872CCF777100FFA1B7 /* Main.storyboard */; };
 		6E10948B2CCF777300FFA1B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E10948A2CCF777300FFA1B7 /* Assets.xcassets */; };
 		6E10948E2CCF777300FFA1B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E10948C2CCF777300FFA1B7 /* LaunchScreen.storyboard */; };
@@ -21,11 +21,10 @@
 		6E1094C22CCF7A0100FFA1B7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094B52CCF7A0000FFA1B7 /* Constants.swift */; };
 		6E1094C32CCF7A0100FFA1B7 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094B62CCF7A0000FFA1B7 /* BoardView.swift */; };
 		6E1094C42CCF7A0100FFA1B7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094B72CCF7A0000FFA1B7 /* UIColorExtension.swift */; };
-		6E1094C52CCF7A0100FFA1B7 /* Fen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094B82CCF7A0000FFA1B7 /* Fen.swift */; };
+		6E1094C52CCF7A0100FFA1B7 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094B82CCF7A0000FFA1B7 /* Quiz.swift */; };
 		6E1094C62CCF7A0100FFA1B7 /* SquareState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094B92CCF7A0000FFA1B7 /* SquareState.swift */; };
 		6E1094C82CCF7A0100FFA1B7 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094BB2CCF7A0100FFA1B7 /* Move.swift */; };
 		6E1094C92CCF7A0100FFA1B7 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094BC2CCF7A0100FFA1B7 /* Position.swift */; };
-		6E1094CA2CCF7A0100FFA1B7 /* FenDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094BD2CCF7A0100FFA1B7 /* FenDecodable.swift */; };
 		6E1094CB2CCF7A0100FFA1B7 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094BE2CCF7A0100FFA1B7 /* Screen.swift */; };
 		6E39D6012CDEB95600C5D306 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39D6002CDEB95600C5D306 /* RankView.swift */; };
 		6E39D6032CDEBC0500C5D306 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39D6022CDEBC0500C5D306 /* File.swift */; };
@@ -37,6 +36,15 @@
 		6E39D60F2CE1104600C5D306 /* CastlingSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39D60E2CE1104600C5D306 /* CastlingSide.swift */; };
 		6E39D6142CE1108400C5D306 /* KnightDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39D6132CE1108400C5D306 /* KnightDirection.swift */; };
 		6E39D6182CE1146500C5D306 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39D6172CE1146500C5D306 /* ArrayExtension.swift */; };
+		6E4B0A6F2D1678AC00788926 /* QuizParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A6E2D1678AC00788926 /* QuizParser.swift */; };
+		6E4B0A742D167B8400788926 /* QuizDatabaseDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A732D167B8400788926 /* QuizDatabaseDecodable.swift */; };
+		6E4B0A762D16813400788926 /* QuizDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A752D16813400788926 /* QuizDatabase.swift */; };
+		6E4B0A782D16835500788926 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A772D16835500788926 /* FirstViewController.swift */; };
+		6E4B0A7A2D16855D00788926 /* OpeningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A792D16855D00788926 /* OpeningCell.swift */; };
+		6E4B0A7C2D1685B300788926 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A7B2D1685B300788926 /* CustomLabel.swift */; };
+		6E4B0A7E2D168A4A00788926 /* Opening.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A7D2D168A4A00788926 /* Opening.swift */; };
+		6E4B0A802D168C6800788926 /* QuizDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A7F2D168C6800788926 /* QuizDecodable.swift */; };
+		6E4B0A822D16B29300788926 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A812D16B29300788926 /* Line.swift */; };
 		6E56B1042CF26058001B6B19 /* check.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E56B1022CF26058001B6B19 /* check.mp3 */; };
 		6E56B1072CF260BA001B6B19 /* SoundSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E56B1062CF260BA001B6B19 /* SoundSingleton.swift */; };
 		6E56B10A2CF2621C001B6B19 /* move.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E56B1092CF2621C001B6B19 /* move.mp3 */; };
@@ -73,7 +81,7 @@
 		6E10947E2CCF777100FFA1B7 /* ChessMind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessMind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1094812CCF777100FFA1B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E1094832CCF777100FFA1B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6E1094852CCF777100FFA1B7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6E1094852CCF777100FFA1B7 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
 		6E1094882CCF777100FFA1B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6E10948A2CCF777300FFA1B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6E10948D2CCF777300FFA1B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -88,11 +96,10 @@
 		6E1094B52CCF7A0000FFA1B7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6E1094B62CCF7A0000FFA1B7 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		6E1094B72CCF7A0000FFA1B7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		6E1094B82CCF7A0000FFA1B7 /* Fen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fen.swift; sourceTree = "<group>"; };
+		6E1094B82CCF7A0000FFA1B7 /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		6E1094B92CCF7A0000FFA1B7 /* SquareState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareState.swift; sourceTree = "<group>"; };
 		6E1094BB2CCF7A0100FFA1B7 /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		6E1094BC2CCF7A0100FFA1B7 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
-		6E1094BD2CCF7A0100FFA1B7 /* FenDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FenDecodable.swift; sourceTree = "<group>"; };
 		6E1094BE2CCF7A0100FFA1B7 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		6E39D6002CDEB95600C5D306 /* RankView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		6E39D6022CDEBC0500C5D306 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -104,6 +111,15 @@
 		6E39D60E2CE1104600C5D306 /* CastlingSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastlingSide.swift; sourceTree = "<group>"; };
 		6E39D6132CE1108400C5D306 /* KnightDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightDirection.swift; sourceTree = "<group>"; };
 		6E39D6172CE1146500C5D306 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		6E4B0A6E2D1678AC00788926 /* QuizParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizParser.swift; sourceTree = "<group>"; };
+		6E4B0A732D167B8400788926 /* QuizDatabaseDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizDatabaseDecodable.swift; sourceTree = "<group>"; };
+		6E4B0A752D16813400788926 /* QuizDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizDatabase.swift; sourceTree = "<group>"; };
+		6E4B0A772D16835500788926 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		6E4B0A792D16855D00788926 /* OpeningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningCell.swift; sourceTree = "<group>"; };
+		6E4B0A7B2D1685B300788926 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		6E4B0A7D2D168A4A00788926 /* Opening.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opening.swift; sourceTree = "<group>"; };
+		6E4B0A7F2D168C6800788926 /* QuizDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizDecodable.swift; sourceTree = "<group>"; };
+		6E4B0A812D16B29300788926 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		6E56B1022CF26058001B6B19 /* check.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = check.mp3; sourceTree = "<group>"; };
 		6E56B1062CF260BA001B6B19 /* SoundSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundSingleton.swift; sourceTree = "<group>"; };
 		6E56B1092CF2621C001B6B19 /* move.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = move.mp3; sourceTree = "<group>"; };
@@ -167,7 +183,10 @@
 		6E1094802CCF777100FFA1B7 /* ChessMind */ = {
 			isa = PBXGroup;
 			children = (
-				6E1094852CCF777100FFA1B7 /* ViewController.swift */,
+				6E1094852CCF777100FFA1B7 /* BoardViewController.swift */,
+				6E4B0A7B2D1685B300788926 /* CustomLabel.swift */,
+				6E4B0A772D16835500788926 /* FirstViewController.swift */,
+				6E4B0A792D16855D00788926 /* OpeningCell.swift */,
 				6E1094B12CCF778100FFA1B7 /* Default */,
 				6E39D6112CE1105C00C5D306 /* Enums */,
 				6E39D6162CE1110F00C5D306 /* Extensions */,
@@ -214,11 +233,14 @@
 			isa = PBXGroup;
 			children = (
 				6E39D60C2CE1103500C5D306 /* BoardSettings.swift */,
-				6E1094B82CCF7A0000FFA1B7 /* Fen.swift */,
-				6E1094BD2CCF7A0100FFA1B7 /* FenDecodable.swift */,
+				6E56B10F2CF34575001B6B19 /* CheckInfo.swift */,
+				6E4B0A732D167B8400788926 /* QuizDatabaseDecodable.swift */,
 				6E1094BB2CCF7A0100FFA1B7 /* Move.swift */,
 				6E1094BC2CCF7A0100FFA1B7 /* Position.swift */,
-				6E56B10F2CF34575001B6B19 /* CheckInfo.swift */,
+				6E4B0A752D16813400788926 /* QuizDatabase.swift */,
+				6E4B0A7D2D168A4A00788926 /* Opening.swift */,
+				6E4B0A7F2D168C6800788926 /* QuizDecodable.swift */,
+				6E4B0A812D16B29300788926 /* Line.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -234,11 +256,12 @@
 				6E8784FD2CE951E000059A48 /* HighlightType.swift */,
 				6E39D6132CE1108400C5D306 /* KnightDirection.swift */,
 				6E39D6062CDF4A2900C5D306 /* Piece.swift */,
+				6E1094B82CCF7A0000FFA1B7 /* Quiz.swift */,
 				6E39D6082CDF9EFF00C5D306 /* Rank.swift */,
 				6E1094BE2CCF7A0100FFA1B7 /* Screen.swift */,
 				6E39D6042CDEC48E00C5D306 /* Side.swift */,
-				6E1094B92CCF7A0000FFA1B7 /* SquareState.swift */,
 				6E56B10D2CF26697001B6B19 /* Sound.swift */,
+				6E1094B92CCF7A0000FFA1B7 /* SquareState.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -259,6 +282,7 @@
 				6EF8038D2CEA81A60068E0AA /* BoardHelper.swift */,
 				6EF803892CEA08EB0068E0AA /* FenHelper.swift */,
 				6E1094B22CCF7A0000FFA1B7 /* FenParser.swift */,
+				6E4B0A6E2D1678AC00788926 /* QuizParser.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -428,35 +452,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E4B0A822D16B29300788926 /* Line.swift in Sources */,
 				6E39D6092CDF9EFF00C5D306 /* Rank.swift in Sources */,
 				6E39D60F2CE1104600C5D306 /* CastlingSide.swift in Sources */,
 				6E39D6052CDEC48E00C5D306 /* Side.swift in Sources */,
+				6E4B0A742D167B8400788926 /* QuizDatabaseDecodable.swift in Sources */,
 				6E39D6012CDEB95600C5D306 /* RankView.swift in Sources */,
 				6EF8038E2CEA81A60068E0AA /* BoardHelper.swift in Sources */,
 				6E56B1102CF34575001B6B19 /* CheckInfo.swift in Sources */,
+				6E4B0A7A2D16855D00788926 /* OpeningCell.swift in Sources */,
 				6E39D60B2CE09F7B00C5D306 /* Direction.swift in Sources */,
+				6E4B0A7E2D168A4A00788926 /* Opening.swift in Sources */,
 				6EF803922CF103DF0068E0AA /* CheckType.swift in Sources */,
 				6E1094C92CCF7A0100FFA1B7 /* Position.swift in Sources */,
-				6E1094CA2CCF7A0100FFA1B7 /* FenDecodable.swift in Sources */,
 				6E39D6142CE1108400C5D306 /* KnightDirection.swift in Sources */,
 				6E1094BF2CCF7A0100FFA1B7 /* FenParser.swift in Sources */,
 				6EF8038A2CEA08EB0068E0AA /* FenHelper.swift in Sources */,
-				6E1094862CCF777100FFA1B7 /* ViewController.swift in Sources */,
+				6E1094862CCF777100FFA1B7 /* BoardViewController.swift in Sources */,
 				6E1094C82CCF7A0100FFA1B7 /* Move.swift in Sources */,
 				6EF8038C2CEA0EB60068E0AA /* CharacterExtension.swift in Sources */,
+				6E4B0A802D168C6800788926 /* QuizDecodable.swift in Sources */,
 				6E56B10E2CF26697001B6B19 /* Sound.swift in Sources */,
 				6EF803902CEA89400068E0AA /* IntExtension.swift in Sources */,
 				6E56B1072CF260BA001B6B19 /* SoundSingleton.swift in Sources */,
 				6E1094C12CCF7A0100FFA1B7 /* SquareView.swift in Sources */,
+				6E4B0A7C2D1685B300788926 /* CustomLabel.swift in Sources */,
+				6E4B0A6F2D1678AC00788926 /* QuizParser.swift in Sources */,
 				6E1094CB2CCF7A0100FFA1B7 /* Screen.swift in Sources */,
 				6E1094C62CCF7A0100FFA1B7 /* SquareState.swift in Sources */,
 				6E1094C22CCF7A0100FFA1B7 /* Constants.swift in Sources */,
 				6E39D6032CDEBC0500C5D306 /* File.swift in Sources */,
+				6E4B0A762D16813400788926 /* QuizDatabase.swift in Sources */,
 				6E1094C42CCF7A0100FFA1B7 /* UIColorExtension.swift in Sources */,
+				6E4B0A782D16835500788926 /* FirstViewController.swift in Sources */,
 				6E1094C32CCF7A0100FFA1B7 /* BoardView.swift in Sources */,
 				6E8784FE2CE951E000059A48 /* HighlightType.swift in Sources */,
 				6E39D6072CDF4A2900C5D306 /* Piece.swift in Sources */,
-				6E1094C52CCF7A0100FFA1B7 /* Fen.swift in Sources */,
+				6E1094C52CCF7A0100FFA1B7 /* Quiz.swift in Sources */,
 				6E39D60D2CE1103500C5D306 /* BoardSettings.swift in Sources */,
 				6E39D6182CE1146500C5D306 /* ArrayExtension.swift in Sources */,
 				6E1094822CCF777100FFA1B7 /* AppDelegate.swift in Sources */,

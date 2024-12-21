@@ -27,9 +27,9 @@ final class RankView: UIView {
       if (startingWithWhiteSquare && file.rawValue % 2 == 0) ||
           (startingWithWhiteSquare == false && file.rawValue % 2 == 1)
       {
-        background = .whiteSquareColor
+        background = .lightSquareColor
       } else {
-        background = .blackSquareColor
+        background = .darkSquareColor
       }
       
       let squareView = SquareView(background: background, position: .init(rank: rank, file: file))
