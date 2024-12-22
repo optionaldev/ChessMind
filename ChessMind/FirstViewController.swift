@@ -8,13 +8,19 @@ import UIKit
 
 extension Constants {
   
-  static let cellIdentifier = "openingCell"
+  static var openingHeight: CGFloat {
+    return openingLabelFontSize + 2 * openingLabelPadding
+  }
+  
+  static var lineHeight: CGFloat {
+    return lineLabelFontSize + 2 * lineLabelPadding
+  }
 }
 
 /// This is the entry point of the app.
 /// This is where we show a loading spinner and then
 /// allow the user to select an opening to practice.
-final class FirstViewController: UIViewController, UICollectionViewDataSource {
+final class FirstViewController: UIViewController, OpeningDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   
   // MARK: Overrides
   
@@ -22,12 +28,13 @@ final class FirstViewController: UIViewController, UICollectionViewDataSource {
     super.viewDidLoad()
     
     let flowLayout = UICollectionViewFlowLayout()
-    flowLayout.itemSize = CGSize(width: Screen.width, height: 50)
+    flowLayout.itemSize = CGSize(width: Screen.width, height: Constants.openingHeight)
     flowLayout.minimumLineSpacing = 5
     
     let openingSelectionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
     openingSelectionCollectionView.dataSource = self
-    openingSelectionCollectionView.register(OpeningCell.self, forCellWithReuseIdentifier: Constants.cellIdentifier)
+    openingSelectionCollectionView.delegate = self
+    openingSelectionCollectionView.register(cellClass: OpeningCell.self)
     openingSelectionCollectionView.translatesAutoresizingMaskIntoConstraints = false
     
     view.addSubview(openingSelectionCollectionView)
@@ -43,10 +50,15 @@ final class FirstViewController: UIViewController, UICollectionViewDataSource {
     
     if let quizDatabase = QuizParser.getDatabase() {
       self.quizDatabase = quizDatabase
-//      openingSelectionCollectionView.reloadData()
     } else {
       print("Error fetching quiz databse.")
     }
+  }
+  
+  // MARK: OpeningDelegate conformance
+  
+  func didSelect(line: Line) {
+    openBoard(fen: line.startingPosition)
   }
   
   // MARK: UICollectionViewDataSource conformance
@@ -56,19 +68,59 @@ final class FirstViewController: UIViewController, UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifier, for: indexPath) as? OpeningCell else {
-      print("Returning base cell")
-      return UICollectionViewCell()
-    }
+    let cell = collectionView.dequeu(cellClass: OpeningCell.self, indexPath: indexPath)
     
-    cell.configure(text: quizDatabase.openings[indexPath.item].name)
+    cell.configure(opening: quizDatabase.openings[indexPath.item],
+                   isExpanded: expandedIndexPaths.contains(indexPath))
+    cell.delegate = self
     
     return cell
+  }
+  
+  // MARK: UICollectionViewDelegateFlowLayout conformance
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    guard let opening = quizDatabase.openings.element(at: indexPath.item) else {
+      return
+    }
+    
+    switch opening.lines.count {
+      case 0:
+        print("Every opening should have at least 1 line.")
+      case 1:
+        if let startingPosition = opening.lines.first?.startingPosition,
+           startingPosition.isNonEmpty
+        {
+          openBoard(fen: startingPosition)
+        } else {
+          print("startingPosition not available for opening \(opening)")
+        }
+      default:
+        expandedIndexPaths.insert(indexPath)
+        
+        openingSelectionCollectionView.performBatchUpdates(nil, completion: nil)
+    }
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let opening = quizDatabase.openings[indexPath.item]
+    
+    if expandedIndexPaths.contains(indexPath) {
+      return CGSize(width: Screen.width,
+                    height: Constants.openingHeight + opening.lines.count * Constants.lineHeight + (opening.lines.count - 1) * Constants.lineCollectionSpacing)
+    }
+    return CGSize(width: Screen.width, height: Constants.openingHeight)
   }
   
   // MARK: - Private
   
   private var quizDatabase = QuizDatabase(openings: [], quizes: [:])
+  private var expandedIndexPaths: Set<IndexPath> = []
   
   private weak var openingSelectionCollectionView: UICollectionView!
+  
+  private func openBoard(fen: String) {
+    let boardViewController = BoardViewController(fen: fen, quizes: quizDatabase.quizes)
+    navigationController?.pushViewController(boardViewController, animated: true)
+  }
 }

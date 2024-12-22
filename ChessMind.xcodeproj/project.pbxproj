@@ -45,6 +45,10 @@
 		6E4B0A7E2D168A4A00788926 /* Opening.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A7D2D168A4A00788926 /* Opening.swift */; };
 		6E4B0A802D168C6800788926 /* QuizDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A7F2D168C6800788926 /* QuizDecodable.swift */; };
 		6E4B0A822D16B29300788926 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A812D16B29300788926 /* Line.swift */; };
+		6E4B0A842D17632D00788926 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A832D17632D00788926 /* StringExtension.swift */; };
+		6E4B0A862D17E2AB00788926 /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A852D17E2AB00788926 /* UICollectionViewExtension.swift */; };
+		6E4B0A882D17E50500788926 /* LineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A872D17E50500788926 /* LineCell.swift */; };
+		6E4B0A8A2D17EC9300788926 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B0A892D17EC9300788926 /* GlobalFunctions.swift */; };
 		6E56B1042CF26058001B6B19 /* check.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E56B1022CF26058001B6B19 /* check.mp3 */; };
 		6E56B1072CF260BA001B6B19 /* SoundSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E56B1062CF260BA001B6B19 /* SoundSingleton.swift */; };
 		6E56B10A2CF2621C001B6B19 /* move.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E56B1092CF2621C001B6B19 /* move.mp3 */; };
@@ -120,6 +124,10 @@
 		6E4B0A7D2D168A4A00788926 /* Opening.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opening.swift; sourceTree = "<group>"; };
 		6E4B0A7F2D168C6800788926 /* QuizDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizDecodable.swift; sourceTree = "<group>"; };
 		6E4B0A812D16B29300788926 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		6E4B0A832D17632D00788926 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		6E4B0A852D17E2AB00788926 /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
+		6E4B0A872D17E50500788926 /* LineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineCell.swift; sourceTree = "<group>"; };
+		6E4B0A892D17EC9300788926 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		6E56B1022CF26058001B6B19 /* check.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = check.mp3; sourceTree = "<group>"; };
 		6E56B1062CF260BA001B6B19 /* SoundSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundSingleton.swift; sourceTree = "<group>"; };
 		6E56B1092CF2621C001B6B19 /* move.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = move.mp3; sourceTree = "<group>"; };
@@ -186,6 +194,7 @@
 				6E1094852CCF777100FFA1B7 /* BoardViewController.swift */,
 				6E4B0A7B2D1685B300788926 /* CustomLabel.swift */,
 				6E4B0A772D16835500788926 /* FirstViewController.swift */,
+				6E4B0A872D17E50500788926 /* LineCell.swift */,
 				6E4B0A792D16855D00788926 /* OpeningCell.swift */,
 				6E1094B12CCF778100FFA1B7 /* Default */,
 				6E39D6112CE1105C00C5D306 /* Enums */,
@@ -282,6 +291,7 @@
 				6EF8038D2CEA81A60068E0AA /* BoardHelper.swift */,
 				6EF803892CEA08EB0068E0AA /* FenHelper.swift */,
 				6E1094B22CCF7A0000FFA1B7 /* FenParser.swift */,
+				6E4B0A892D17EC9300788926 /* GlobalFunctions.swift */,
 				6E4B0A6E2D1678AC00788926 /* QuizParser.swift */,
 			);
 			path = Utils;
@@ -292,8 +302,10 @@
 			children = (
 				6E39D6172CE1146500C5D306 /* ArrayExtension.swift */,
 				6EF8038B2CEA0EB60068E0AA /* CharacterExtension.swift */,
-				6E1094B72CCF7A0000FFA1B7 /* UIColorExtension.swift */,
 				6EF8038F2CEA89400068E0AA /* IntExtension.swift */,
+				6E4B0A832D17632D00788926 /* StringExtension.swift */,
+				6E4B0A852D17E2AB00788926 /* UICollectionViewExtension.swift */,
+				6E1094B72CCF7A0000FFA1B7 /* UIColorExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -455,11 +467,13 @@
 				6E4B0A822D16B29300788926 /* Line.swift in Sources */,
 				6E39D6092CDF9EFF00C5D306 /* Rank.swift in Sources */,
 				6E39D60F2CE1104600C5D306 /* CastlingSide.swift in Sources */,
+				6E4B0A862D17E2AB00788926 /* UICollectionViewExtension.swift in Sources */,
 				6E39D6052CDEC48E00C5D306 /* Side.swift in Sources */,
 				6E4B0A742D167B8400788926 /* QuizDatabaseDecodable.swift in Sources */,
 				6E39D6012CDEB95600C5D306 /* RankView.swift in Sources */,
 				6EF8038E2CEA81A60068E0AA /* BoardHelper.swift in Sources */,
 				6E56B1102CF34575001B6B19 /* CheckInfo.swift in Sources */,
+				6E4B0A842D17632D00788926 /* StringExtension.swift in Sources */,
 				6E4B0A7A2D16855D00788926 /* OpeningCell.swift in Sources */,
 				6E39D60B2CE09F7B00C5D306 /* Direction.swift in Sources */,
 				6E4B0A7E2D168A4A00788926 /* Opening.swift in Sources */,
@@ -467,6 +481,7 @@
 				6E1094C92CCF7A0100FFA1B7 /* Position.swift in Sources */,
 				6E39D6142CE1108400C5D306 /* KnightDirection.swift in Sources */,
 				6E1094BF2CCF7A0100FFA1B7 /* FenParser.swift in Sources */,
+				6E4B0A8A2D17EC9300788926 /* GlobalFunctions.swift in Sources */,
 				6EF8038A2CEA08EB0068E0AA /* FenHelper.swift in Sources */,
 				6E1094862CCF777100FFA1B7 /* BoardViewController.swift in Sources */,
 				6E1094C82CCF7A0100FFA1B7 /* Move.swift in Sources */,
@@ -475,6 +490,7 @@
 				6E56B10E2CF26697001B6B19 /* Sound.swift in Sources */,
 				6EF803902CEA89400068E0AA /* IntExtension.swift in Sources */,
 				6E56B1072CF260BA001B6B19 /* SoundSingleton.swift in Sources */,
+				6E4B0A882D17E50500788926 /* LineCell.swift in Sources */,
 				6E1094C12CCF7A0100FFA1B7 /* SquareView.swift in Sources */,
 				6E4B0A7C2D1685B300788926 /* CustomLabel.swift in Sources */,
 				6E4B0A6F2D1678AC00788926 /* QuizParser.swift in Sources */,

@@ -57,12 +57,12 @@ struct Position: Equatable, CustomStringConvertible {
     let xMultiplier = CGFloat(boardFlipped ? Constants.boardLength - column - 1 : column)
     let yMultiplier = CGFloat(boardFlipped ? row : Constants.boardLength - row - 1)
     
-    let offset = (Constants.squareSize - Constants.imageSize) / 2
+    let offset = (Constants.squareSize - Constants.pieceImageSize) / 2
     
     return CGRect(x: xMultiplier * Constants.squareSize + offset,
-                  y: yMultiplier * Constants.squareSize + Constants.boardTopOffset + offset,
-                  width: Constants.imageSize,
-                  height: Constants.imageSize)
+                  y: yMultiplier * Constants.squareSize + offset,
+                  width: Constants.pieceImageSize,
+                  height: Constants.pieceImageSize)
   }
   
   // MARK: Init

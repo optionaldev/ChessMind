@@ -8,6 +8,19 @@ import UIKit
 
 final class BoardViewController: UIViewController {
   
+  // MARK: Init
+  
+  init(fen: String, quizes: [String: Quiz]) {
+    startingFen = fen
+    self.quizes = quizes
+    
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   // MARK: Overrides
   
   override func viewDidLoad() {
@@ -22,11 +35,11 @@ final class BoardViewController: UIViewController {
     
     view.addSubview(boardView)
     view.addSubview(flipButton)
-    view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .white
     
     NSLayoutConstraint.activate([
       boardView.leftAnchor.constraint(equalTo: view.leftAnchor),
-      boardView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.boardTopOffset),
+      boardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       
       flipButton.heightAnchor.constraint(equalToConstant: 50),
       flipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -41,20 +54,16 @@ final class BoardViewController: UIViewController {
       $0.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    print("Got quizes \(quizes.count)")
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    
     /// Testing checks
     //    let (squareStates, boardSettings) = FenParser.parse(fen: "3qkr2/npp3pp/r2bN3/2n3b1/2N5/3B4/8/R1BQR1K1 w Q - 0 1")
     
     /// Testing castling
-    let (squareStates, boardSettings) = FenParser.parse(fen: "r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1")
+    //    let (squareStates, boardSettings) = FenParser.parse(fen: "r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1")
     
     /// Testing pins
     //    let (squareStates, boardSettings) = FenParser.parse(fen: "2kr4/q5b1/1p6/2PPB2p/n1BKP1Pr/2NBN3/8/3r4 b - - 0 1")
+    
+    let (squareStates, boardSettings) = FenParser.parse(fen: startingFen)
     
     boardView.configure(withSquareStates: squareStates)
     self.boardSettings = boardSettings
@@ -62,12 +71,12 @@ final class BoardViewController: UIViewController {
   
   // MARK: - Private
   
+  private let quizes: [String: Quiz]
+  private let startingFen: String
+  
   private var boardSettings = BoardSettings()
   private var legalDestination: [Position] = []
   private var highlightedPosition: Position?
-  private var quizes: [String: Quiz] = [:]
-  
-  private weak var boardView: BoardView!
   
   private var allSquares: [SquareView] {
     return boardView.eightRanks.flatMap { $0.eightSquares }
@@ -76,6 +85,8 @@ final class BoardViewController: UIViewController {
   private var allSquareStates: [[SquareState]] {
     return boardView.eightRanks.map { $0.eightSquares.map { $0.squareState }}
   }
+  
+  private weak var boardView: BoardView!
   
   private func animate(move: Move, imageName: String) {
     let fromSquare = boardView.square(at: move.from)

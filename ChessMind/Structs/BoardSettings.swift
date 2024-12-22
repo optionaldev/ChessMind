@@ -4,7 +4,7 @@
 // Copyright © 2024 optionaldev. All rights reserved.
 // 
 
-class BoardSettings: CustomStringConvertible {
+final class BoardSettings: CustomStringConvertible {
   
   var blackCastling: Set<CastlingSide> = []
   

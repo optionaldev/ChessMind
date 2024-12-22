@@ -98,8 +98,8 @@ final class SquareView: UIView {
     NSLayoutConstraint.activate([
       pieceImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
       pieceImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-      pieceImageView.widthAnchor.constraint(equalToConstant: Constants.imageSize),
-      pieceImageView.heightAnchor.constraint(equalToConstant: Constants.imageSize),
+      pieceImageView.widthAnchor.constraint(equalToConstant: Constants.pieceImageSize),
+      pieceImageView.heightAnchor.constraint(equalToConstant: Constants.pieceImageSize),
       
       squareLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
       squareLabel.centerYAnchor.constraint(equalTo: centerYAnchor),

@@ -9,4 +9,12 @@ extension Array {
   var isNonEmpty: Bool {
     return !isEmpty
   }
+  
+  func element(at index: Int) -> Element? {
+    if index < count {
+      return self[index]
+    }
+    
+    return nil
+  }
 }

@@ -10,10 +10,10 @@ final class CustomLabel: UILabel {
   
   // MARK: Init
   
-  init() {
+  init(fontSize: CGFloat) {
     super.init(frame: .zero)
     
-    font = UIFont(name: "Helvetica", size: 30)
+    font = UIFont(name: "Helvetica", size: fontSize)
     
     translatesAutoresizingMaskIntoConstraints = false
   }

@@ -161,7 +161,7 @@ enum BoardHelper {
       fatalError("Every notation is at least 2 characters long")
     }
     
-    if notation == Constants.shortCastlingNotation || notation == Constants.longCastlingNotation {
+    if notation == Constants.castlingShortNotation || notation == Constants.castlingLongNotation {
       let moves = castlingMoves(forNotation: notation, onBoard: board, turn: boardSettings.turn)
       return moves.map { ($0, isCapture: false) }
     }
@@ -343,7 +343,7 @@ enum BoardHelper {
   {
     switch turn {
       case .black:
-        if notation == Constants.shortCastlingNotation {
+        if notation == Constants.castlingShortNotation {
           return [Move(from: Position(rank: .eighth, file: .h), to: Position(rank: .eighth, file: .f)),
                   Move(from: Position(rank: .eighth, file: .e), to: Position(rank: .eighth, file: .g))]
         } else {
@@ -351,7 +351,7 @@ enum BoardHelper {
                   Move(from: Position(rank: .eighth, file: .e), to: Position(rank: .eighth, file: .c))]
         }
       case .white:
-        if notation == Constants.shortCastlingNotation {
+        if notation == Constants.castlingShortNotation {
           return [Move(from: Position(rank: .first, file: .h), to: Position(rank: .first, file: .f)),
                   Move(from: Position(rank: .first, file: .e), to: Position(rank: .first, file: .g))]
         } else {
