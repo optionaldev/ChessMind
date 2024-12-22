@@ -6,6 +6,13 @@
 
 import UIKit
 
+extension Constants {
+  
+  /// Not entirely sure how to calculate this offset, as it's not
+  /// just the navigation bar. For now, it really is a magic number.
+  static let verticalOffset: CGFloat = 63
+}
+
 final class BoardViewController: UIViewController {
   
   // MARK: Init
@@ -54,6 +61,9 @@ final class BoardViewController: UIViewController {
       $0.addGestureRecognizer(tapGestureRecognizer)
     }
     
+    /// This helps prevent the delay for playing AV stuff.
+    _ = SoundSingleton.shared
+    
     /// Testing checks
     //    let (squareStates, boardSettings) = FenParser.parse(fen: "3qkr2/npp3pp/r2bN3/2n3b1/2N5/3B4/8/R1BQR1K1 w Q - 0 1")
     
@@ -67,6 +77,20 @@ final class BoardViewController: UIViewController {
     
     boardView.configure(withSquareStates: squareStates)
     self.boardSettings = boardSettings
+    
+    /// In case next to move is white after initial load, it means
+    /// we're playing from the black perspective.
+    if boardSettings.turn == .white {
+      boardView.flip()
+    }
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+      self?.playOpponentRandomMove()
+    }
   }
   
   // MARK: - Private
@@ -86,6 +110,10 @@ final class BoardViewController: UIViewController {
     return boardView.eightRanks.map { $0.eightSquares.map { $0.squareState }}
   }
   
+  private var currentFen: String {
+    return FenParser.fen(forBoard: allSquareStates.reversed(), settings: boardSettings)
+  }
+  
   private weak var boardView: BoardView!
   
   private func animate(move: Move, imageName: String) {
@@ -94,15 +122,15 @@ final class BoardViewController: UIViewController {
     
     let temporaryPieceView = UIImageView(image: UIImage(named: imageName), highlightedImage: nil)
     temporaryPieceView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-    temporaryPieceView.frame = fromSquare.position.frame(isBoardFlipped: boardView.flipped)
+    temporaryPieceView.frame = fromSquare.position.frame(isBoardFlipped: boardView.flipped, verticalOffset: Constants.verticalOffset)
     
     view.addSubview(temporaryPieceView)
     
-    UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+    UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
       guard let self = self else {
         return
       }
-      temporaryPieceView.frame = toSquare.position.frame(isBoardFlipped: self.boardView.flipped)
+      temporaryPieceView.frame = toSquare.position.frame(isBoardFlipped: self.boardView.flipped, verticalOffset: Constants.verticalOffset)
     }, completion: { [weak self] _ in
       toSquare.show()
       temporaryPieceView.removeFromSuperview()
@@ -163,7 +191,6 @@ final class BoardViewController: UIViewController {
     }
     
     animate(move: move, imageName: imageName)
-    //    SoundSingleton.shared.play(.move)
     
     boardView.square(at: move.from).highlight(type: .previousMove(move: .from))
     boardView.square(at: move.to).highlight(type: .previousMove(move: .to))
@@ -347,7 +374,35 @@ final class BoardViewController: UIViewController {
   
   @objc private func flipButtonTapped() {
     boardView.flip()
-    print("currentFen = \(FenParser.fen(fromSquares: allSquares.map { $0.squareState }, settings: boardSettings))")
   }
   
+  private func playOpponentRandomMove() {
+    let currentFen = currentFen
+    
+    guard let quiz = quizes[currentFen] else {
+      print("The end of the line? currentFen = \(currentFen)")
+      return
+    }
+    
+    switch quiz {
+      case .myMove:
+        print("We should have a move for the opponent, not us.")
+      case .opponentMoves(let possibleOpponentMoveNotations):
+        guard let moveNotation = possibleOpponentMoveNotations.randomElement() else {
+          print("Opponent has no moves.")
+          return
+        }
+        let movesArray = BoardHelper.move(forNotation: moveNotation, onBoard: allSquareStates, boardSettings: boardSettings)
+        
+        if let firstMove = movesArray.first {
+          handle(move: firstMove.move, updateSide: true, isCapture: firstMove.isCapture)
+        }
+        
+        if movesArray.count > 1,
+           let secondMove = movesArray.last
+        {
+          handle(move: secondMove.move, updateSide: false, isCapture: secondMove.isCapture)
+        }
+    }
+  }
 }

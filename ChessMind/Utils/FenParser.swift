@@ -95,37 +95,37 @@ enum FenParser {
     return (board, settings)
   }
   
-  static func fen(fromSquares squares: [SquareState], settings: BoardSettings) -> String {
+  static func fen(forBoard board: [[SquareState]], settings: BoardSettings) -> String {
     var result = ""
     var currentEmptySquares = 0
-    var currentColumn = 0
-    var currentRow = 0
     
-    for square in squares {
-      switch square {
-        case .empty:
-          currentEmptySquares += 1
-        case .occupied(let piece, let side):
-          if currentEmptySquares != 0 {
-            result += "\(currentEmptySquares)"
-          }
-          
-          result.append(FenHelper.notation(forPiece: piece, side: side))
-          
-      }
-      if currentColumn + 1 == Constants.boardLength {
-        if currentEmptySquares != 0 {
-          result += "\(currentEmptySquares)"
+    for row in board {
+      for square in row {
+        switch square {
+          case .empty:
+            currentEmptySquares += 1
+          case .occupied(let piece, let side):
+            if currentEmptySquares != 0 {
+              result += "\(currentEmptySquares)"
+              currentEmptySquares = 0
+            }
+            
+            result += FenHelper.notation(forPiece: piece, side: side)
         }
-        if currentRow + 1 != Constants.boardLength {
-          result += "/"
-          currentEmptySquares = 0
-          currentColumn = 0
-          currentRow += 1
-        }
-      } else {
-        currentColumn += 1
       }
+      
+      if currentEmptySquares != 0 {
+        result += "\(currentEmptySquares)"
+        currentEmptySquares = 0
+      }
+      result += "/"
+    }
+    /// We remove the last "/" since it's more complicated to check
+    /// if we're on the last row
+    result.removeLast()
+    
+    if currentEmptySquares != 0 {
+      result += "\(currentEmptySquares)"
     }
     
     result += Constants.fenSeparator
