@@ -1,0 +1,356 @@
+{
+  "rnb1kbnr/ppppqppp/8/4P3/5B2/8/PPP1PPPP/RN1QKBNR b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Qb4+", "Nc6"]
+  },
+  "rnb1kbnr/pppp1ppp/8/4P3/1q3B2/8/PPP1PPPP/RN1QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "Bd2",
+    "explanation": "We have to stop the check with the bishop since it's also under attack."
+  },
+  "r1b1kbnr/ppppqppp/2n5/4P3/5B2/8/PPP1PPPP/RN1QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "Nc3",
+    "explanation": "Instead of defending the pawn, we give it up for an initiative."
+  },
+  "r1b1kbnr/ppppqppp/2n5/4P3/5B2/2N5/PPP1PPPP/R2QKBNR b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Nxe5", "Qb4"]
+  },
+  "r1b1kbnr/ppppqppp/8/4n3/5B2/2N5/PPP1PPPP/R2QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "Nd5",
+    "explanation": "Attack the queen. The only move is Qd6."
+  },
+  "r1b1kbnr/pppp1ppp/2n5/4P3/1q3B2/2N5/PPP1PPPP/R2QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "e4",
+    "explanation": "Instead of moving the bishop, we block the attack on the bishop."
+  },
+  "r1b1kbnr/pppp1ppp/2n5/4P3/1q2PB2/2N5/PPP2PPP/R2QKBNR b KQkq e3 0 0": 
+  { 
+    "opponentMoves": ["Qxa2"]
+  },
+  "r1b1kbnr/pppp1ppp/2n5/4P3/4PB2/2N5/PqP2PPP/R2QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "Bd2",
+    "explanation": "We defend our knight. The initiative is still on black."
+  },
+  "r1b1kbnr/pppp1ppp/2n5/4P3/4P3/2N5/PqPB1PPP/R2QKBNR b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Bb4", "Nb4", "Nd4", "Qb4", "Nxe5"]
+  },
+  "r1b1k1nr/pppp1ppp/2n5/4P3/1b2P3/2N5/PqPB1PPP/R2QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "Rb1",
+    "explanation": "Force the queen to a3 or c3."
+  },
+  "r1b1k1nr/pppp1ppp/2n5/4P3/1b2P3/2N5/PqPB1PPP/1R1QKBNR b Kkq - 0 0": 
+  { 
+    "opponentMoves": ["Qa3", "Qxc3"]
+  },
+  "r1b1k1nr/pppp1ppp/2n5/4P3/1b2P3/q1N5/P1PB1PPP/1R1QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Nd5",
+    "explanation": "Force the bishop to make a decision. The bishop cannot be defended with a pawn because of the threat of a knight fork."
+  },
+  "r1b1k1nr/pppp1ppp/2n5/4P3/1b2P3/2q5/P1PB1PPP/1R1QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Bxc3",
+    "explanation": "We take the queen and then move our king."
+  },
+  "r1b1k1nr/pppp1ppp/2n5/4P3/1b2P3/2B5/P1P2PPP/1R1QKBNR b Kkq - 0 0": 
+  { 
+    "opponentMoves": ["Bxc3"]
+  },
+  "r1b1k1nr/pppp1ppp/2n5/4P3/4P3/2b5/P1P2PPP/1R1QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Ke2",
+    "explanation": "From here, we can attack the bishop with Rb3, attack the knight when it captures on e5 with Qa1, move the king to d1 to get out of the way of our light square bishop."
+  },
+  "r1b1kbnr/pppp1ppp/8/4P3/1n2P3/2N5/PqPB1PPP/R2QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "Bd3",
+    "explanation": "Develop a piece and defend the c2 pawn. If they capture on d3, they help our pawn structure. In some situations, the queen can be trapped with a4."
+  },
+  "r1b1kbnr/pppp1ppp/8/4P3/3nP3/2N5/PqPB1PPP/R2QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "Bd3",
+    "explanation": "Develop a piece and defend the c2 pawn. From here, if the bishop comes out, we go Rb1 and in other cases, just continue development."
+  },
+  "r1b1kbnr/pppp1ppp/2n5/4P3/1q2P3/2N5/P1PB1PPP/R2QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "Rb1",
+    "explanation": "Shoo the queen. Wherever it goes, we have a reply."
+  },
+  "r1b1kbnr/pppp1ppp/2n5/4P3/1q2P3/2N5/P1PB1PPP/1R1QKBNR b Kkq - 0 0": 
+  { 
+    "opponentMoves": ["Qa3", "Qa5", "Qd4", "Qc5", "Qe7"]
+  },
+  "r1b1kbnr/pppp1ppp/2n5/4P3/4P3/q1N5/P1PB1PPP/1R1QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Nb5",
+    "explanation": "We have an unstoppable fork on c7."
+  },
+  "r1b1kbnr/pppp1ppp/2n5/q3P3/4P3/2N5/P1PB1PPP/1R1QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Nd5",
+    "explanation": "We have an unstoppable fork on c7."
+  },
+  "r1b1kbnr/pppp1ppp/2n5/4P3/3qP3/2N5/P1PB1PPP/1R1QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Nf3",
+    "explanation": "Developing the knight, attacking the queen and defending the e5 pawn."
+  },
+  "r1b1kbnr/pppp1ppp/2n5/2q1P3/4P3/2N5/P1PB1PPP/1R1QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Rb5",
+    "explanation": "Force the queen to move."
+  },
+  "r1b1kbnr/pppp1ppp/2n5/1Rq1P3/4P3/2N5/P1PB1PPP/3QKBNR b Kkq - 0 0": 
+  { 
+    "opponentMoves": ["Qa3", "Qe7"]
+  },
+  "r1b1kbnr/pppp1ppp/2n5/1R2P3/4P3/q1N5/P1PB1PPP/3QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Nd5",
+    "explanation": "Centralize the knight, pressure the c7 pawn."
+  },
+  "r1b1kbnr/ppppqppp/2n5/1R2P3/4P3/2N5/P1PB1PPP/3QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Nf3",
+    "explanation": "Defend the e5 pawn and prepare Nd5. "
+  },
+  "r1b1kbnr/ppppqppp/8/3Nn3/5B2/8/PPP1PPPP/R2QKBNR b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Qd6"]
+  },
+  "r1b1kbnr/pppp1ppp/3q4/3Nn3/5B2/5N2/PPP1PPPP/R2QKB1R b KQkq - 0 0": 
+  { 
+    "myMove": "Nf3",
+    "explanation": "Put pressure on the knight"
+  },
+  "r1b1kbnr/pppp1ppp/3q4/3Nn3/5B2/5N2/PPP1PPPP/R2QKB1R b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["c6", "f6", "Nxf3+", "Nf6"]
+  },
+  "r1b1kbnr/pp1p1ppp/2pq4/3Nn3/5B2/5N2/PPP1PPPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "e4",
+    "explanation": "We sacrifice the knight because we can win the e5 knight whenever we want. We also prevent queen capturing on d5 and being protected by the pawn."
+  },
+  "r1b1kbnr/pp1p1ppp/2pq4/3Nn3/4PB2/5N2/PPP2PPP/R2QKB1R b KQkq e3 0 0": 
+  { 
+    "opponentMoves": ["cxd5"]
+  },
+  "r1b1kbnr/pp1p1ppp/3q4/3pn3/4PB2/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Bxe5",
+    "explanation": "Force the queen the move. We handle all likely scenarios."
+  },
+  "r1b1kbnr/pp1p1ppp/3q4/3pB3/4P3/5N2/PPP2PPP/R2QKB1R b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Qb4+", "Qc5", "Qb6", "Qe7", "Qh6", "Qc6", "Qa6", "Qe6", "Qg6"]
+  },
+  "r1b1kbnr/pp1p1ppp/8/3pB3/1q2P3/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "c3",
+    "explanation": "We force the queen to move into 2 likely scenarios."
+  },
+  "r1b1kbnr/pp1p1ppp/8/3pB3/1q2P3/2P2N2/PP3PPP/R2QKB1R b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Qxa2", "Qxe4"]
+  },
+  "r1b1kbnr/pp1p1ppp/8/3pB3/4P3/2P2N2/Pq3PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "exd5",
+    "explanation": "Equalize material, gain control of the center. Beware that we can't push c4 due to Bb4 check. Prepare castling. If dark square bishop gets attacked, we fall back to g3."
+  },
+  "r1b1kbnr/pp1p1ppp/8/3pB3/4q3/2P2N2/PP3PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Be2",
+    "explanation": "Block the check and develop a piece. Prepare castling. If dark square bishop gets attacked, we fall back to g3."
+  },
+  "r1b1kbnr/pp1p1ppp/8/2qpB3/4P3/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "exd5",
+    "explanation": "Take control of the center and remember we have moves like Qe2 with a discovered check. From here, form a pawn chain and press the advantage."
+  },
+  "r1b1kbnr/pp1p1ppp/1q6/3pB3/4P3/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "exd5",
+    "explanation": "Take control of the center and remember we have moves like Qe2 with a discovered check. From here, form a pawn chain and press the advantage."
+  },
+  "r1b1kbnr/pp1pqppp/8/3pB3/4P3/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Qxd5",
+    "explanation": "We can't capture on d5 with the pawn because the bishop would be pinned to the king."
+  },
+  "r1b1kbnr/pp1p1ppp/7q/3pB3/4P3/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "exd5",
+    "explanation": "Take control of the center and remember we have moves like Qe2 with a discovered check. From here, form a pawn chain and press the advantage."
+  },
+  "r1b1kbnr/pp1p1ppp/2q5/3pB3/4P3/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "exd5",
+    "explanation": "Attack the queen and take control of the center and remember we have moves like Qe2 with a discovered check. From here, form a pawn chain and press the advantage."
+  },
+  "r1b1kbnr/pp1p1ppp/q7/3pB3/4P3/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Bxa6",
+    "explanation": "Capture the queen."
+  },
+  "r1b1kbnr/pp1p1ppp/4q3/3pB3/4P3/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "exd5",
+    "explanation": "Attack the queen and take control of the center and remember we have moves like Qe2 with a discovered check. From here, form a pawn chain and press the advantage."
+  },
+  "r1b1kbnr/pp1p1ppp/6q1/3pB3/4P3/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "exd5",
+    "explanation": "We can allow capture on g2. Take control of the center and remember we have moves like Qe2 with a discovered check. From here, form a pawn chain and press the advantage."
+  },
+  "r1b1kbnr/pppp2pp/3q1p2/3Nn3/5B2/5N2/PPP1PPPP/R2QKB1R w KQkq - 0 0":
+  { 
+    "myMove": "e4",
+    "explanation": "We want to open up our queen for an attack."
+  },
+  "r1b1kbnr/pppp2pp/3q1p2/3Nn3/4PB2/5N2/PPP2PPP/R2QKB1R b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["c6", "Ne7"]
+  },
+  "r1b1kbnr/pp1p2pp/2pq1p2/3Nn3/4PB2/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Nxe5",
+    "explanation": "We capture the knight, opening up our queen for a check."
+  },
+  "r1b1kb1r/ppppn1pp/3q1p2/3Nn3/4PB2/5N2/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Nxe5",
+    "explanation": "We capture the knight, putting black in a difficult situation."
+  },
+  "r1b1kb1r/ppppn1pp/3q1p2/3NN3/4PB2/8/PPP2PPP/R2QKB1R b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["fxe5", "Nxd5"]
+  },
+  "r1b1kb1r/ppppn1pp/3q4/3Np3/4PB2/8/PPP2PPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Qh5+",
+    "explanation": "We give a check. Blocking the check with the knight is the only move. We don't gain a massage advantage anymore, but it's still an easy to play position."
+  },
+  "r1b1kb1r/ppppn1pp/3q4/3Np2Q/4PB2/8/PPP2PPP/R3KB1R b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Ng6"]
+  },
+  "r1b1kb1r/pppp2pp/3q2n1/3Np2Q/4PB2/8/PPP2PPP/R3KB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Bd2",
+    "explanation": "We retreat the bishop and play on. The g6 knight is pinned."
+  },
+  "r1b1kb1r/pppp2pp/3q2n1/3Np2Q/4P3/8/PPPB1PPP/R3KB1R b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["c6"]
+  },
+  "r1b1kb1r/pp1p2pp/2pq2n1/3Np2Q/4P3/8/PPPB1PPP/R3KB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Ne3",
+    "explanation": "We're going to put the knight on the other side and castle long."
+  },
+  "r1b1kbnr/pppp1ppp/3q4/3N4/5B2/5n2/PPP1PPPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "exf3",
+    "explanation": "After this, we trade queens and we still have the work on c7."
+  },
+  "r1b1kb1r/pppp1ppp/3q1n2/3Nn3/5B2/5N2/PPP1PPPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Nxc7+",
+    "explanation": "We force a favorable trade."
+  },
+  "r1b1kb1r/ppNp1ppp/3q1n2/4n3/5B2/5N2/PPP1PPPP/R2QKB1R b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Qxc7"]
+  },
+  "r1b1kb1r/ppqp1ppp/5n2/4n3/5B2/5N2/PPP1PPPP/R2QKB1R w KQkq - 0 0": 
+  { 
+    "myMove": "Bxe5",
+    "explanation": "We capture the hanging pawn and attack the queen. From here, we try to get a queen trade and play with pawn advantage."
+  },
+  "rnb1kbnr/pppp1ppp/8/4P3/1q6/8/PPPBPPPP/RN1QKBNR b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Qxb2"]
+  },
+  "rnb1kbnr/pppp1ppp/8/4P3/8/8/PqPBPPPP/RN1QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "Nc3",
+    "explanation": "We protect our rook with the queen."
+  },
+  "rnb1kbnr/pppp1ppp/8/4P3/8/2N5/PqPBPPPP/R2QKBNR b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Bb4"]
+  },
+  "rnb1k1nr/pppp1ppp/8/4P3/1b6/2N5/PqPBPPPP/R2QKBNR w KQkq - 0 0": 
+  { 
+    "myMove": "Rb1",
+    "explanation": "We force the queen to move and afterward, attack the bishop."
+  },
+  "rnb1k1nr/pppp1ppp/8/4P3/1b6/2N5/PqPBPPPP/1R1QKBNR b Kkq - 0 0": 
+  { 
+    "opponentMoves": ["Qxc3", "Qa3"]
+  },
+  "rnb1k1nr/pppp1ppp/8/4P3/1b6/2q5/P1PBPPPP/1R1QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Nf3",
+    "explanation": "He can take our knight because we can't simply recapture the queen. We develop the knight in order to force the queen to move."
+  },
+  "rnb1k1nr/pppp1ppp/8/4P3/1b6/q1N5/P1PBPPPP/1R1QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Rb3",
+    "explanation": "Continue chasing the queen and add another defender to the c3 square."
+  },
+  "rnb1k1nr/pppp1ppp/8/4P3/1b6/qRN5/P1PBPPPP/3QKBNR b Kkq - 0 0": 
+  { 
+    "opponentMoves": ["Qa5"]
+  },
+  "rnb1k1nr/pppp1ppp/8/q3P3/1b6/1RN5/P1PBPPPP/3QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "a3",
+    "explanation": "Clarify the tension by putting pressure on the bishop. Only good move for black is to take and then retreat the queen."
+  },
+  "rnb1k1nr/pppp1ppp/8/q3P3/1b6/PRN5/2PBPPPP/3QKBNR b Kkq - 0 0": 
+  { 
+    "opponentMoves": ["Bxc3"]
+  },
+  "rnb1k1nr/pppp1ppp/8/q3P3/8/PRb5/2PBPPPP/3QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Bxc3",
+    "explanation": "Recapture with the bishop to force the queen to move."
+  },
+  "rnb1k1nr/pppp1ppp/8/q3P3/8/PRB5/2P1PPPP/3QKBNR b Kkq - 0 0": 
+  { 
+    "opponentMoves": ["Qc5"]
+  },
+  "rnb1k1nr/pppp1ppp/8/2q1P3/8/PRB5/2P1PPPP/3QKBNR w Kkq - 0 0": 
+  { 
+    "myMove": "Bb4",
+    "explanation": "Attack the queen and force it to move. If it captures the pawn e5, we pin the queen to the king."
+  },
+  "rnb1k1nr/pppp1ppp/8/4P3/1b6/2q2N2/P1PBPPPP/1R1QKB1R b Kkq - 0 0": 
+  { 
+    "opponentMoves": ["Qa3"]
+  },
+  "rnb1k1nr/pppp1ppp/8/4P3/1b6/q4N2/P1PBPPPP/1R1QKB1R w Kkq - 0 0": 
+  { 
+    "myMove": "Bxb4",
+    "explanation": "Now we take on b4 and the bishop is defended."
+  },
+  "rnb1k1nr/pppp1ppp/8/4P3/1B6/q4N2/P1P1PPPP/1R1QKB1R b Kkq - 0 0": 
+  { 
+    "opponentMoves": ["Qxa2", "Qa4"]
+  },
+  "rnb1k1nr/pppp1ppp/8/4P3/1B6/5N2/q1P1PPPP/1R1QKB1R w Kkq - 0 0": 
+  { 
+    "myMove": "e4",
+    "explanation": "The shenanigans are basically over. Take control of the center."
+  }
+}

@@ -8,4 +8,8 @@ struct Opening: Decodable {
   
   let name: String
   let lines: [Line]
+  
+  var temporaryFileName: String {
+    return "\(name.lowercased()).json"
+  }
 }

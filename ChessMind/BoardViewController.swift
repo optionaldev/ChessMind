@@ -18,8 +18,15 @@ final class BoardViewController: UIViewController {
   // MARK: Init
   
   init(fen: String, quizes: [String: Quiz]) {
-    startingFen = fen
     self.quizes = quizes
+    
+    switch FenParser.parse(fen: fen).boardSettings.turn {
+      case .black:
+        self.perspective = .white
+      case .white:
+        self.perspective = .black
+    }
+    self.startingFen = fen
     
     super.init(nibName: nil, bundle: nil)
   }
@@ -95,12 +102,32 @@ final class BoardViewController: UIViewController {
   
   // MARK: - Private
   
+  /// This is the entire database that we need for the quizes
   private let quizes: [String: Quiz]
+  
+  /// The side for which the user is playing. Useful for if the next
+  /// move is the user and it should wait or it should play a move for
+  /// the opponent.
+  private let perspective: Side
+  
+  /// We use this once to set up the board at the start. We store it
+  /// because the view isn't ready when initializing. We could
+  /// avoid having this if we declared the view separately.
   private let startingFen: String
   
   private var boardSettings = BoardSettings()
-  private var legalDestination: [Position] = []
+  
+  /// We keep the highlited position because a move only happens
+  /// after 2 actions at least and many things can happen in two
+  /// moves. The user can select another position, he can reselect
+  /// the same position, etc.
   private var highlightedPosition: Position?
+  
+  /// We keep a list of legal destinations for currently selected
+  /// piece because finding all legal destinations can take a while
+  /// and we don't want to redo calculations every time we need the
+  /// legal destinations.
+  private var legalDestination: [Position] = []
   
   private var allSquares: [SquareView] {
     return boardView.eightRanks.flatMap { $0.eightSquares }
@@ -132,6 +159,7 @@ final class BoardViewController: UIViewController {
       }
       temporaryPieceView.frame = toSquare.position.frame(isBoardFlipped: self.boardView.flipped, verticalOffset: Constants.verticalOffset)
     }, completion: { [weak self] _ in
+      
       toSquare.show()
       temporaryPieceView.removeFromSuperview()
       
@@ -216,6 +244,10 @@ final class BoardViewController: UIViewController {
     
     highlightedPosition = nil
     boardView.isUserInteractionEnabled = true
+    
+    if boardSettings.turn != perspective {
+      playOpponentRandomMove()
+    }
   }
   
   @objc private func didTapSquare(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -223,6 +255,12 @@ final class BoardViewController: UIViewController {
       fatalError("Shouldn't be possible to find something else other than a \(SquareView.self)")
     }
     let position = squareView.position
+    
+    guard perspective == boardSettings.turn else {
+      /// We don't allow user to select while it's the "computer"'s
+      /// turn to play.
+      return
+    }
     
     if let highlightedPosition = highlightedPosition {
       allSquares.forEach { $0.unhighlight(type: .canMove) }
@@ -304,7 +342,8 @@ final class BoardViewController: UIViewController {
     }
   }
   
-  private func handleCastlingIfNeeded(move: Move) {
+  private func handleCastlingIfNeeded(move: Move)   {
+    /// We make sure that the king is trying to move two squares away.
     guard case .occupied(let piece, _) = boardView.square(at: move.from).squareState,
           piece == .king,
           abs(move.from.file.rawValue - move.to.file.rawValue) == 2 else
@@ -314,9 +353,14 @@ final class BoardViewController: UIViewController {
     let fromPosition: Position
     let toPosition: Position
     if move.to.file == .c {
+      /// If the king (either white or black) is trying to move to the
+      /// c file, it's long castling.
       fromPosition = Position(rank: move.from.rank, file: .a)
       toPosition = Position(rank: move.from.rank, file: .d)
     } else {
+      /// If the king (either white or black) is not trying to move to
+      /// the c file, but is still moving two squares away, it's short
+      /// castling.
       fromPosition = Position(rank: move.from.rank, file: .h)
       toPosition = Position(rank: move.from.rank, file: .f)
     }

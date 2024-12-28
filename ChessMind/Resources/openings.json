@@ -1,0 +1,147 @@
+[
+   { "name": "Englund",
+     "lines": [{
+      "name": "Queen first",
+      "startingPosition": "rnb1kbnr/ppppqppp/8/4P3/5B2/8/PPP1PPPP/RN1QKBNR b KQkq - 0 0"
+    }]
+   },
+  { 
+    "name": "Anti-london",
+    "lines": [{
+      "startingPosition": ""
+      }]
+  },{
+    "name": "Scandinavian",
+    "lines": [
+    {
+      "name": "Qb6",
+      "startingPosition": "rnb1kbnr/ppp1pppp/8/3q4/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 0"
+    },{
+      "name": "Advance",
+      "startingPosition": ""
+    },{
+      "name": "Tennison",
+      "startingPosition": ""
+    },{
+      "name": "Nc3",
+      "startingPosition": ""
+    }]
+   },
+   { 
+      "name": "French",
+      "lines": [
+      {
+        "name": "Winawer",
+        "startingPosition": ""
+      },{
+        "name": "Marshal",
+        "startingPosition": ""
+      },{
+        "name": "Steinitz",
+        "startingPosition": ""
+      }]
+   },
+   { "name": "Black Knight's Tango",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Polish",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Bird",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Borg",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Grob",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Boguljubov",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Double fianchetto",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Dutch",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "English",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Irish gambit",
+     "side": "white",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Jobava London",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "King's Fianchetto (g3)",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "London",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Mieses",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Nimzowitsch-Larsen (b3)",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Saragosa",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   },
+   { "name": "Van't Krujis",
+     "lines": [{
+      "startingPosition": ""
+    }
+     ]
+   }
+]

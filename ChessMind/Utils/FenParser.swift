@@ -110,7 +110,7 @@ enum FenParser {
               currentEmptySquares = 0
             }
             
-            result += FenHelper.notation(forPiece: piece, side: side)
+            result += FenHelper.fenCharacter(forPiece: piece, side: side)
         }
       }
       

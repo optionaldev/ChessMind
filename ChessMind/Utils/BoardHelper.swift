@@ -149,7 +149,6 @@ enum BoardHelper {
   ///          two are on the 5th rank, so both file
   ///          and rank need to be specified.
   /// Ne5xc6 -> Same as above but with a capture.
-  
   static func move(forNotation notation: String,
                    onBoard board: [[SquareState]],
                    boardSettings: BoardSettings) -> [(move: Move, isCapture: Bool)]
@@ -162,7 +161,7 @@ enum BoardHelper {
     }
     
     if notation == Constants.castlingShortNotation || notation == Constants.castlingLongNotation {
-      let moves = castlingMoves(forNotation: notation, onBoard: board, turn: boardSettings.turn)
+      let moves = castlingMoves(forNotation: notation, turn: boardSettings.turn)
       return moves.map { ($0, isCapture: false) }
     }
     
@@ -267,6 +266,69 @@ enum BoardHelper {
     return []
   }
   
+  /*
+  static func notation(forMoves moves: [Move],
+                       onBoard board: [[SquareState]],
+                       boardSettings: BoardSettings) -> String?
+  {
+    switch moves.count {
+      case 0:
+        print("Trying to get notation for 0 moves. What happened here?")
+        return nil
+      case 1:
+        guard let move = moves.first else {
+          fatalError("What happened here?")
+        }
+        let fromSquare = board[move.from.column][move.from.row]
+        let toSquare = board[move.to.column][move.to.row]
+        
+        
+        switch fromSquare {
+          case .empty:
+            fatalError("Not possible to move from an empty square. What are we trying to move?")
+          case .occupied(let fromPiece, let fromSide):
+            var isCapture: Bool
+            switch toSquare {
+              case .empty:
+                isCapture = false
+              case .occupied(_, let toSide):
+                guard fromSide != toSide else {
+                  fatalError("We're trying to capture a piece from the same side???")
+                }
+                isCapture = true
+            }
+            /// Here we need to know if another piece identical to
+            /// 'fromPiece' from the same side as 'fromSide' can
+            /// move to the same square. For example, a knight on
+            /// c3 and a Knight on g3 and both move to e4, which
+            /// affects the notation because the notation includes
+            /// information about which knight should land on the
+            /// destination square.
+              
+            
+                /// Example of possible cases to handle:
+                /// a4 -> Pawn moves to a4, could be from a2 or a3.
+                /// dxc5 -> Pawn from d file captured piece on c5.
+                /// Nc6 -> Only one knight can move to c6.
+                /// N5c6 -> There are two knights on the a or e file,
+                ///         and the one on the 5th rank is meant.
+                /// Ne5c6 -> There are at least 3 knights that can
+                ///          move to c6, two are on the e file and
+                ///          two are on the 5th rank, so both file
+                ///          and rank need to be specified.
+                /// Ne5xc6 -> Same as above but with a capture.
+            }
+        }
+        
+        return nil
+      case 2:
+        // TODO: Handle castling
+        return nil
+      default:
+        fatalError("Why do we have 3 simulatinous moves? 2 is the maximum.")
+    }
+  }
+  */
   // MARK: - Private
   
   private static func calculatePositionsWhenChecked(forPieceAtPosition position: Position,
@@ -338,7 +400,6 @@ enum BoardHelper {
   }
   
   private static func castlingMoves(forNotation notation: String,
-                                    onBoard board: [[SquareState]],
                                     turn: Turn) -> [Move]
   {
     switch turn {

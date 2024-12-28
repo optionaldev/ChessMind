@@ -8,7 +8,7 @@ import UIKit
 
 protocol OpeningDelegate: AnyObject {
   
-  func didSelect(line: Line)
+  func didSelect(opening: Opening, lineIndex: Int)
 }
 
 final class OpeningCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -81,7 +81,7 @@ final class OpeningCell: UICollectionViewCell, UICollectionViewDataSource, UICol
   // MARK: UICollectionViewDelegate conformance
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    delegate?.didSelect(line: opening.lines[indexPath.item])
+    delegate?.didSelect(opening: opening, lineIndex: indexPath.item)
   }
   
   // MARK: - Private

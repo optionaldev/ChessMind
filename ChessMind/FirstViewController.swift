@@ -48,29 +48,26 @@ final class FirstViewController: UIViewController, OpeningDelegate, UICollection
     
     self.openingSelectionCollectionView = openingSelectionCollectionView
     
-    if let quizDatabase = QuizParser.getDatabase() {
-      self.quizDatabase = quizDatabase
-    } else {
-      print("Error fetching quiz databse.")
-    }
+    self.openings = QuizHelper.getOpenings()
   }
   
   // MARK: OpeningDelegate conformance
   
-  func didSelect(line: Line) {
-    openBoard(fen: line.startingPosition)
+  func didSelect(opening: Opening, lineIndex: Int) {
+    openBoard(fen: opening.lines[lineIndex].startingPosition,
+              quizFile: opening.temporaryFileName)
   }
   
   // MARK: UICollectionViewDataSource conformance
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return quizDatabase.openings.count
+    return openings.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeu(cellClass: OpeningCell.self, indexPath: indexPath)
     
-    cell.configure(opening: quizDatabase.openings[indexPath.item],
+    cell.configure(opening: openings[indexPath.item],
                    isExpanded: expandedIndexPaths.contains(indexPath))
     cell.delegate = self
     
@@ -80,7 +77,7 @@ final class FirstViewController: UIViewController, OpeningDelegate, UICollection
   // MARK: UICollectionViewDelegateFlowLayout conformance
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    guard let opening = quizDatabase.openings.element(at: indexPath.item) else {
+    guard let opening = openings.element(at: indexPath.item) else {
       return
     }
     
@@ -91,7 +88,7 @@ final class FirstViewController: UIViewController, OpeningDelegate, UICollection
         if let startingPosition = opening.lines.first?.startingPosition,
            startingPosition.isNonEmpty
         {
-          openBoard(fen: startingPosition)
+          openBoard(fen: startingPosition, quizFile: opening.temporaryFileName)
         } else {
           print("startingPosition not available for opening \(opening)")
         }
@@ -103,7 +100,7 @@ final class FirstViewController: UIViewController, OpeningDelegate, UICollection
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let opening = quizDatabase.openings[indexPath.item]
+    let opening = openings[indexPath.item]
     
     if expandedIndexPaths.contains(indexPath) {
       return CGSize(width: Screen.width,
@@ -114,13 +111,19 @@ final class FirstViewController: UIViewController, OpeningDelegate, UICollection
   
   // MARK: - Private
   
-  private var quizDatabase = QuizDatabase(openings: [], quizes: [:])
+  private var openings: [Opening] = []
   private var expandedIndexPaths: Set<IndexPath> = []
   
   private weak var openingSelectionCollectionView: UICollectionView!
   
-  private func openBoard(fen: String) {
-    let boardViewController = BoardViewController(fen: fen, quizes: quizDatabase.quizes)
+  private func openBoard(fen: String, quizFile: String) {
+    let quizes = QuizHelper.getQuizes(forFile: quizFile)
+    guard quizes.isNonEmpty else {
+      print("Failed to get quizes for quizFile = \(quizFile)")
+      return
+    }
+    
+    let boardViewController = BoardViewController(fen: fen, quizes: quizes)
     navigationController?.pushViewController(boardViewController, animated: true)
   }
 }

@@ -1,0 +1,388 @@
+{
+  "rnb1kbnr/ppp1pppp/8/3q4/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 0":
+  {
+    "opponentMoves": ["b3", "c4", "d3", "d4", "g3", "Nc3", "Nf3", "Qf3"]
+  },
+  "rnb1kbnr/ppp1pppp/8/3q4/8/2N5/PPPP1PPP/R1BQKBNR b KQkq - 0 0":
+  {
+    "myMove": "Qd6",
+    "explanation": "Move queen to safety. Prepare for a potential checkmate on h2"
+  },
+  "rnb1kbnr/ppp1pppp/8/3q4/2P5/8/PP1P1PPP/RNBQKBNR b KQkq c3 0 0":
+  {
+    "myMove": "Qe4+",
+    "explanation": "Offer a potential queen trade. Memorize lines in queenless opening" 
+  },
+  "rnb1kbnr/ppp1pppp/8/3q4/8/6P1/PPPP1P1P/RNBQKBNR b KQkq - 0 0":
+  {
+    "myMove": "Qxh1" 
+  },
+  "rnb1kbnr/ppp1pppp/8/3q4/8/5N2/PPPP1PPP/RNBQKB1R b KQkq - 0 0":
+  {
+    "myMove": "Bg4",
+    "explanation": "Bishop cannot be attacked without damaging the pawn structure" 
+  },
+  "rnb1kbnr/ppp1pppp/8/3q4/8/3P4/PPP2PPP/RNBQKBNR b KQkq - 0 0":
+  {
+    "myMove": "Nc6",
+    "explanation": "Not worried about Knight getting pinned since white blocked their bishop" 
+  },
+  "rnb1kbnr/ppp1pppp/8/3q4/3P4/8/PPP2PPP/RNBQKBNR b KQkq d3 0 0":
+  {
+    "myMove": "Nc6",
+    "explanation": "Queen can now not be kicked by Nc3"
+  },
+  "rnb1kbnr/ppp1pppp/8/3q4/8/5Q2/PPPP1PPP/RNB1KBNR b KQkq - 0 0":
+  {
+    "myMove": "Nf6",
+    "explanation": "Develop the knight and defend the queen" 
+  },
+  "rnb1kbnr/ppp1pppp/3q4/8/8/2N5/PPPP1PPP/R1BQKBNR w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["d3", "d4", "g3", "h3", "Bb5+", "Be2", "Bd3", "Bc4", "Nb5", "Ne4", "Nf6"]
+  },
+  "rnb1kbnr/ppp1pppp/3q4/8/8/2NP4/PPP2PPP/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Nc6",
+    "explanation": "Control the d4 square"
+  },
+  "rnb1kbnr/ppp1pppp/3q4/8/3P4/2N5/PPP2PPP/R1BQKBNR b KQkq d3 0 0": 
+  { 
+    "myMove": "Nf6",
+    "explanation": "Control the d5 square"
+  },
+  "rnb1kbnr/ppp1pppp/3q4/8/8/2N3P1/PPPP1P1P/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "e5",
+    "explanation": "Mate on h2 no longer possible, so we take control of the center"
+  },
+  "rnb1kbnr/ppp1pppp/3q4/8/8/2N4P/PPPP1PP1/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Nc6",
+    "explanation": "Control the d4 square"
+  },
+  "rnb1kbnr/ppp1pppp/3q4/1B6/8/2N5/PPPP1PPP/R1BQK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "Nd7",
+    "explanation": "We block with the Knight on d7 because if the Bishop capture, we don't have to recapture with the queen"
+  },
+  "rnb1kbnr/ppp1pppp/3q4/8/2B5/2N5/PPPP1PPP/R1BQK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "Nc6",
+    "explanation": "Control the d4 square"
+  },
+  "rnb1kbnr/ppp1pppp/3q4/8/8/2NB4/PPPP1PPP/R1BQK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "Nf6",
+    "explanation": ""
+  },
+  "rnb1kbnr/ppp1pppp/3q4/8/8/2N5/PPPPBPPP/R1BQK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "Nf6",
+    "explanation": ""
+  },
+  "rnb1kbnr/ppp1pppp/3q4/8/8/2N2N2/PPPP1PPP/R1BQKB1R b KQkq - 0 0": 
+  { 
+    "myMove": "Nf6",
+    "explanation": ""
+  },
+  "rnb1kbnr/ppp1pppp/3q4/1N6/8/8/PPPP1PPP/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Qb6",
+    "explanation": "Knight is protected, but might not always be"
+  },
+  "rnb1kbnr/ppp1pppp/3q4/8/4N3/8/PPPP1PPP/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Qe6",
+    "explanation": "Pin the knight. If something doesn't block, f5"
+  },
+  "r1b1kbnr/ppp1pppp/2nq4/8/8/2NP4/PPP2PPP/R1BQKBNR w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["g3", "Ne4", "Nf3", "Be2", "Be3", "Bd2"]
+  },
+  "r1b1kbnr/ppp1pppp/2nq4/8/4N3/3P4/PPP2PPP/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Qe6",
+    "explanation": "Pin the knight. If something doesn't block, f5"
+  },
+  "r1b1kbnr/ppp1pppp/2nq4/8/8/2NP2P1/PPP2P1P/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "e5",
+    "explanation": "Opponent fianchetto -> take control of the center"
+  },
+  "r1b1kbnr/ppp1pppp/2nq4/8/8/2NP1N2/PPP2PPP/R1BQKB1R b KQkq - 0 0": 
+  { 
+    "myMove": "Nf6",
+    "explanation": ""
+  },
+  "r1b1kbnr/ppp1pppp/2nq4/8/8/2NP4/PPP1BPPP/R1BQK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "a6",
+    "explanation": "There's no check on e6 anymore, so a6 is necessary to prevent Nb5"
+  },
+  "r1b1kbnr/ppp1pppp/2nq4/8/8/2NPB3/PPP2PPP/R2QKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "a6",
+    "explanation": "There's no check on e6 anymore, so a6 is necessary to prevent Nb5"
+  },
+  "r1b1kbnr/ppp1pppp/2nq4/8/8/2NP4/PPPB1PPP/R2QKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Nf6",
+    "explanation": ""
+  },
+  "r1b1kbnr/ppp1pppp/2n1q3/8/4N3/3P4/PPP2PPP/R1BQKBNR w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["g3", "Nf3", "Be2", "Be3", "Qe2"]
+  },
+  "r1b1kbnr/ppp1pppp/2n1q3/8/4N3/3P2P1/PPP2P1P/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "f5",
+    "explanation": "Attack the pinned knight"
+  },
+  "r1b1kbnr/ppp1pppp/2n1q3/8/4N3/3P1N2/PPP2PPP/R1BQKB1R b KQkq - 0 0":
+  {
+    "myMove": "f5",
+    "explanation": "Attack the pinned knight"
+  },
+  "r1b1kbnr/ppp1pppp/2n1q3/8/4N3/3P4/PPP1BPPP/R1BQK1NR b KQkq - 0 0":
+  {
+    "myMove": "Nf6",
+    "explanation": "Develop a knight and offer a trade"
+  },
+  "r1b1kbnr/ppp1pppp/2n1q3/8/4N3/3PB3/PPP2PPP/R2QKBNR b KQkq - 0 0":
+  {
+    "myMove": "Nf6",
+    "explanation": "Develop a knight and offer a trade"
+  },
+  "r1b1kbnr/ppp1pppp/2n1q3/8/4N3/3P4/PPP1QPPP/R1B1KBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Nd4",
+    "explanation": "Attack the defending queen. If it tries to stay on the file, there's a royal fork."
+  },
+  "r1b1kbnr/ppp1p1pp/2n1q3/5p2/4N3/3P2P1/PPP2P1P/R1BQKBNR w KQkq - 0 0":
+  { 
+    "opponentMoves": ["Bh3"]
+  },
+  "r1b1kbnr/ppp1p1pp/2n1q3/5p2/4N3/3P2PB/PPP2P1P/R1BQK1NR b KQkq - 0 0":
+  { 
+    "myMove": "Nf6",
+    "explanation": "We can't capture the knight with the pawn because the pawn is pinned to the queen."
+  },
+  "r1b1kbnr/ppp1p1pp/2n1q3/5p2/4N3/3P1N2/PPP2PPP/R1BQKB1R w KQkq - 0 0":
+  { 
+    "opponentMoves": ["Ng5"]
+  },
+  "r1b1kbnr/ppp1p1pp/2n1q3/5pN1/4N3/3P4/PPP2PPP/R1BQKB1R b KQkq - 0 0":
+  { 
+    "myMove": "Qg6",
+    "explanation": "Get out of the way of the knight. Apply pressure to both enemy knights."
+  },
+  "r1b1kbnr/ppp1p1pp/2n3q1/5pN1/4N3/3P4/PPP2PPP/R1BQKB1R w KQkq - 0 0":
+  { 
+    "opponentMoves": ["Nc3", "Ng3", "Be2"]
+  },
+  "r1b1kbnr/ppp1p1pp/2n3q1/5pN1/8/2NP4/PPP2PPP/R1BQKB1R b KQkq - 0 0":
+  { 
+    "myMove": "h6",
+    "explanation": "Kick the knight."
+  },
+  "r1b1kbnr/ppp1p1pp/2n3q1/5pN1/8/3P2N1/PPP2PPP/R1BQKB1R b KQkq - 0 0":
+  { 
+    "myMove": "e5",
+    "explanation": "Take more control over the center."
+  },
+  "r1b1kbnr/ppp1p1pp/2n3q1/5pN1/4N3/3P4/PPP1BPPP/R1BQK2R b KQkq - 0 0":
+  { 
+    "myMove": "Nf6",
+    "explanation": "Guard the h5 square."
+  },
+  "r1b1kbnr/ppp2ppp/2nq4/4p3/8/2NP2P1/PPP2P1P/R1BQKBNR w KQkq - 0 0":
+  { 
+    "opponentMoves": ["f4", "Bg2", "Be3", "Nf3", "Ne4", "Nb5"]
+  },
+  "r1b1kbnr/ppp2ppp/2nq4/4p3/5P2/2NP2P1/PPP4P/R1BQKBNR b KQkq - 0 0":
+  { 
+    "myMove": "Be6",
+    "explanation": "Keep the tension. We're not afraid of the capture because we retake with check. Develop the bishop and prepare to castle."
+  },
+  "r1b1kbnr/ppp2ppp/2nq4/4p3/8/2NP2P1/PPP2PBP/R1BQK1NR b KQkq - 0 0":
+  { 
+    "myMove": "Be6",
+    "explanation": "We develop the bishop and prepare to castle. After opponent develops the knight to f3, we can close the position and prevent the knight harassing the bishop with f6 pawn push."
+  },
+  "r1b1kbnr/ppp2ppp/2nq4/4p3/8/2NPB1P1/PPP2P1P/R2QKBNR b KQkq - 0 0":
+  { 
+    "myMove": "Nh6",
+    "explanation": "Weird looking move, but the plan is to get the opponent to move the bishop twice. Remeber that with a Queen on the 6th rank, there's no danger to the pawn structure. The knight will land on f5, from where it controls d4 together with the other knight and harasses the bishop."
+  },
+  "r1b1kbnr/ppp2ppp/2nq4/4p3/8/2NP1NP1/PPP2P1P/R1BQKB1R b KQkq - 0 0":
+  { 
+    "myMove": "Bf5",
+    "explanation": "The lines for Bg4 are not that great in the Scandinavian against fianchetto, so we generally try to develop the light square bishop to e6 or f5."
+  },
+  "r1b1kbnr/ppp2ppp/2nq4/4p3/4N3/3P2P1/PPP2P1P/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Qg6",
+    "explanation": "Best place to keep the queen active and not block any other piece's development."
+  },
+  "r1b1kbnr/ppp2ppp/2nq4/1N2p3/8/3P2P1/PPP2P1P/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Qb4+",
+    "explanation": "Attack the knight. Only move is to go back, after which we strike with a follow-up Bg4, guarded by the queen."
+  },
+  "r3kbnr/ppp2ppp/2nqb3/4p3/8/2NP2P1/PPP2PBP/R1BQK1NR w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["f4", "Nf3", "Nge2", "Ne4", "Nb5", "Bd2", "Be3"]
+  },
+  "r3kbnr/ppp2ppp/2nqb3/4p3/5P2/2NP2P1/PPP3BP/R1BQK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "No worries about being captured since we recapture with check. "
+  },
+  "r3kbnr/ppp2ppp/2nqb3/4p3/8/2NP1NP1/PPP2PBP/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "f6",
+    "explanation": "Make a pawn chain and prevent knight from harassing our bishop"
+  },
+  "r3kbnr/ppp2ppp/2nqb3/4p3/8/2NP2P1/PPP1NPBP/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "No immediate threat, can castle."
+  },
+  "r3kbnr/ppp2ppp/2nqb3/4p3/4N3/3P2P1/PPP2PBP/R1BQK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "Qd7",
+    "explanation": "Usually we go here when attacked by the knight, to prepare a bishop trade on g2 and also an f pawn push."
+  },
+  "r3kbnr/ppp2ppp/2nqb3/1N2p3/8/3P2P1/PPP2PBP/R1BQK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "Qd7",
+    "explanation": "Usually we go here when attacked by the knight. We want to prepare a bishop trade against fianchetto."
+  },
+  "r3kbnr/ppp2ppp/2nqb3/4p3/8/2NPB1P1/PPP2PBP/R2QK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "We can't exploit Be3 immediately, so just castle and wait."
+  },
+  "r3kbnr/ppp2ppp/2nqb3/4p3/8/2NP2P1/PPPB1PBP/R2QK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "We can't exploit Be3 immediately, so just castle and wait."
+  },
+  "2kr1bnr/ppp2ppp/2nqb3/4p3/5P2/2NP2P1/PPP3BP/R1BQK1NR w KQ - 0 0": 
+  { 
+    "opponentMoves": ["a3", "Nf3", "Nge2", "fxe5", "Be3", "Be2"]
+  },
+  "2k1rbnr/ppp2ppp/2nqb3/4p3/5P2/P1NP2P1/1PP3BP/R1BQK1NR w KQ - 0 0": 
+  { 
+    "myMove": "Re8",
+    "explanation": "Lining up the rook with the enemy king, some tactics might appear."
+  },
+  "2kr1bnr/ppp2ppp/2nqb3/4p3/5P2/2NP1NP1/PPP3BP/R1BQK2R b KQ - 0 0": 
+  { 
+    "myMove": "Nf6",
+    "explanation": "We want to recapture on e5 with a knight."
+  },
+  "2kr1bnr/ppp2ppp/2nqb3/4p3/5P2/2NP2P1/PPP1N1BP/R1BQK2R b KQ - 0 0": 
+  { 
+    "myMove": "h5",
+    "explanation": "Opponent didn't develop knight to f3, making h pawn push more effective."
+  },
+  "2kr1bnr/ppp2ppp/2nqb3/4P3/8/2NP2P1/PPP3BP/R1BQK1NR b KQ - 0 0": 
+  { 
+    "myMove": "Qxe5+",
+    "explanation": "Recapturing with the queen is better due to check."
+  },
+  "2kr1bnr/ppp2ppp/2nqb3/4p3/5P2/2NPB1P1/PPP3BP/R2QK1NR b KQ - 0 0": 
+  { 
+    "myMove": "Nh6",
+    "explanation": "We might want to keep f6 square for the pawn. Our pawn structure is safe."
+  },
+  "2kr1bnr/ppp2ppp/2nqb3/4p3/5P2/2NP2P1/PPPB2BP/R2QK1NR b KQ - 0 0": 
+  { 
+    "myMove": "Nf6",
+    "explanation": "From this position, opponent doesn't have easy moves."
+  },
+  "r3kbnr/ppp3pp/2nqbp2/4p3/8/2NP1NP1/PPP2PBP/R1BQK2R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["O-O", "a3", "Bd2", "Be3", "Ne4", "Nb5"]
+  },
+  "r3kbnr/ppp3pp/2nqbp2/4p3/8/2NP1NP1/PPP2PBP/R1BQ1RK1 b kq - 0 0": 
+  { 
+    "myMove": "Qd7",
+    "explanation": "Getting ready to trade bishop on g2, pin the knight or attack the queen."
+  },
+  "r3kbnr/ppp3pp/2nqbp2/4p3/8/P1NP1NP1/1PP2PBP/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "Qd7",
+    "explanation": "Getting ready to trade bishop on g2, pin the knight or attack the queen."
+  },
+  "r3kbnr/ppp3pp/2nqbp2/4p3/8/2NP1NP1/PPPB1PBP/R2QK2R b KQkq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "Get the king to safety and prepare to maybe punish enemy king."
+  },
+  "r3kbnr/ppp3pp/2nqbp2/4p3/8/2NPBNP1/PPP2PBP/R2QK2R b KQkq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "Get the king to safety and prepare to maybe punish enemy king."
+  },
+  "r3kbnr/ppp3pp/2nqbp2/4p3/4N3/3P1NP1/PPP2PBP/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "Qd7",
+    "explanation": "Getting ready to trade bishop on g2, pin the knight or attack the queen."
+  },
+  "r3kbnr/ppp3pp/2nqbp2/1N2p3/8/3P1NP1/PPP2PBP/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "Qd7",
+    "explanation": "Getting ready to trade bishop on g2, pin the knight or attack the queen."
+  },
+  "r3kbnr/pppq2pp/2n1bp2/4p3/8/2NP1NP1/PPP2PBP/R1BQ1RK1 w kq - 0 0": 
+  { 
+    "opponentMoves": ["d4", "Re1", "a3", "Ne4", "Qe2", "Bd2", "Be3"]
+  },
+  "r3kbnr/pppq2pp/2n1bp2/4p3/3P4/2N2NP1/PPP2PBP/R1BQ1RK1 b kq - 0 0": 
+  { 
+    "myMove": "Nxd4",
+    "explanation": "Recapturing with the knight is more tricky for opponent to find moves."
+  },
+  "r3kbnr/pppq2pp/2n1bp2/4p3/8/2NP1NP1/PPP2PBP/R1BQR1K1 b kq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "Move king to safety. Prepare for possible fight for d4 square."
+  },
+  "r3kbnr/pppq2pp/2n1bp2/4p3/8/P1NP1NP1/1PP2PBP/R1BQ1RK1 b kq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "Move king to safety. Prepare for possible fight for d4 square."
+  },
+  "r3kbnr/pppq2pp/2n1bp2/4p3/4N3/3P1NP1/PPP2PBP/R1BQ1RK1 b kq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "Central knight doesn't really bother us, yet. Move the king to safety."
+  },
+  "r3kbnr/pppq2pp/2n1bp2/4p3/8/2NP1NP1/PPP1QPBP/R1B2RK1 b kq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "Queen moving doesn't really influence what we need to do, yet. Move the king to safety."
+  },
+  "r3kbnr/pppq2pp/2n1bp2/4p3/8/2NP1NP1/PPPB1PBP/R2Q1RK1 b kq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "Bishop doesn't really affect out plans. Move the king to safety."
+  },
+  "r3kbnr/pppq2pp/2n1bp2/4p3/8/2NPBNP1/PPP2PBP/R2Q1RK1 b kq - 0 0": 
+  { 
+    "myMove": "O-O-O",
+    "explanation": "Bishop doesn't really affect out plans. Move the king to safety."
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  }
+}
