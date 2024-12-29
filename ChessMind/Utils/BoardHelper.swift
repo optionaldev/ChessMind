@@ -204,7 +204,7 @@ enum BoardHelper {
       index = notation.index(after: index)
     }
     
-    if notation.last == "+" || notation.last == "#" {
+    if notation.last == Constants.checkNotation || notation.last == "#" {
       /// For now, we ignore checks and checkmate symbols
       notation.removeLast()
     }
@@ -300,79 +300,97 @@ enum BoardHelper {
   /// - Returns: Algebraic notation for the given set of moves. E.g:
   /// "O-O" for short castling, "a5" for pawn advancing from a4 to a5
   /// (white) or a6 to a5 (black), etc
-  static func notation(forMoves moves: [Move],
+  static func notation(forMove move: Move,
                        onBoard board: [[SquareState]],
                        boardSettings: BoardSettings) -> String?
   {
-    switch moves.count {
-      case 0:
-        print("Trying to get notation for 0 moves. What happened here?")
-        return nil
-      case 1:
-        guard let move = moves.first else {
-          fatalError("What happened here?")
-        }
-        let fromSquare = board[move.from.column][move.from.row]
-        let toSquare = board[move.to.column][move.to.row]
-        
-        switch fromSquare {
+    let fromSquare = board[move.from.row][move.from.column]
+    let toSquare = board[move.to.row][move.to.column]
+    
+    switch fromSquare {
+      case .empty:
+        fatalError("Not possible to move from an empty square. What are we trying to move?")
+      case .occupied(let fromPiece, let fromSide):
+        var isCapture: Bool
+        switch toSquare {
           case .empty:
-            fatalError("Not possible to move from an empty square. What are we trying to move?")
-          case .occupied(let fromPiece, let fromSide):
-            var isCapture: Bool
-            switch toSquare {
-              case .empty:
-                isCapture = false
-              case .occupied(_, let toSide):
-                guard fromSide != toSide else {
-                  fatalError("We're trying to capture a piece from the same side???")
-                }
-                isCapture = true
+            isCapture = false
+          case .occupied(_, let toSide):
+            guard fromSide != toSide else {
+              fatalError("We're trying to capture a piece from the same side???")
             }
-            /// Here we need to know if another piece identical to
-            /// 'fromPiece' from the same side as 'fromSide' can
-            /// move to the same square. For example, a knight on
-            /// c3 and a Knight on g3 and both move to e4, which
-            /// affects the notation because the notation includes
-            /// information about which knight should land on the
-            /// destination square.
-            
-            switch fromPiece {
-              case .pawn:
-                if isCapture {
-                  return "\(move.from.file.notation)\(Constants.captureNotation)\(move.to.notation)"
-                } else {
-                  return move.to.notation
-                }
-              case .king:
-                /// We handle king separately because there can only
-                /// be one king, meaning there's no point in looking
-                /// for other pieces that can go to the destination
-                /// square.
-                return "K\(move.to.notation)"
-              case .bishop, .knight, .queen, .rook:
-                
-                return nil
-                /// Example of possible cases to handle:
-                /// a4 -> Pawn moves to a4, could be from a2 or a3.
-                /// dxc5 -> Pawn from d file captured piece on c5.
-                /// Nc6 -> Only one knight can move to c6.
-                /// N5c6 -> There are two knights on the a or e file,
-                ///         and the one on the 5th rank is meant.
-                /// Ne5c6 -> There are at least 3 knights that can
-                ///          move to c6, two are on the e file and
-                ///          two are on the 5th rank, so both file
-                ///          and rank need to be specified.
-                /// Ne5xc6 -> Same as above but with a capture.
-            }
+            isCapture = true
         }
+        /// Here we need to know if another piece identical to
+        /// 'fromPiece' from the same side as 'fromSide' can
+        /// move to the same square. For example, a knight on
+        /// c3 and a Knight on g3 and both move to e4, which
+        /// affects the notation because the notation includes
+        /// information about which knight should land on the
+        /// destination square.
         
-        return nil
-      case 2:
-        // TODO: Handle castling
-        return nil
-      default:
-        fatalError("Why do we have 3 simulatinous moves? 2 is the maximum.")
+        switch fromPiece {
+          case .pawn:
+            if isCapture {
+              return "\(move.from.file.notation)\(Constants.captureNotation)\(move.to.notation)"
+            } else {
+              return move.to.notation
+            }
+          case .king:
+            
+            if abs(move.from.file.rawValue - move.to.file.rawValue) == 2 {
+              /// We castled, so we need to return the appropriate
+              /// notation.
+              if move.to.file == .c {
+                return Constants.castlingLongNotation
+              } else {
+                return Constants.castlingShortNotation
+              }
+            } else {
+              /// We handle king separately because there can only
+              /// be one king, meaning there's no point in looking
+              /// for other pieces that can go to the destination
+              /// square.
+              return "K\(move.to.notation)"
+            }
+          case .bishop, .knight, .queen, .rook:
+            /// We need to calculate the legal destinations of all
+            /// pieces of the same type from the same side (e.g:
+            /// all white knights, all white queens, etc).
+            /// If there are two knights, one on c3 and one on g3,
+            /// if the g3 knight is pinned to the king, and the c3
+            /// knight moves to e4, the notation is "Ne4"
+            let (sameRank, sameFile) = findSamePieces(as: fromPiece,
+                                                      side: fromSide,
+                                                      from: move.from,
+                                                      thatCanMoveTo: move.to,
+                                                      onBoard: board,
+                                                      boardSettings: boardSettings)
+            var result = fromPiece.rawValue.uppercased()
+            if sameRank && sameFile {
+              /// If both rank and file are available, it means
+              /// there are three pieces that can go to the same
+              /// position. Two of them are on the same rank, two
+              /// of them are on the same file (not exclusive)
+              result += move.from.notation
+            } else if sameRank {
+              result += move.from.file.notation.string
+            } else if sameFile {
+              result += move.from.rank.notation
+            }
+            
+            if isCapture {
+              result += Constants.captureNotation.string
+            }
+            
+            result += move.to.notation
+            
+            if isKingInCheck(onBoard: board, boardSettings: boardSettings) {
+              result += Constants.checkNotation.string
+            }
+            
+            return result
+        }
     }
   }
   
@@ -796,6 +814,51 @@ enum BoardHelper {
     }
     
     return []
+  }
+  
+  private static func findSamePieces(as inputPiece: Piece,
+                                     side inputSide: Side,
+                                     from inputPosition: Position,
+                                     thatCanMoveTo inputDestination: Position,
+                                     onBoard board: [[SquareState]],
+                                     boardSettings: BoardSettings) -> (Bool, Bool)
+  {
+    var sameRank: Bool = false
+    var sameFile: Bool = false
+    
+    for (row, squareRow) in board.enumerated() {
+      for (column, squareState) in squareRow.enumerated() {
+        guard let position = Position(row: row, column: column) else {
+          fatalError("We're traversing the board. Position should be valid. row = \(row) column = \(column)")
+        }
+        switch squareState {
+          case .empty:
+            break
+          case .occupied(let piece, let side):
+            guard piece == inputPiece &&
+                    side == inputSide &&
+                    position != inputPosition else
+            {
+              break
+            }
+              
+            let legalDestinations = calculateLegalDestinations(forPieceAtPosition: position,
+                                                               onBoard: board,
+                                                               boardSettings: boardSettings)
+            if legalDestinations.contains(inputDestination) {
+              if position.rank == inputPosition.rank {
+                sameRank = true
+              } else if position.file == inputPosition.file {
+                sameFile = true
+              } else {
+                fatalError("Either rank or file should be the same. What case is this?")
+              }
+            }
+        }
+      }
+    }
+    
+    return (sameRank, sameFile)
   }
   
   private static func calculateTheoreticalDestinations(forPieceAtPosition position: Position,

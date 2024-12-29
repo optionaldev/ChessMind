@@ -21,6 +21,9 @@ enum Constants {
   /// Algebraic notation for castling short.
   static let castlingShortNotation = "O-O"
   
+  /// Algebraic notation for a move that put the opponent in check.
+  static let checkNotation: Character = "+"
+  
   /// FEN notation is split into several components separated by a
   /// space. If a component is empty, it is represented as a dash.
   static let fenEmptyField = "-"

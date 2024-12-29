@@ -125,7 +125,7 @@
   { 
     "opponentMoves": ["Qd6"]
   },
-  "r1b1kbnr/pppp1ppp/3q4/3Nn3/5B2/5N2/PPP1PPPP/R2QKB1R b KQkq - 0 0": 
+  "r1b1kbnr/pppp1ppp/3q4/3Nn3/5B2/8/PPP1PPPP/R2QKBNR w KQkq - 0 0": 
   { 
     "myMove": "Nf3",
     "explanation": "Put pressure on the knight"
