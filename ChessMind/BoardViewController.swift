@@ -78,10 +78,12 @@ final class BoardViewController: UIViewController {
     //    let (squareStates, boardSettings) = FenParser.parse(fen: "r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1")
     
     /// Testing pins
-    //    let (squareStates, boardSettings) = FenParser.parse(fen: "2kr4/q5b1/1p6/2PPB2p/n1BKP1Pr/2NBN3/8/3r4 b - - 0 1")
+//        let (squareStates, boardSettings) = FenParser.parse(fen: "2kr4/q5b1/1p6/2PPB2p/n1BKP1Pr/2NBN3/8/3r4 b - - 0 1")
+    
+    /// Testing protected squares
+//    let (squareStates, boardSettings) = FenParser.parse(fen: "rnbqkbnr/ppp3pp/8/8/6R1/7B/PPP3PP/RNBQK1N1 w HQkq - 0 1")
     
     let (squareStates, boardSettings) = FenParser.parse(fen: startingFen)
-    
     boardView.configure(withSquareStates: squareStates)
     self.boardSettings = boardSettings
     

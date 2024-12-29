@@ -28,16 +28,14 @@ enum BoardHelper {
     fatalError("Should always have a king (on both sides).")
   }
   
-  /// Method for finding out if the king for the
-  /// side that is next to move is in check.
+  /// Method for finding out if the king for the side that is next to
+  /// move is in check.
   ///
-  /// It's important to know whether the king is
-  /// in check or not because the amount of
-  /// legal moves that exist on the board if the
+  /// It's important to know whether the king is in check or not
+  /// because the amount of legal moves that exist on the board if the
   /// king is in check is always lower.
   ///
-  /// - Returns: true if king is in check, false
-  /// otherwise.
+  /// - Returns: true if king is in check, false otherwise.
   static func isKingInCheck(onBoard board: [[SquareState]],
                             boardSettings: BoardSettings) -> Bool
   {
@@ -47,8 +45,7 @@ enum BoardHelper {
     return true
   }
   
-  /// Method for calculating on which squares the piece from the
-  /// input position can move.
+  /// Calculates the squares on which the input piece can legally move.
   ///
   /// This method takes into account:
   /// - whether the piece is pinned
@@ -58,11 +55,10 @@ enum BoardHelper {
   /// piece that is checking the king
   ///
   /// - Parameters:
-  ///   - forPieceAtPosition: the position of the
-  ///   piece for which the calculations are
-  ///   being done.
-  /// - Returns: an array of destination squares
-  /// that the input piece can go to.
+  ///   - forPieceAtPosition: the position of the piece for which the
+  ///   calculations are being done.
+  ///
+  /// - Returns: Destination squares that the input piece can go to.
   static func calculateLegalDestinations(forPieceAtPosition position: Position,
                                          onBoard board: [[SquareState]],
                                          boardSettings: BoardSettings) -> [Position]
@@ -72,9 +68,9 @@ enum BoardHelper {
     }
     
     
-    guard let checkInfo = calculatePositionsWhenChecked(forPieceAtPosition: position,
-                                                        onBoard: board,
-                                                        boardSettings: boardSettings) else
+    guard let checkInfo = calculateCheckInfo(forPieceAtPosition: position,
+                                             onBoard: board,
+                                             boardSettings: boardSettings) else
     {
       return []
     }
@@ -87,41 +83,32 @@ enum BoardHelper {
     var result: [[Position]] = []
     var currentPositions: [Position] = []
     
-    func addDestinationIfValid(destination: Position) {
-      /// We check for opposite position, because king can't
-      /// stay on the same file/rank/diagonal he was checked on.
-      if destination != checkInfo.oppositeSideOfCheck &&
-          /// If the king is the one moving, he cannot capture
-          /// a piece that is protected (a queen protected by
-          /// a rook, a knight protected by a pawn, etc)
-          (piece == .king && (isProtectedSquare(destination,
-                                               onBoard: board,
-                                               boardSettings: boardSettings) == false ||
-                              (checkInfo.validPositionsForNonKingPieces.isNonEmpty)
-          ) ||
-           /// In case validPositionsForNonKingPieces is empty,
-           /// we're not in check, so we can move anywhere. Otherwise,
-           /// we need to know if it's a valid destination when the
-           /// king is in check.
-           (piece != .king && (checkInfo.validPositionsForNonKingPieces.isEmpty ||
-                               checkInfo.validPositionsForNonKingPieces.contains(destination))))
-      {
-        currentPositions.append(destination)
-      }
-    }
-    
     for destinationArray in theoreticalDestinationMatrix {
     innerFor:
       for destination in destinationArray {
         switch board[destination.row][destination.column] {
           case .empty:
             /// If the square is empty, we can move there.
-            addDestinationIfValid(destination: destination)
+            if isValid(destination: destination,
+                       forPiece: piece,
+                       withCheckInfo: checkInfo,
+                       onBoard: board,
+                       boardSettings: boardSettings)
+            {
+              currentPositions.append(destination)
+            }
+            
           case .occupied(_, let targetSide):
             /// If the square is not empty, we need to check if
             /// it's on our side.
-            if side != targetSide {
-              addDestinationIfValid(destination: destination)
+            if side != targetSide &&
+                isValid(destination: destination,
+                        forPiece: piece,
+                        withCheckInfo: checkInfo,
+                        onBoard: board,
+                        boardSettings: boardSettings)
+            {
+              currentPositions.append(destination)
             }
             
             result.append(currentPositions)
@@ -138,17 +125,56 @@ enum BoardHelper {
     return result.flatMap { $0 }
   }
   
-  /// Example of possible cases to handle:
-  /// a4 -> Pawn moves to a4, could be from a2 or a3.
-  /// dxc5 -> Pawn from d file captured piece on c5.
-  /// Nc6 -> Only one knight can move to c6.
-  /// N5c6 -> There are two knights on the a or e file,
+  
+  private static func isValid(destination: Position,
+                              forPiece piece: Piece,
+                              withCheckInfo checkInfo: CheckInfo,
+                              onBoard board: [[SquareState]],
+                              boardSettings: BoardSettings) -> Bool
+  {
+    switch piece {
+      case .bishop, .knight, .pawn, .queen, .rook:
+        if checkInfo.validPositionsForNonKingPieces.isEmpty ||
+            checkInfo.validPositionsForNonKingPieces.contains(destination)
+        {
+          return true
+        }
+      case .king:
+        /// We check for opposite position, because king can't stay
+        /// on the same file/rank/diagonal he was checked on.
+        if destination != checkInfo.oppositeSideOfCheck &&
+            isProtectedSquare(destination,
+                              onBoard: board,
+                              boardSettings: boardSettings) == false
+        {
+          return true
+        }
+    }
+    return false
+  }
+  
+  /// Get the move(s) involved in a notation.
+  ///
+  /// Example of possible cases:
+  /// - a4 -> Pawn moves to a4, could be from a2 or a3.
+  /// - dxc5 -> Pawn from d file captured piece on c5.
+  /// - Nc6 -> Only one knight can move to c6.
+  /// - N5c6 -> There are two knights on the a or e file,
   ///         and the one on the 5th rank is meant.
-  /// Ne5c6 -> There are at least 3 knights that can
+  /// - Ne5c6 -> There are at least 3 knights that can
   ///          move to c6, two are on the e file and
   ///          two are on the 5th rank, so both file
   ///          and rank need to be specified.
-  /// Ne5xc6 -> Same as above but with a capture.
+  /// - Ne5xc6 -> Same as above but with a capture.
+  ///
+  /// - Parameters:
+  ///   - forNotation: algebraic notation that needs to be converted
+  ///   into moves.
+  ///
+  /// - Returns: An array of moves and capture statuses. If notation
+  /// can be converted into moves, max 2 for castling, max 1
+  /// otherwise. Empty array if notation could not be converted into
+  /// moves.
   static func move(forNotation notation: String,
                    onBoard board: [[SquareState]],
                    boardSettings: BoardSettings) -> [(move: Move, isCapture: Bool)]
@@ -170,8 +196,7 @@ enum BoardHelper {
     var isCapture = false
     
     while index < notation.endIndex {
-      if notation[index] == "x" {
-        /// We identified a capture.
+      if notation[index] == Constants.captureNotation {
         isCapture = true
         notation.remove(at: index)
         break
@@ -201,7 +226,7 @@ enum BoardHelper {
     if notation.isEmpty {
       /// We have a pawn move. Side depends on "turn" parameter.
       /// We know it's a pawn advancement, not capture
-      startingPosition = findPosition(forPiece: .pawn,
+      startingPosition = findPosition(ofPiece: .pawn,
                                       onBoard: board,
                                       boardSettings: boardSettings,
                                       thatCanMoveTo: destinationPosition)
@@ -223,7 +248,7 @@ enum BoardHelper {
       /// once piece can move to the destination
       /// position, so we can start looking.
       if notation.isEmpty {
-        startingPosition = findPosition(forPiece: piece,
+        startingPosition = findPosition(ofPiece: piece,
                                         onBoard: board,
                                         boardSettings: boardSettings,
                                         thatCanMoveTo: destinationPosition)
@@ -250,7 +275,7 @@ enum BoardHelper {
         {
           startingPosition = Position(rank: rank, file: file)
         } else {
-          startingPosition = findPosition(forPiece: piece,
+          startingPosition = findPosition(ofPiece: piece,
                                           onBoard: board,
                                           boardSettings: boardSettings,
                                           rank: rank,
@@ -266,7 +291,15 @@ enum BoardHelper {
     return []
   }
   
-  /*
+  /// Get the algebraic notation for the given move(s).
+  ///
+  /// - Parameters:
+  ///   - forMoves: moves that need to be converted into algebraic
+  ///   notation.
+  ///
+  /// - Returns: Algebraic notation for the given set of moves. E.g:
+  /// "O-O" for short castling, "a5" for pawn advancing from a4 to a5
+  /// (white) or a6 to a5 (black), etc
   static func notation(forMoves moves: [Move],
                        onBoard board: [[SquareState]],
                        boardSettings: BoardSettings) -> String?
@@ -281,7 +314,6 @@ enum BoardHelper {
         }
         let fromSquare = board[move.from.column][move.from.row]
         let toSquare = board[move.to.column][move.to.row]
-        
         
         switch fromSquare {
           case .empty:
@@ -304,8 +336,23 @@ enum BoardHelper {
             /// affects the notation because the notation includes
             /// information about which knight should land on the
             /// destination square.
-              
             
+            switch fromPiece {
+              case .pawn:
+                if isCapture {
+                  return "\(move.from.file.notation)\(Constants.captureNotation)\(move.to.notation)"
+                } else {
+                  return move.to.notation
+                }
+              case .king:
+                /// We handle king separately because there can only
+                /// be one king, meaning there's no point in looking
+                /// for other pieces that can go to the destination
+                /// square.
+                return "K\(move.to.notation)"
+              case .bishop, .knight, .queen, .rook:
+                
+                return nil
                 /// Example of possible cases to handle:
                 /// a4 -> Pawn moves to a4, could be from a2 or a3.
                 /// dxc5 -> Pawn from d file captured piece on c5.
@@ -328,12 +375,27 @@ enum BoardHelper {
         fatalError("Why do we have 3 simulatinous moves? 2 is the maximum.")
     }
   }
-  */
+  
   // MARK: - Private
   
-  private static func calculatePositionsWhenChecked(forPieceAtPosition position: Position,
-                                                    onBoard board: [[SquareState]],
-                                                    boardSettings: BoardSettings) -> CheckInfo?
+  /// Gets the check info for the input piece.
+  ///
+  /// Calculating the check info does not mean that the side from
+  /// where the piece belongs is in check, but if it is, it holds the
+  /// limits for the input piece, because the piece might not be able
+  /// to move at all if it can't do something about the check such as
+  /// blocking or capturing the attacking piece.
+  ///
+  /// - Parameters:
+  ///   - forPieceAtPosition: the piece for which we calculate the
+  ///   check info.
+  ///
+  /// - Returns: Information about the check, if the side of the piece
+  /// is indeed in check. If _nil_ it means that the input piece has
+  /// no legal moves at the moment.
+  private static func calculateCheckInfo(forPieceAtPosition position: Position,
+                                         onBoard board: [[SquareState]],
+                                         boardSettings: BoardSettings) -> CheckInfo?
   {
     guard case .occupied(let piece, let side) = board[position.row][position.column] else {
       return nil
@@ -347,6 +409,7 @@ enum BoardHelper {
     if side == boardSettings.turn {
       checkState = computeCheckState(onBoard: board, boardSettings: boardSettings)
     } else {
+      /// Only the side who's turn it is can be in check.
       checkState = .notInCheck
     }
     
@@ -399,6 +462,14 @@ enum BoardHelper {
                      oppositeSideOfCheck: oppositePositionOfCheck)
   }
   
+  /// Converts the notation and turn into the 2 castling moves.
+  ///
+  /// - Parameters:
+  ///   - forNotation: the algebraic notation for castling (either
+  ///   short or long)
+  ///
+  /// - Returns: The moves involved in castling. This method always
+  /// returns two moves, even if the notation is incorrect.
   private static func castlingMoves(forNotation notation: String,
                                     turn: Turn) -> [Move]
   {
@@ -422,14 +493,28 @@ enum BoardHelper {
     }
   }
   
-  private static func checkIfPosition(position: Position,
-                                      canMoveTo destination: Position,
-                                      onBoard board: [[SquareState]],
-                                      boardSettings: BoardSettings,
-                                      forPiece expectedPiece: Piece,
-                                      squareState: SquareState) -> Bool
+  /// Check if the piece at a certain position can move to another
+  /// position.
+  ///
+  /// This method takes into account king being in check and piece
+  /// being pinned.
+  ///
+  /// - Parameters:
+  ///   - ifPiece: the piece we expect to find at the input position
+  ///   - atPosition: the position we need to check to see if the
+  ///   input piece can move to
+  ///   - canMoveTo: destination of input piece that we need to
+  ///   validate if possible
+  ///
+  /// - Returns: true if input piece can move to destination,
+  /// including checking any pins or king being in check
+  private static func check(ifPiece expectedPiece: Piece,
+                            atPosition position: Position,
+                            canMoveTo destination: Position,
+                            onBoard board: [[SquareState]],
+                            boardSettings: BoardSettings) -> Bool
   {
-    switch squareState {
+    switch board[position.row][position.column] {
       case .empty:
         return false
       case .occupied(let piece, let side):
@@ -445,18 +530,29 @@ enum BoardHelper {
     return false
   }
   
-  private static func computeDirections(_ directions: [Direction], withPinnedDirections pinnedDirections: [Direction]) -> [Direction] {
+  /// Filters _directions_ to only include those already contained
+  /// in _pinnedDirections_ (legal directions)
+  ///
+  /// - Parameters:
+  ///   - directions: directions that a piece can normally go in
+  ///   - withPinnedDirections: the directions that the piece is
+  ///   pinned to the king on
+  ///
+  /// - Returns: filtered directions to only include legal directions
+  private static func filterDirections(_ directions: [Direction],
+                                        withPinnedDirections pinnedDirections: [Direction]) -> [Direction] {
+    
     guard pinnedDirections.isNonEmpty else {
+      /// If there's no pinned directions, there's nothing to filter
       return directions
     }
     
     return directions.filter { pinnedDirections.contains($0) }
   }
   
-  /// Assuming we already know the king is in check, this
-  /// method computes the type of check.
+  /// Get the check state for the current side to move.
   ///
-  /// Check CheckState for more info on type of checks.
+  /// - Returns: the current check state
   static private func computeCheckState(onBoard board: [[SquareState]],
                                         boardSettings: BoardSettings) -> CheckState
   {
@@ -487,13 +583,16 @@ enum BoardHelper {
     fatalError("Somehow, we've avoided all possible check types: \(enemyPositions)")
   }
   
-  /// A method for checking if a piece is protected by another piece
-  /// from the same side.
+  /// Check if the piece at the input position is protected by another
+  /// piece from the same side. Useful to know during check if the
+  /// king can capture the input piece or not.
   ///
-  /// This method is used when a king is in check and we want to know
-  /// if an opponent piece is protected. Based on this, we will know
-  /// if the king can capture that piece or not.
+  /// This method assumes that the king is in check.
   ///
+  /// - Parameters:
+  ///   - position: position of piece to check if it is protected
+  ///
+  /// - Returns: _true_ if the piece is protected, _false_ otherwise
   private static func isProtectedSquare(_ position: Position,
                                         onBoard board: [[SquareState]],
                                         boardSettings: BoardSettings) -> Bool
@@ -517,14 +616,29 @@ enum BoardHelper {
             if side == foundSide,
                let allyPosition = Position(row: row, column: column)
             {
-              let theoreticalDestinations = calculateTheoreticalDestinations(forPieceAtPosition: allyPosition,
+              let theoreticalDestinationMatrix = calculateTheoreticalDestinations(forPieceAtPosition: allyPosition,
                                                                              isKingInCheck: false,
                                                                              onBoard: board,
                                                                              boardSettings: boardSettings)
-                .flatMap { $0 }
               
-              if theoreticalDestinations.contains(position) {
-                return true
+              for destinationArray in theoreticalDestinationMatrix {
+              innerLoop:
+                for destination in destinationArray {
+                  switch board[destination.row][destination.column] {
+                    case .empty:
+                      break
+                    case .occupied:
+                      if position == destination {
+                        return true
+                      } else {
+                        /// If the square is occupied, but we haven't
+                        /// found a match for our input position,
+                        /// there's no point in looking further on
+                        /// this direction.
+                        break innerLoop
+                      }
+                  }
+                }
               }
             }
         }
@@ -561,20 +675,38 @@ enum BoardHelper {
     return nil
   }
   
-  private static func findPosition(forPiece expectedPiece: Piece,
+  /// Finds the position of the first piece that can move to the
+  /// input position.
+  ///
+  /// This method is useful when converting from an algebraic notation
+  /// to a move because for example:
+  /// - "a4" we know that only one pawn can move to a4; even if
+  /// there's two pawns, a white one on a3 and a black one on a5, we
+  /// know which pawn moved to a4 based on who's turn it is
+  /// - "Nc6" there's only one knight that can move to c6, otherwise
+  /// the notation would be different
+  ///
+  /// - Parameters:
+  ///   - ofPiece: the piece we're expecting to find
+  ///   - thatCanMoveTo: the destination where the input piece
+  ///   should be able to move to
+  ///
+  /// - Returns: The position of the input piece that can move to
+  /// the destination.
+  private static func findPosition(ofPiece expectedPiece: Piece,
                                    onBoard board: [[SquareState]],
                                    boardSettings: BoardSettings,
                                    thatCanMoveTo destination: Position) -> Position?
   {
+    /// We need to check all squares for pieces that fit the descri
     for (row, boardRow) in board.enumerated() {
-      for (column, squareState) in boardRow.enumerated() {
+      for (column, _) in boardRow.enumerated() {
         if let position = Position(row: row, column: column),
-           checkIfPosition(position: position,
-                           canMoveTo: destination,
-                           onBoard: board,
-                           boardSettings: boardSettings,
-                           forPiece: expectedPiece,
-                           squareState: squareState)
+           check(ifPiece: expectedPiece,
+                 atPosition: position,
+                 canMoveTo: destination,
+                 onBoard: board,
+                 boardSettings: boardSettings)
         {
           return position
         }
@@ -582,7 +714,26 @@ enum BoardHelper {
     }
     return nil
   }
-  private static func findPosition(forPiece expectedPiece: Piece,
+  /// Finds the position of the first piece that can move to the
+  /// input position.
+  ///
+  /// This method is useful when converting from an algebraic notation
+  /// to a move because for example:
+  /// - "a4" we know that only one pawn can move to a4; even if
+  /// there's two pawns, a white one on a3 and a black one on a5, we
+  /// know which pawn moved to a4 based on who's turn it is
+  /// - "Nc6" there's only one knight that can move to c6, otherwise
+  /// the notation would be different.
+  ///
+  /// - Parameters:
+  ///   - ofPiece: the piece we're expecting to find based on
+  ///   notation
+  ///   - thatCanMoveTo: the destination where the input piece
+  ///   should be able to move to
+  ///
+  /// - Returns: The position of the input piece that can move to
+  /// the destination.
+  private static func findPosition(ofPiece expectedPiece: Piece,
                                    onBoard board: [[SquareState]],
                                    boardSettings: BoardSettings,
                                    rank: Rank?,
@@ -599,14 +750,13 @@ enum BoardHelper {
       fatalError("Shouldn't call this method if we don't have either a rank or a file.")
     }
     
-    for (index, squareState) in boardSlice.enumerated() {
+    for (index, _) in boardSlice.enumerated() {
       if let position = Position(row: rank?.rawValue ?? index, column: file?.rawValue ?? index),
-         checkIfPosition(position: position,
-                         canMoveTo: destination,
-                         onBoard: board,
-                         boardSettings: boardSettings,
-                         forPiece: expectedPiece,
-                         squareState: squareState)
+         check(ifPiece: expectedPiece,
+               atPosition: position,
+               canMoveTo: destination,
+               onBoard: board,
+               boardSettings: boardSettings)
       {
         return position
       }
@@ -666,9 +816,10 @@ enum BoardHelper {
     
     switch piece {
       case .bishop:
-        let directions = computeDirections([.bottomLeft, .bottomRight, .topLeft, .topRight], withPinnedDirections: pinnedDirections)
+        let directions = filterDirections([.bottomLeft, .bottomRight, .topLeft, .topRight],
+                                          withPinnedDirections: pinnedDirections)
         result = generateTheoreticalDestinations(forDirections: directions,
-                                                 position: position)
+                                                 fromPosition: position)
       case .king:
         /// King can never be pinned.
         for direction in Direction.allCases {
@@ -724,11 +875,15 @@ enum BoardHelper {
         let captureDirections: [Direction]
         switch side {
           case .black:
-            advanceDirection = computeDirections([.down], withPinnedDirections: pinnedDirections).first
-            captureDirections = computeDirections([.bottomLeft, .bottomRight], withPinnedDirections: pinnedDirections)
+            advanceDirection = filterDirections([.down],
+                                                withPinnedDirections: pinnedDirections).first
+            captureDirections = filterDirections([.bottomLeft, .bottomRight],
+                                                  withPinnedDirections: pinnedDirections)
           case .white:
-            advanceDirection = computeDirections([.up], withPinnedDirections: pinnedDirections).first
-            captureDirections = computeDirections([.topLeft, .topRight], withPinnedDirections: pinnedDirections)
+            advanceDirection = filterDirections([.up],
+                                                withPinnedDirections: pinnedDirections).first
+            captureDirections = filterDirections([.topLeft, .topRight],
+                                                 withPinnedDirections: pinnedDirections)
         }
         
         if let advanceDirection = advanceDirection {
@@ -768,25 +923,27 @@ enum BoardHelper {
         }
         
       case .queen:
-        let directions = computeDirections(Direction.allCases, withPinnedDirections: pinnedDirections)
+        let directions = filterDirections(Direction.allCases,
+                                          withPinnedDirections: pinnedDirections)
         result = generateTheoreticalDestinations(forDirections: directions,
-                                                 position: position)
+                                                 fromPosition: position)
       case .rook:
-        let directions = computeDirections([.down, .left, .right, .up], withPinnedDirections: pinnedDirections)
+        let directions = filterDirections([.down, .left, .right, .up],
+                                          withPinnedDirections: pinnedDirections)
         result = generateTheoreticalDestinations(forDirections: directions,
-                                                 position: position)
+                                                 fromPosition: position)
     }
     
     return result
   }
   
   private static func generateTheoreticalDestinations(forDirections directions: [Direction],
-                                                      position: Position) -> [[Position]] {
+                                                      fromPosition: Position) -> [[Position]] {
     var result: [[Position]] = []
     var currentDestinations: [Position] = []
     
     for direction in directions {
-      var referencePosition = position
+      var referencePosition = fromPosition
       while let newPosition = referencePosition.next(inDirection: direction) {
         currentDestinations.append(newPosition)
         referencePosition = newPosition
@@ -800,6 +957,8 @@ enum BoardHelper {
     
     return result
   }
+  
+  
   private static func isPositionUnderAttack(_ position: Position,
                                             onBoard board: [[SquareState]],
                                             boardSettings: BoardSettings) -> Bool

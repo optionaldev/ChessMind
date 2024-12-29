@@ -4,7 +4,7 @@
 // Copyright © 2024 optionaldev. All rights reserved.
 // 
 
-/// A enum for describing a king's checked state.
+/// A enum for describing a king's current state.
 enum CheckState {
 
   /// The king is not in check.

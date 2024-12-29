@@ -12,6 +12,9 @@ enum Constants {
   /// Since the board is a square, only one value is needed.
   static let boardLength = 8
   
+  /// Algebraic notation for a piece capturing another piece.
+  static let captureNotation: Character = "x"
+  
   /// Algebraic notation for castling long.
   static let castlingLongNotation = "O-O-O"
   
