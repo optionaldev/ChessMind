@@ -27,6 +27,7 @@ final class BoardViewController: UIViewController {
         self.perspective = .black
     }
     self.startingFen = fen
+    self.fenBeforeAttempt = fen
     
     super.init(nibName: nil, bundle: nil)
   }
@@ -42,23 +43,17 @@ final class BoardViewController: UIViewController {
     
     let boardView = BoardView()
     
-    let flipButton = UIButton(type: .system)
-    flipButton.addTarget(self, action: #selector(flipButtonTapped), for: .touchUpInside)
-    flipButton.setImage(UIImage(named: "flip"), for: .normal)
-    flipButton.translatesAutoresizingMaskIntoConstraints = false
+    let flipImage = UIImage(named: "flip")
+    let flipButton = UIBarButtonItem(image: flipImage, style: .done, target: self, action: #selector(flipButtonTapped))
+    
+    navigationItem.rightBarButtonItem = flipButton
     
     view.addSubview(boardView)
-    view.addSubview(flipButton)
     view.backgroundColor = .white
     
     NSLayoutConstraint.activate([
       boardView.leftAnchor.constraint(equalTo: view.leftAnchor),
       boardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      
-      flipButton.heightAnchor.constraint(equalToConstant: 50),
-      flipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      flipButton.topAnchor.constraint(equalTo: boardView.bottomAnchor, constant: 50),
-      flipButton.widthAnchor.constraint(equalToConstant: 50)
     ])
     
     self.boardView = boardView
@@ -83,9 +78,7 @@ final class BoardViewController: UIViewController {
     /// Testing protected squares
 //    let (squareStates, boardSettings) = FenParser.parse(fen: "rnbqkbnr/ppp3pp/8/8/6R1/7B/PPP3PP/RNBQK1N1 w HQkq - 0 1")
     
-    let (squareStates, boardSettings) = FenParser.parse(fen: startingFen)
-    boardView.configure(withSquareStates: squareStates)
-    self.boardSettings = boardSettings
+    setFen(startingFen)
     
     /// In case next to move is white after initial load, it means
     /// we're playing from the black perspective.
@@ -98,7 +91,7 @@ final class BoardViewController: UIViewController {
     super.viewDidAppear(animated)
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-      self?.playOpponentRandomMove()
+      self?.handleQuizPart()
     }
   }
   
@@ -118,6 +111,24 @@ final class BoardViewController: UIViewController {
   private let startingFen: String
   
   private var boardSettings = BoardSettings()
+  
+  /// While we're quizing, it's useful to know why we do a certain
+  /// move, to be abl to better remember it.
+  private var expectedMoveExplanation: String?
+  
+  private var fenBeforeAttempt: String {
+    didSet {
+      print("fenBeforeAttempt = \(fenBeforeAttempt)")
+    }
+  }
+  
+  /// After the opponent does a move, we look at quizes to see what
+  /// the expected next move should be. Only 1 move is valid.
+  private var expectedMoveNotation: String? {
+    didSet {
+      print("expectedMoveNotation = \(expectedMoveNotation)")
+    }
+  }
   
   /// We keep the highlited position because a move only happens
   /// after 2 actions at least and many things can happen in two
@@ -173,18 +184,22 @@ final class BoardViewController: UIViewController {
     let fromSquare = boardView.square(at: move.from)
     let toSquare = boardView.square(at: move.to)
     
+    let oldFromSquareState = fromSquare.squareState
+    let oldToSquareState = toSquare.squareState
+    
     guard let imageName = fromSquare.squareState.imageName else {
       fatalError("Moving a piece with no image?")
     }
     
+    /// Configuring toSquare first is a MUST.
     toSquare.configure(squareState: fromSquare.squareState, shouldHideUntilAnimationFinishes: true)
     fromSquare.configure(squareState: .empty, shouldHideUntilAnimationFinishes: false)
-    
-    allSquares.forEach { $0.unhighlight(type: .kingIsInCheck) }
     
     if updateSide {
       boardSettings.turn.toggle()
     }
+    
+    allSquares.forEach { $0.unhighlight(type: .kingIsInCheck) }
     
     if BoardHelper.isKingInCheck(onBoard: allSquareStates, boardSettings: boardSettings) {
       SoundSingleton.shared.play(.check)
@@ -224,6 +239,27 @@ final class BoardViewController: UIViewController {
     
     boardView.square(at: move.from).highlight(type: .previousMove(move: .from))
     boardView.square(at: move.to).highlight(type: .previousMove(move: .to))
+    
+    if updateSide {
+      if perspective != boardSettings.turn {
+        let notation = BoardHelper.notation(forMove: move,
+                                            fromSquare: oldFromSquareState,
+                                            toSquare: oldToSquareState,
+                                            onBoard: allSquareStates,
+                                            boardSettings: boardSettings)
+        print("notation = \(notation)")
+        if expectedMoveNotation == notation {
+          handleQuizPart()
+        } else {
+          DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.setFen(self.fenBeforeAttempt)
+          }
+        }
+      } else {
+        fenBeforeAttempt = currentFen
+        handleQuizPart()
+      }
+    }
   }
   
   private func handleAnimationCompletion(move: Move) {
@@ -245,11 +281,8 @@ final class BoardViewController: UIViewController {
     }
     
     highlightedPosition = nil
-    boardView.isUserInteractionEnabled = true
     
-    if boardSettings.turn != perspective {
-      playOpponentRandomMove()
-    }
+    boardView.isUserInteractionEnabled = true
   }
   
   @objc private func didTapSquare(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -268,7 +301,6 @@ final class BoardViewController: UIViewController {
       allSquares.forEach { $0.unhighlight(type: .canMove) }
       /// If we already have a highlighted positions, there's 4 scenarios:
       if highlightedPosition == position {
-        print("Case 1, tapped on same square")
         /// 1) Tapping the same square, resulting in deselection.
         squareView.unhighlight(type: .isSelected)
         self.highlightedPosition = nil
@@ -292,7 +324,6 @@ final class BoardViewController: UIViewController {
               return
             }
             boardView.isUserInteractionEnabled = false
-            print("Case 2, tapped on empty square. We make a move. Disabling board interaction.")
             /// 2) Tapped on an empty square. Should move selected piece here.
             allSquares.forEach { $0.unhighlight(type: .previousMove(move: .from)) }
             
@@ -310,14 +341,12 @@ final class BoardViewController: UIViewController {
             
           case .occupied(_, let side):
             if side == boardSettings.turn {
-              print("Case 3, piece from same side. We select it.")
               /// 3) Tapped on a piece from the same side.
               handleNewHighlightedSquare(position: position)
             } else {
               guard legalDestination.contains(position) else {
                 return
               }
-              print("Case 4, capturing enemy piece. We make a move. Disabling board interaction.")
               /// 4) Tapped on an enemy piece. Should capture.
               
               boardView.isUserInteractionEnabled = false
@@ -327,7 +356,6 @@ final class BoardViewController: UIViewController {
               let nextMove = Move(from: highlightedPosition, to: position)
               
               handle(move: nextMove, updateSide: true, isCapture: true)
-              
             }
         }
       }
@@ -422,7 +450,13 @@ final class BoardViewController: UIViewController {
     boardView.flip()
   }
   
-  private func playOpponentRandomMove() {
+  private func handleQuizPart() {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+      self.handleQuiz()
+    }
+  }
+  
+  private func handleQuiz() {
     let currentFen = currentFen
     
     guard let quiz = quizes[currentFen] else {
@@ -431,24 +465,39 @@ final class BoardViewController: UIViewController {
     }
     
     switch quiz {
-      case .myMove:
-        print("We should have a move for the opponent, not us.")
+      case .myMove(let moveNotation, let explanation):
+        if boardSettings.turn == perspective {
+          expectedMoveNotation = moveNotation
+          expectedMoveExplanation = explanation
+        } else {
+          print("We should have a move for us, not the opponent.")
+        }
       case .opponentMoves(let possibleOpponentMoveNotations):
-        guard let moveNotation = possibleOpponentMoveNotations.randomElement() else {
-          print("Opponent has no moves.")
-          return
-        }
-        let movesArray = BoardHelper.move(forNotation: moveNotation, onBoard: allSquareStates, boardSettings: boardSettings)
-        
-        if let firstMove = movesArray.first {
-          handle(move: firstMove.move, updateSide: true, isCapture: firstMove.isCapture)
-        }
-        
-        if movesArray.count > 1,
-           let secondMove = movesArray.last
-        {
-          handle(move: secondMove.move, updateSide: false, isCapture: secondMove.isCapture)
+        if boardSettings.turn != perspective {
+          guard let moveNotation = possibleOpponentMoveNotations.randomElement() else {
+            print("Opponent has no moves.")
+            return
+          }
+          let movesArray = BoardHelper.move(forNotation: moveNotation, onBoard: allSquareStates, boardSettings: boardSettings)
+          
+          if let firstMove = movesArray.first {
+            handle(move: firstMove.move, updateSide: true, isCapture: firstMove.isCapture)
+          }
+          
+          if movesArray.count > 1,
+             let secondMove = movesArray.last
+          {
+            handle(move: secondMove.move, updateSide: false, isCapture: secondMove.isCapture)
+          }
+        } else {
+          print("We should have a move for the opponent, not us.")
         }
     }
+  }
+  
+  private func setFen(_ fen: String) {
+    let (squareStates, boardSettings) = FenParser.parse(fen: fen)
+    boardView.configure(withSquareStates: squareStates)
+    self.boardSettings = boardSettings
   }
 }

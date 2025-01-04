@@ -22,8 +22,8 @@ final class BoardSettings: CustomStringConvertible {
   /// capture it.
   var enPassant: Position? {
     didSet {
-      if let enPassant = enPassant {
-        print("new enPassant = \(enPassant)")
+      if enPassant != oldValue {
+        print("didSet enPassant = \(enPassant)")
       }
     }
   }

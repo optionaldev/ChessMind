@@ -294,19 +294,21 @@ enum BoardHelper {
   /// Get the algebraic notation for the given move(s).
   ///
   /// - Parameters:
-  ///   - forMoves: moves that need to be converted into algebraic
-  ///   notation.
+  ///   - forMove: move that happened
+  ///   - fromSquare: information about the origin square from which
+  ///   the move happened BEFORE it happened
+  ///   - toSquare: information about the destination square to which
+  ///   the move happened BEFORE it happened
   ///
   /// - Returns: Algebraic notation for the given set of moves. E.g:
   /// "O-O" for short castling, "a5" for pawn advancing from a4 to a5
   /// (white) or a6 to a5 (black), etc
   static func notation(forMove move: Move,
+                       fromSquare: SquareState,
+                       toSquare: SquareState,
                        onBoard board: [[SquareState]],
                        boardSettings: BoardSettings) -> String?
   {
-    let fromSquare = board[move.from.row][move.from.column]
-    let toSquare = board[move.to.row][move.to.column]
-    
     switch fromSquare {
       case .empty:
         fatalError("Not possible to move from an empty square. What are we trying to move?")
