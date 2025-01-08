@@ -1,0 +1,501 @@
+{
+  "r1bqkb1r/pppppppp/2n2n2/8/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["e3", "Nf3", "Nc3", "d5", "Bg5", "a3"]
+  }, 
+  "r1bqkb1r/pppppppp/2n2n2/8/2PP4/4P3/PP3PPP/RNBQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "e5",
+    "explanation": "Attack the center immediately. Since he played e3, he will most likely continue to play passive and try to lock down the position."
+  },
+  "r1bqkb1r/pppppppp/2n2n2/8/2PP4/5N2/PP2PPPP/RNBQKB1R b KQkq - 0 0": 
+  { 
+    "myMove": "e6",
+    "explanation": "We can no longer push e5, so we settle for second best. We still open up our dark square bishop."
+  },
+  "Nc3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "d5": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Bg5": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "a3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1bqkb1r/pppp1ppp/2n2n2/4p3/2PP4/4P3/PP3PPP/RNBQKBNR w KQkq e6 0 0": 
+  { 
+    "opponentMoves": ["d5", "dxe5"]
+  },
+  "r1bqkb1r/pppp1ppp/2n2n2/3Pp3/2P5/4P3/PP3PPP/RNBQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Ne7",
+    "explanation": "We're rerouting the knight to g6, temporarily blocking our dark square bishop."
+  },
+  "dxe5": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1bqkb1r/ppppnppp/5n2/3Pp3/2P5/4P3/PP3PPP/RNBQKBNR w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Nc3", "Nf3"]
+  },
+  "r1bqkb1r/ppppnppp/5n2/3Pp3/2P5/2N1P3/PP3PPP/R1BQKBNR b KQkq - 0 0": 
+  { 
+    "myMove": "Ng6",
+    "explanation": "We've completed the rerouting and now have great defense for our king as well as potetial for a king side attack."
+  },
+  "Nf3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1bqkb1r/pppp1ppp/5nn1/3Pp3/2P5/2N1P3/PP3PPP/R1BQKBNR w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["h4", "Nf3"]
+  },
+  "r1bqkb1r/pppp1ppp/5nn1/3Pp3/2P4P/2N1P3/PP3PP1/R1BQKBNR b KQkq h3 0 0": 
+  { 
+    "myMove": "h5",
+    "explanation": "Best to just stop the advancement. Bg5 is also currently not possible."
+  },
+  "Nf3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1bqkb1r/pppp1pp1/5nn1/3Pp2p/2P4P/2N1P3/PP3PP1/R1BQKBNR w KQkq h6 0 0": 
+  { 
+    "opponentMoves": ["Bd3", "Nf3", "Be2"]
+  },
+  "r1bqkb1r/pppp1pp1/5nn1/3Pp2p/2P4P/2NBP3/PP3PP1/R1BQK1NR b KQkq - 0 0": 
+  { 
+    "myMove": "Bg4",
+    "explanation": "Pin the knight so that in case he then develops Nf3, we have a fork."
+  },
+  "Nf3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Be2": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1bqk2r/pppp1pp1/5nn1/3Pp2p/1bP4P/2NBP3/PP3PP1/R1BQK1NR w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Nf3", "Ne2", "Bxg6", "Qc2", "Bd2", "Qb3"]
+  },
+  "r1bqk2r/pppp1pp1/5nn1/3Pp2p/1bP4P/2NBPN2/PP3PP1/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "Bxc3+",
+    "explanation": "We double white's pawns and then fork him with e4."
+  },
+  "r1bqk2r/pppp1pp1/5nn1/3Pp2p/1bP4P/2NBP3/PP2NPP1/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "Qe7",
+    "explanation": "We reinforce the e4 push."
+  },
+  "Bxg6": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Qc2": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Bd2": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Qb3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1b1k2r/ppppqpp1/5nn1/3Pp2p/1bP4P/2NBP3/PP2NPP1/R1BQK2R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["e4"]
+  },
+  "r1b1k2r/ppppqpp1/5nn1/3Pp2p/1bP1P2P/2NB4/PP2NPP1/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "a6",
+    "explanation": "We give our dark square bishop a retreating square."
+  },
+  "r1b1k2r/1pppqpp1/p4nn1/3Pp2p/1bP1P2P/2NB4/PP2NPP1/R1BQK2R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["a3"]
+  },
+  "r1b1k2r/1pppqpp1/p4nn1/3Pp2p/1bP1P2P/P1NB4/1P2NPP1/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "Bc5",
+    "explanation": "We retreat the bishop and if the push continues, we go to a7."
+  },
+  "r1b1k2r/1pppqpp1/p4nn1/2bPp2p/2P1P2P/P1NB4/1P2NPP1/R1BQK2R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["b4"]
+  },
+  "r1b1k2r/1pppqpp1/p4nn1/2bPp2p/1PP1P2P/P1NB4/4NPP1/R1BQK2R b KQkq b3 0 0": 
+  { 
+    "myMove": "Ba7",
+    "explanation": "We retreat the bishop on a nice diagonal. We also cannot be blocked by pawns here because we have both b7 and d7 breaks."
+  },
+  "r1b1k2r/bpppqpp1/p4nn1/3Pp2p/1PP1P2P/P1NB4/4NPP1/R1BQK2R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["c5"]
+  },
+  "r1b1k2r/bpppqpp1/p4nn1/2PPp2p/1P2P2P/P1NB4/4NPP1/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "d6",
+    "explanation": "We break in order to free our dark square bishop."
+  },
+  "r1b1k2r/bpp1qpp1/p2p1nn1/2PPp2p/1P2P2P/P1NB4/4NPP1/R1BQK2R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Qa4+", "Na4", "cxd6"]
+  },
+  "r1b1k2r/bpp1qpp1/p2p1nn1/2PPp2p/QP2P2P/P1NB4/4NPP1/R1B1K2R b KQkq - 0 0": 
+  { 
+    "myMove": "Kf8",
+    "explanation": "Our king is perfectly safe on f7. The opponent has the pawn chain and piece pointed towards the queen side."
+  },
+  "r1b1k2r/bpp1qpp1/p4nn1/2NPp2p/1P2P2P/P2B4/4NPP1/R1BQK2R b KQkq - 0 0": 
+  { 
+    "opponentMoves": ["We trade off white's central knight."]
+  },
+  "r1b1k2r/bpp1qpp1/p2P1nn1/3Pp2p/1P2P2P/P1NB4/4NPP1/R1BQK2R b KQkq - 0 0": 
+  { 
+    "myMove": "Qxd6",
+    "explanation": "We recapture with the queen in order to avoid the Bg5 pin."
+  },
+  "r1bqkb1r/pppp1ppp/2n1pn2/8/2PP4/5N2/PP2PPPP/RNBQKB1R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Nc3", "e3", "g3", "Bg5", "a3"]
+  },
+  "r1bqkb1r/pppp1ppp/2n1pn2/8/2PP4/2N2N2/PP2PPPP/R1BQKB1R b KQkq - 0 0": 
+  { 
+    "myMove": "Bb4",
+    "explanation": "Pin the knight. The dark square bishop doesn't have a lot of good square to go to anyway. If we trade it off, we will set up a dark square barricade."
+  },
+  "e3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "g3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Bg5": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "a3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1bqk2r/pppp1ppp/2n1pn2/8/1bPP4/2N2N2/PP2PPPP/R1BQKB1R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Qc2", "Bd2", "e3", "Qd3", "Bg5", "a3"]
+  },
+  "r1bqk2r/pppp1ppp/2n1pn2/8/1bPP4/2N2N2/PPQ1PPPP/R1B1KB1R b KQkq - 0 0": 
+  { 
+    "myMove": "d6",
+    "explanation": "We're preparing e5 push. If opponent pushes e4, we capture the knight."
+  },
+  "Bd2": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "e3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Qd3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Bg5": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1bqk2r/ppp2ppp/2nppn2/8/1bPP4/2N2N2/PPQ1PPPP/R1B1KB1R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["e3", "e4", "a3", "Bg5", "Bd2"]
+  },
+  "r1bqk2r/ppp2ppp/2nppn2/8/1bPP4/2N1PN2/PPQ2PPP/R1B1KB1R b KQkq - 0 0": 
+  { 
+    "myMove": "e5",
+    "explanation": "We want control over the center. Not too much going on."
+  },
+  "e4": 
+  { 
+    "opponentMoves": [""]
+  },
+  "a3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Bg5": 
+  { 
+    "opponentMoves": [""]
+  },
+  "Bd2": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1bqk2r/ppp2ppp/2np1n2/4p3/1bPP4/2N1PN2/PPQ2PPP/R1B1KB1R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["d5", "dxe5", "a3", "Be2", "Bd2", "Bd3"]
+  },
+  "r1bqk2r/ppp2ppp/2np1n2/3Pp3/1bP5/2N1PN2/PPQ2PPP/R1B1KB1R b KQkq - 0 0": 
+  { 
+    "myMove": "Bxc3+",
+    "explanation": "We must capture the knight first because if we retreat our knight, there's a queen fork winning our bishop."
+  },
+  "r1bqk2r/ppp2ppp/2np1n2/4P3/1bP5/2N1PN2/PPQ2PPP/R1B1KB1R b KQkq - 0 1": 
+  { 
+    "myMove": "dxe5",
+    "explanation": "We recapture the pawn, gaining control of d4 and f4."
+  },
+  "Be2": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Bd2": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "Bd3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1bqk2r/ppp2ppp/2np1n2/3Pp3/2P5/2b1PN2/PPQ2PPP/R1B1KB1R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Qxc3", "bxc3"]
+  },
+  "r1bqk2r/ppp2ppp/2np1n2/3Pp3/2P5/2Q1PN2/PP3PPP/R1B1KB1R b KQkq - 0 0": 
+  { 
+    "myMove": "Ne7",
+    "explanation": "We have to retreat the knight under attack."
+  },
+  "r1bqk2r/ppp2ppp/2np1n2/3Pp3/2P5/2P1PN2/P1Q2PPP/R1B1KB1R b KQkq - 0 0": 
+  { 
+    "myMove": "Ne7",
+    "explanation": "We move our knight to safety and most likely end the journey to g6, unless there's an h pawn push."
+  },
+  "r1bqk2r/ppp1nppp/3p1n2/3Pp3/2P5/2Q1PN2/PP3PPP/R1B1KB1R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["b4", "Bd2", "Be2", "Be3"]
+  },
+  "r1bqk2r/ppp1nppp/3p1n2/3Pp3/1PP5/2Q1PN2/P4PPP/R1B1KB1R b KQkq b3 0 0": 
+  { 
+    "myMove": "a5",
+    "explanation": "We don't let white get too much space on the queen side. If he pushes b5, we can plant our knight on c5."
+  },
+  "r1bqk2r/ppp1nppp/3p1n2/3Pp3/2P5/2Q1PN2/PP1B1PPP/R3KB1R b KQkq - 0 0": 
+  { 
+    "myMove": "a5",
+    "explanation": "The idea is rerouting the knight to c5 and being protected from b4 push."
+  },
+  "r1bqk2r/ppp1nppp/3p1n2/3Pp3/2P5/2Q1PN2/PP2BPPP/R1B1K2R b KQkq - 0 0": 
+  { 
+    "myMove": "a5",
+    "explanation": "The idea is rerouting the knight to c5 and being protected from b4 push."
+  },
+  "r1bqk2r/ppp1nppp/3p1n2/3Pp3/2P5/2QBPN2/PP3PPP/R1B1K2R b KQkq - 0 0": 
+  { 
+    "myMove": "e4",
+    "explanation": "We have a game winning fork."
+  },
+  "r1bqk2r/ppp2ppp/2n2n2/4p3/1bP5/2N1PN2/PPQ2PPP/R1B1KB1R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["Be2", "Bd2", "Bd3", "a3"]
+  },
+  "r1bqk2r/ppp2ppp/2n2n2/4p3/1bP5/2N1PN2/PPQ1BPPP/R1B1K2R b KQkq - 0 0": 
+  { 
+    "myMove": "e4",
+    "explanation": "We force the knight to move."
+  },
+  "r1bqk2r/ppp2ppp/2n2n2/4p3/1bP5/2N1PN2/PPQB1PPP/R3KB1R b KQkq - 0 0": 
+  { 
+    "myMove": "Qe7",
+    "explanation": "We reinforce the e4 pawn push in case of Bd3. It's not a fork anymore, but it leads to an interesting position."
+  },
+  "Bd3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "a3": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "r1b1k2r/ppp1qppp/2n2n2/4p3/1bP5/2N1PN2/PPQB1PPP/R3KB1R w KQkq - 0 0": 
+  { 
+    "opponentMoves": ["a3", "Be2"]
+  },
+  "r1b1k2r/ppp1qppp/2n2n2/4p3/1bP5/P1N1PN2/1PQB1PPP/R3KB1R b KQkq - 0 0": 
+  { 
+    "myMove": "Bd6",
+    "explanation": "We fall back because the white piece are very crammed and we have easy development and space and can easily counter queen side push. From here, we mainly expand with a5 and e4."
+  },
+  "r1b1k2r/ppp1qppp/2n2n2/4p3/1bP5/2N1PN2/PPQBBPPP/R3K2R b KQkq - 0 0": 
+  { 
+    "myMove": "e4",
+    "explanation": "Punish white for playing so passively."
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "": 
+  { 
+    "opponentMoves": [""]
+  },
+  "": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+}

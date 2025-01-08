@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56A430712D2E814600A27394 /* black knight's tango.json in Resources */ = {isa = PBXBuildFile; fileRef = 56A430702D2E814500A27394 /* black knight's tango.json */; };
 		6E1094822CCF777100FFA1B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094812CCF777100FFA1B7 /* AppDelegate.swift */; };
 		6E1094842CCF777100FFA1B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094832CCF777100FFA1B7 /* SceneDelegate.swift */; };
 		6E1094862CCF777100FFA1B7 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094852CCF777100FFA1B7 /* BoardViewController.swift */; };
@@ -84,6 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		56A430702D2E814500A27394 /* black knight's tango.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "black knight's tango.json"; sourceTree = "<group>"; };
 		6E10947E2CCF777100FFA1B7 /* ChessMind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessMind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1094812CCF777100FFA1B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E1094832CCF777100FFA1B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 		6E56B1012CF25EE2001B6B19 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				56A430702D2E814500A27394 /* black knight's tango.json */,
 				6E7700712D1FECDD000DF3C6 /* englund.json */,
 				6E76D7AE2D09FCFD000351A5 /* openings.json */,
 				6E7700772D1FF741000DF3C6 /* scandinavian.json */,
@@ -441,6 +444,7 @@
 			files = (
 				6E10948E2CCF777300FFA1B7 /* LaunchScreen.storyboard in Resources */,
 				6E7700722D1FECDD000DF3C6 /* englund.json in Resources */,
+				56A430712D2E814600A27394 /* black knight's tango.json in Resources */,
 				6E56B1042CF26058001B6B19 /* check.mp3 in Resources */,
 				6E10948B2CCF777300FFA1B7 /* Assets.xcassets in Resources */,
 				6E7700782D1FF741000DF3C6 /* scandinavian.json in Resources */,
@@ -691,9 +695,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UYPVU6GQ2Y;
+				DEVELOPMENT_TEAM = 33QXUSWHKD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChessMind/Default/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -708,6 +713,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.optionaldev.ChessMind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -719,9 +725,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UYPVU6GQ2Y;
+				DEVELOPMENT_TEAM = 33QXUSWHKD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChessMind/Default/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -736,6 +743,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.optionaldev.ChessMind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
