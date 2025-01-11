@@ -332,7 +332,8 @@
   "r1bqk2r/ppp1nppp/3p1n2/3Pp3/2P5/2QBPN2/PP3PPP/R1B1K2R b KQkq - 0 0": 
   { 
     "myMove": "e4",
-    "explanation": "We have a game winning fork."
+    "explanation": "We have a game winning fork.",
+    "endOfTheLine": true
   },
   "r1bqk2r/ppp2ppp/2n2n2/4p3/1bP5/2N1PN2/PPQ2PPP/R1B1KB1R w KQkq - 0 0": 
   { 
@@ -372,95 +373,210 @@
     "myMove": "e4",
     "explanation": "Punish white for playing so passively."
   },
-  "": 
+  "r1b1k2r/ppp1qppp/2n2n2/8/1bP1p3/2N1PN2/PPQBBPPP/R3K2R w KQkq - 0 0": 
   { 
-    "opponentMoves": [""]
+    "opponentMoves": ["Nd4", "Ng5", "Ng1"]
   },
-  "": 
+  "Nd4": 
+  { 
+    "myMove": "O-O",
+    "explanation": "We don't care about double pawns. In case he castles long, we will have an open b file. If he castles short, we have create a battery with Bd6 Qe5"
+  },
+  "r1b1k2r/ppp1qppp/2n2n2/6N1/1bP1p3/2N1P3/PPQBBPPP/R3K2R b KQkq - 0 0": 
+  { 
+    "myMove": "O-O",
+    "explanation": "It looks like we're losing the e4 pawn, but we can always capture the knight to remove a defender."
+  },
+  "Ng1": 
   { 
     "myMove": "",
     "explanation": ""
   },
-  "": 
+  "r1b1k2r/ppp1qppp/2n2n2/6N1/1bP1p3/2N1P3/PPQBBPPP/R3K2R b KQkq - 0 0": 
   { 
-    "opponentMoves": [""]
+    "opponentMoves": ["a3", "Ngxe4", "Ncxe4"]
   },
-  "": 
+  "r1b2rk1/ppp1qppp/2n2n2/6N1/1bP1p3/P1N1P3/1PQBBPPP/R3K2R b KQ - 0 0": 
+  { 
+    "myMove": "Bxc3",
+    "explanation": "We want to remove a defender of e4 anyway."
+  },
+  "Ngxe4": 
   { 
     "myMove": "",
     "explanation": ""
   },
-  "": 
-  { 
-    "opponentMoves": [""]
-  },
-  "": 
+  "Ncxe4": 
   { 
     "myMove": "",
     "explanation": ""
   },
-  "": 
+  "r1b2rk1/ppp1qppp/2n2n2/6N1/2P1p3/P1b1P3/1PQBBPPP/R3K2R w KQ - 0 0": 
   { 
-    "opponentMoves": [""]
+    "opponentMoves": ["Bxc3"]
   },
-  "": 
+  "r1b2rk1/ppp1qppp/2n2n2/6N1/2P1p3/P1B1P3/1PQ1BPPP/R3K2R b KQ - 0 0": 
+  { 
+    "myMove": "Rd8",
+    "explanation": "We centralize the rook and add a defender to e4."
+  },
+  "r1b1r1k1/ppp1qppp/2n2n2/6N1/2P1p3/P1B1P3/1PQ1BPPP/R3K2R w KQ - 0 0": 
+  { 
+    "opponentMoves": ["h4", "O-O", "O-O-O", "Rd1", "b4"]
+  },
+  "r1b1r1k1/ppp1qppp/2n2n2/6N1/2P1p2P/P1B1P3/1PQ1BPP1/R3K2R b KQ h3 0 0": 
+  { 
+    "myMove": "Bf5",
+    "explanation": "Develop the light square bishop and add another defender to e4."
+  },
+  "O-O": 
   { 
     "myMove": "",
     "explanation": ""
   },
-  "": 
-  { 
-    "opponentMoves": [""]
-  },
-  "": 
+  "O-O-O": 
   { 
     "myMove": "",
     "explanation": ""
   },
-  "": 
-  { 
-    "opponentMoves": [""]
-  },
-  "": 
+  "Rd1": 
   { 
     "myMove": "",
     "explanation": ""
   },
-  "": 
-  { 
-    "opponentMoves": [""]
-  },
-  "": 
+  "b4": 
   { 
     "myMove": "",
     "explanation": ""
   },
-  "": 
+  "r3r1k1/ppp1qppp/2n2n2/5bN1/2P1p2P/P1B1P3/1PQ1BPP1/R3K2R w KQ - 1 6": 
   { 
-    "opponentMoves": [""]
+    "opponentMoves": ["Nh3", "O-O-O", "O-O", "h5"]
   },
-  "": 
+  "Nh3": 
   { 
     "myMove": "",
     "explanation": ""
   },
-  "": 
-  { 
-    "opponentMoves": [""]
-  },
-  "": 
+  "O-O-O": 
   { 
     "myMove": "",
     "explanation": ""
   },
-  "": 
-  { 
-    "opponentMoves": [""]
-  },
-  "": 
+  "O-O": 
   { 
     "myMove": "",
     "explanation": ""
+  },
+  "r3r1k1/ppp1qppp/2n2n2/5bNP/2P1p3/P1B1P3/1PQ1BPP1/R3K2R b KQ - 0 0": 
+  { 
+    "myMove": "Rad8",
+    "explanation": "Let him push, we focus on development."
+  },
+  "3rr1k1/ppp1qppp/2n2n2/5bNP/2P1p3/P1B1P3/1PQ1BPP1/R3K2R w KQ - 0 0": 
+  { 
+    "opponentMoves": ["h6"]
+  },
+  "3rr1k1/ppp1qp1p/2n2npP/5bN1/2P1p3/P1B1P3/1PQ1BPP1/R3K2R w KQ - 0 0": 
+  { 
+    "myMove": "g6",
+    "explanation": "Remember than now he always has lolli mate available, so we might need to use our queen to protect the diagonal."
+  },
+  "3rr1k1/ppp1qp1p/2n2npP/5bN1/2P1p3/P1B1P3/1PQ1BPP1/R3K2R w KQ - 0 0": 
+  { 
+    "opponentMoves": ["Rd1", "Qb3", "Nh3", "O-O"]
+  },
+  "3rr1k1/ppp1qp1p/2n2npP/5bN1/2P1p3/P1B1P3/1PQ1BPP1/3RK2R b K - 0 0": 
+  { 
+    "myMove": "Ng4",
+    "explanation": "We open up a discovered attack on the knight as well as open the diagonal for our queen."
+  },
+  "3rr1k1/ppp1qp1p/2n2npP/5bN1/2P1p3/PQB1P3/1P2BPP1/R3K2R b KQ - 0 0": 
+  { 
+    "myMove": "b6",
+    "explanation": "There's no better way to defend that pawn. We need to be careful now that our knight is undefended. We can centralize it or defend it with a move like Rd6 and stack the rooks.",
+    "endOfTheLine": true,
+    "equalPosition": true
+  },
+  "3rr1k1/ppp1qp1p/2n2npP/5b2/2P1p3/P1B1P2N/1PQ1BPP1/R3K2R b KQ - 0 0": 
+  { 
+    "myMove": "Ne5",
+    "explanation": "We centralize our knight and get ready to bring the other knight closer to enemy king. From here, if our knight gets captured, we recapture with the queen.",
+    "endOfTheLine": true
+  },
+  "3rr1k1/ppp1qp1p/2n2npP/5bN1/2P1p3/P1B1P3/1PQ1BPP1/R4RK1 b - - 0 0": 
+  { 
+    "myMove": "Ng4",
+    "explanation": "We open up a discovered attack on the knight as well as open the diagonal for our queen."
+  },
+  "3rr1k1/ppp1qp1p/2n3pP/5bN1/2P1p1n1/P1B1P3/1PQ1BPP1/3RK2R w K - 0 0": 
+  { 
+    "opponentMoves": ["Rxd8", "Nh3", "Bxg4"]
+  },
+  "3Rr1k1/ppp1qp1p/2n3pP/5bN1/2P1p1n1/P1B1P3/1PQ1BPP1/4K2R b K - 0 0": 
+  { 
+    "myMove": "Qxd8",
+    "explanation": "We capture with the queen because the queen will go to h4 most likely and we want to leave the rook guarding the e4 pawn."
+  },
+  "3rr1k1/ppp1qp1p/2n3pP/5b2/2P1p1n1/P1B1P2N/1PQ1BPP1/3RK2R b K - 0 0": 
+  { 
+    "myMove": "Nce5",
+    "explanation": "We get the other knight in a fighting position. From here, we have several options: Nf3+, Rxd1, Qh4. We just need to be mindful of the a1-h8 diagonal.",
+    "endOfTheLine": true
+  },
+  "3rr1k1/ppp1qp1p/2n3pP/5bN1/2P1p1B1/P1B1P3/1PQ2PP1/3RK2R b K - 0 0": 
+  { 
+    "myMove": "Bxg4",
+    "explanation": "We don't want to capture the knight because we want to pin it when it goes h3."
+  },
+  "3qr1k1/ppp2p1p/2n3pP/5bN1/2P1p1n1/P1B1P3/1PQ1BPP1/4K2R w K - 0 0": 
+  { 
+    "opponentMoves": ["Bxg4", "Nh3"]
+  },
+  "3qr1k1/ppp2p1p/2n3pP/5bN1/2P1p1B1/P1B1P3/1PQ2PP1/4K2R b K - 0 0": 
+  { 
+    "myMove": "Bxg4",
+    "explanation": "We don't want to capture the knight because we want to pin it when it goes h3."
+  },
+  "3qr1k1/ppp2p1p/2n3pP/5b2/2P1p1n1/P1B1P2N/1PQ1BPP1/4K2R b K - 0 0": 
+  { 
+    "myMove": "Qh4",
+    "explanation": "We pin the knight to the rook and the f2 pawn to the king. From here, we can centralize our other knight and then we have various knight sacrifices.",
+    "endOfTheLine": true
+  },
+  "3qr1k1/ppp2p1p/2n3pP/6N1/2P1p1b1/P1B1P3/1PQ2PP1/4K2R w K - 0 0": 
+  { 
+    "opponentMoves": ["Nh3"]
+  },
+  "3qr1k1/ppp2p1p/2n3pP/8/2P1p1b1/P1B1P2N/1PQ2PP1/4K2R b K - 0 0": 
+  { 
+    "myMove": "Qh4",
+    "explanation": "We pin the knight to the rook and the f2 pawn to the king. From here, we just need to be careful about backrank mate.",
+    "endOfTheLine": true
+  },
+  "3rr1k1/ppp1qp1p/2n3pP/5bN1/2P1p1n1/P1B1P3/1PQ1BPP1/R4RK1 w - - 0 0": 
+  { 
+    "opponentMoves": ["Nh3", "Bxg4"]
+  },
+  "3rr1k1/ppp1qp1p/2n3pP/5b2/2P1p1n1/P1B1P2N/1PQ1BPP1/R4RK1 b - - 0 0": 
+  { 
+    "myMove": "Nxh6",
+    "explanation": "Get rid of the future lolli mate possibility"
+  },
+  "Bxg4": 
+  { 
+    "myMove": "",
+    "explanation": ""
+  },
+  "3rr1k1/ppp1qp1p/2n3pn/5b2/2P1p3/P1B1P2N/1PQ1BPP1/R4RK1 w - - 0 0": 
+  { 
+    "opponentMoves": ["Nf4"]
+  },
+  "3rr1k1/ppp1qp1p/2n3pn/5b2/2P1pN2/P1B1P3/1PQ1BPP1/R4RK1 b - - 0 0": 
+  { 
+    "myMove": "Ne5",
+    "explanation": "We need to bring the knight to e5 because otherwise white can make a deadly combo between knight on d5 and bishop on the a1-h8 diagonal. From here, if the bishop ever takes, we recapture with queen, if knight attacks us we bring queen to g5.",
+    "endOfTheLine": true
   },
   "": 
   { 
