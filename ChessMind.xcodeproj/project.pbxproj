@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5664980F2D3C3B1100E81E44 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5664980E2D3C3B1100E81E44 /* Operators.swift */; };
 		56A430712D2E814600A27394 /* black knight's tango.json in Resources */ = {isa = PBXBuildFile; fileRef = 56A430702D2E814500A27394 /* black knight's tango.json */; };
 		6E1094822CCF777100FFA1B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094812CCF777100FFA1B7 /* AppDelegate.swift */; };
 		6E1094842CCF777100FFA1B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094832CCF777100FFA1B7 /* SceneDelegate.swift */; };
@@ -85,6 +86,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5664980E2D3C3B1100E81E44 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		56A430702D2E814500A27394 /* black knight's tango.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "black knight's tango.json"; sourceTree = "<group>"; };
 		6E10947E2CCF777100FFA1B7 /* ChessMind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessMind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1094812CCF777100FFA1B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				6E4B0A772D16835500788926 /* FirstViewController.swift */,
 				6E4B0A872D17E50500788926 /* LineCell.swift */,
 				6E4B0A792D16855D00788926 /* OpeningCell.swift */,
+				5664980E2D3C3B1100E81E44 /* Operators.swift */,
 				6E1094B12CCF778100FFA1B7 /* Default */,
 				6E39D6112CE1105C00C5D306 /* Enums */,
 				6E39D6162CE1110F00C5D306 /* Extensions */,
@@ -495,6 +498,7 @@
 				6E4B0A8A2D17EC9300788926 /* GlobalFunctions.swift in Sources */,
 				6EF8038A2CEA08EB0068E0AA /* FenHelper.swift in Sources */,
 				6E1094862CCF777100FFA1B7 /* BoardViewController.swift in Sources */,
+				5664980F2D3C3B1100E81E44 /* Operators.swift in Sources */,
 				6E1094C82CCF7A0100FFA1B7 /* Move.swift in Sources */,
 				6EF8038C2CEA0EB60068E0AA /* CharacterExtension.swift in Sources */,
 				6E4B0A802D168C6800788926 /* QuizDecodable.swift in Sources */,

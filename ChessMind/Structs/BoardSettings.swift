@@ -23,7 +23,7 @@ final class BoardSettings: CustomStringConvertible {
   var enPassant: Position? {
     didSet {
       if enPassant != oldValue {
-        print("didSet enPassant = \(enPassant)")
+        print("didSet enPassant = \(String(describing: enPassant))")
       }
     }
   }

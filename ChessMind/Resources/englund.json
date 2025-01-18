@@ -283,7 +283,7 @@
   "rnb1kbnr/pppp1ppp/8/4P3/8/8/PqPBPPPP/RN1QKBNR w KQkq - 0 0": 
   { 
     "myMove": "Nc3",
-    "explanation": "We protect our rook with the queen."
+    "explanation": "We move the knight so our queen protects the rook."
   },
   "rnb1kbnr/pppp1ppp/8/4P3/8/2N5/PqPBPPPP/R2QKBNR b KQkq - 0 0": 
   { 
@@ -292,7 +292,7 @@
   "rnb1k1nr/pppp1ppp/8/4P3/1b6/2N5/PqPBPPPP/R2QKBNR w KQkq - 0 0": 
   { 
     "myMove": "Rb1",
-    "explanation": "We force the queen to move and afterward, attack the bishop."
+    "explanation": "We force the queen to either move to a3 or capture on c3."
   },
   "rnb1k1nr/pppp1ppp/8/4P3/1b6/2N5/PqPBPPPP/1R1QKBNR b Kkq - 0 0": 
   { 
@@ -301,7 +301,7 @@
   "rnb1k1nr/pppp1ppp/8/4P3/1b6/2q5/P1PBPPPP/1R1QKBNR w Kkq - 0 0": 
   { 
     "myMove": "Nf3",
-    "explanation": "He can take our knight because we can't simply recapture the queen. We develop the knight in order to force the queen to move."
+    "explanation": "We defend our bishop with the knight. The queen has to move and then we win the bishop."
   },
   "rnb1k1nr/pppp1ppp/8/4P3/1b6/q1N5/P1PBPPPP/1R1QKBNR w Kkq - 0 0": 
   { 
@@ -352,5 +352,320 @@
   { 
     "myMove": "e4",
     "explanation": "The shenanigans are basically over. Take control of the center."
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": ""
   }
 }

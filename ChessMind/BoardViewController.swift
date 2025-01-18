@@ -8,6 +8,10 @@ import UIKit
 
 extension Constants {
   
+  static let labelFontSize: CGFloat = 16
+  static let labelHorizontalSpacing: CGFloat = 10
+  static let labelVerticalSpacing: CGFloat = 20
+  
   /// Not entirely sure how to calculate this offset, as it's not
   /// just the navigation bar. For now, it really is a magic number.
   static let verticalOffset: CGFloat = 63
@@ -45,15 +49,46 @@ final class BoardViewController: UIViewController {
     
     let flipImage = UIImage(named: "flip")
     let flipButton = UIBarButtonItem(image: flipImage, style: .done, target: self, action: #selector(flipButtonTapped))
+      
+    let fenLabel = CustomLabel(fontSize: Constants.labelFontSize)
+    fenLabel.numberOfLines = 0
+    
+    let fenCopyButton = UIButton()
+    fenCopyButton.addTarget(self, action: #selector(fenCopyPressed), for: .touchUpInside)
+    fenCopyButton.setImage(UIImage(systemName: "doc.on.doc.fill"), for: .normal)
+    fenCopyButton.translatesAutoresizingMaskIntoConstraints = false
+    
+    let explanationLabel = CustomLabel(fontSize: Constants.labelFontSize)
+    explanationLabel.numberOfLines = 0
+    
+    let correctMoveLabel = CustomLabel(fontSize: Constants.labelFontSize)
     
     navigationItem.rightBarButtonItem = flipButton
     
     view.addSubview(boardView)
+    view.addSubview(correctMoveLabel)
+    view.addSubview(explanationLabel)
+    view.addSubview(fenLabel)
+    view.addSubview(fenCopyButton)
     view.backgroundColor = .white
     
     NSLayoutConstraint.activate([
       boardView.leftAnchor.constraint(equalTo: view.leftAnchor),
       boardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      
+      fenLabel.topAnchor.constraint(equalTo: boardView.bottomAnchor, constant: Constants.labelVerticalSpacing),
+      fenLabel.leftAnchor.constraint(equalTo: boardView.leftAnchor, constant: Constants.labelHorizontalSpacing),
+      fenLabel.widthAnchor.constraint(equalToConstant: Screen.width - 80),
+      
+      fenCopyButton.centerYAnchor.constraint(equalTo: fenLabel.centerYAnchor),
+      fenCopyButton.leftAnchor.constraint(equalTo: fenLabel.rightAnchor, constant: 14),
+      
+      correctMoveLabel.topAnchor.constraint(equalTo: fenLabel.bottomAnchor, constant: Constants.labelVerticalSpacing),
+      correctMoveLabel.leftAnchor.constraint(equalTo: fenLabel.leftAnchor),
+      
+      explanationLabel.topAnchor.constraint(equalTo: correctMoveLabel.bottomAnchor, constant: 8),
+      explanationLabel.leftAnchor.constraint(equalTo: correctMoveLabel.leftAnchor),
+      explanationLabel.widthAnchor.constraint(equalToConstant: Screen.width - 2 * Constants.labelHorizontalSpacing)
     ])
     
     self.boardView = boardView
@@ -62,6 +97,10 @@ final class BoardViewController: UIViewController {
       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
       $0.addGestureRecognizer(tapGestureRecognizer)
     }
+    
+    self.correctMoveLabel = correctMoveLabel
+    self.explanationLabel = explanationLabel
+    self.fenLabel = fenLabel
     
     /// This helps prevent the delay for playing AV stuff.
     _ = SoundSingleton.shared
@@ -97,38 +136,41 @@ final class BoardViewController: UIViewController {
   
   // MARK: - Private
   
-  /// This is the entire database that we need for the quizes
-  private let quizes: [String: Quiz]
+  // MARK: Constants
   
   /// The side for which the user is playing. Useful for if the next
   /// move is the user and it should wait or it should play a move for
   /// the opponent.
   private let perspective: Side
   
+  /// This is the entire database that we need for the quizes
+  private let quizes: [String: Quiz]
+  
   /// We use this once to set up the board at the start. We store it
   /// because the view isn't ready when initializing. We could
   /// avoid having this if we declared the view separately.
   private let startingFen: String
   
+  // MARK: Variables
+  
+  /// Setting that keep track of parameters relevant for FEN notation:
+  /// castling rights, en passant, who's turn it is, number of black moves,
+  /// number of
   private var boardSettings = BoardSettings()
   
   /// While we're quizing, it's useful to know why we do a certain
   /// move, to be abl to better remember it.
   private var expectedMoveExplanation: String?
   
-  private var fenBeforeAttempt: String {
-    didSet {
-      print("fenBeforeAttempt = \(fenBeforeAttempt)")
-    }
-  }
-  
   /// After the opponent does a move, we look at quizes to see what
   /// the expected next move should be. Only 1 move is valid.
-  private var expectedMoveNotation: String? {
-    didSet {
-      print("expectedMoveNotation = \(expectedMoveNotation)")
-    }
-  }
+  private var expectedMoveNotation: String?
+  
+  /// We record current fen because if a move happens and it was the
+  /// incorrect one, we need to know the FEN to which to revert.
+  /// Another approach would be to reverse the moves, which we
+  /// might implement in the future.
+  private var fenBeforeAttempt: String
   
   /// We keep the highlited position because a move only happens
   /// after 2 actions at least and many things can happen in two
@@ -142,6 +184,8 @@ final class BoardViewController: UIViewController {
   /// legal destinations.
   private var legalDestination: [Position] = []
   
+  // MARK: Computed
+  
   private var allSquares: [SquareView] {
     return boardView.eightRanks.flatMap { $0.eightSquares }
   }
@@ -154,7 +198,12 @@ final class BoardViewController: UIViewController {
     return FenParser.fen(forBoard: allSquareStates.reversed(), settings: boardSettings)
   }
   
+  // MARK: Weak
+  
   private weak var boardView: BoardView!
+  private weak var fenLabel: CustomLabel!
+  private weak var explanationLabel: CustomLabel!
+  private weak var correctMoveLabel: CustomLabel!
   
   private func animate(move: Move, imageName: String) {
     let fromSquare = boardView.square(at: move.from)
@@ -178,111 +227,6 @@ final class BoardViewController: UIViewController {
       
       self?.handleAnimationCompletion(move: move)
     })
-  }
-  
-  private func handle(move: Move, updateSide: Bool, isCapture: Bool) {
-    let fromSquare = boardView.square(at: move.from)
-    let toSquare = boardView.square(at: move.to)
-    
-    let oldFromSquareState = fromSquare.squareState
-    let oldToSquareState = toSquare.squareState
-    
-    guard let imageName = fromSquare.squareState.imageName else {
-      fatalError("Moving a piece with no image?")
-    }
-    
-    /// Configuring toSquare first is a MUST.
-    toSquare.configure(squareState: fromSquare.squareState, shouldHideUntilAnimationFinishes: true)
-    fromSquare.configure(squareState: .empty, shouldHideUntilAnimationFinishes: false)
-    
-    if updateSide {
-      boardSettings.turn.toggle()
-    }
-    
-    allSquares.forEach { $0.unhighlight(type: .kingIsInCheck) }
-    
-    if BoardHelper.isKingInCheck(onBoard: allSquareStates, boardSettings: boardSettings) {
-      SoundSingleton.shared.play(.check)
-      let kingPosition = BoardHelper.findKing(onBoard: allSquareStates, boardSettings: boardSettings)
-      boardView.square(at: kingPosition).highlight(type: .kingIsInCheck)
-      boardSettings.kingIsInCheck = true
-    } else if isCapture {
-      SoundSingleton.shared.play(.capture)
-    } else {
-      SoundSingleton.shared.play(.move)
-    }
-    
-    /// If the rooks move, that side loses castling right for the
-    /// side of the rook.
-    if move.from == Position(rank: .first, file: .h) {
-      boardSettings.whiteCastling.remove(.kingSide)
-    } else if move.from == Position(rank: .first, file: .a) {
-      boardSettings.whiteCastling.remove(.queenSide)
-    } else if move.from == Position(rank: .eighth, file: .h) {
-      boardSettings.blackCastling.remove(.kingSide)
-    } else if move.from == Position(rank: .eighth, file: .a) {
-      boardSettings.blackCastling.remove(.queenSide)
-    }
-    
-    if case .occupied(let piece, let side) = boardView.square(at: move.from).squareState {
-      if piece == .king {
-        switch side {
-          case .black:
-            boardSettings.blackCastling.removeAll()
-          case .white:
-            boardSettings.whiteCastling.removeAll()
-        }
-      }
-    }
-    
-    animate(move: move, imageName: imageName)
-    
-    boardView.square(at: move.from).highlight(type: .previousMove(move: .from))
-    boardView.square(at: move.to).highlight(type: .previousMove(move: .to))
-    
-    if updateSide {
-      if perspective != boardSettings.turn {
-        let notation = BoardHelper.notation(forMove: move,
-                                            fromSquare: oldFromSquareState,
-                                            toSquare: oldToSquareState,
-                                            onBoard: allSquareStates,
-                                            boardSettings: boardSettings)
-        print("notation = \(notation)")
-        if expectedMoveNotation == notation {
-          handleQuizPart()
-        } else {
-          DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.setFen(self.fenBeforeAttempt)
-          }
-        }
-      } else {
-        fenBeforeAttempt = currentFen
-        handleQuizPart()
-      }
-    }
-  }
-  
-  private func handleAnimationCompletion(move: Move) {
-    if boardSettings.enPassant == move.to,
-       case .occupied(let piece, _) = boardView.square(at: move.from).squareState,
-       piece == .pawn
-    {
-      // Remove the pawn that passed the capturing pawn.
-      let offset: Int
-      switch boardSettings.turn {
-        case .black:
-          offset = -1
-        case .white:
-          offset = 1
-      }
-      if let position = Position(row: move.to.row + offset, column: move.to.column) {
-        boardView.square(at: position).configure(squareState: .empty, shouldHideUntilAnimationFinishes: false)
-      }
-    }
-    
-    highlightedPosition = nil
-    
-    boardView.isUserInteractionEnabled = true
   }
   
   @objc private func didTapSquare(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -372,6 +316,126 @@ final class BoardViewController: UIViewController {
     }
   }
   
+  @objc private func fenCopyPressed() {
+    UIPasteboard.general.string = fenBeforeAttempt
+  }
+  
+  @objc private func flipButtonTapped() {
+    boardView.flip()
+  }
+  
+  private func handle(move: Move, updateSide: Bool, isCapture: Bool) {
+    let fromSquare = boardView.square(at: move.from)
+    let toSquare = boardView.square(at: move.to)
+    
+    let oldFromSquareState = fromSquare.squareState
+    let oldToSquareState = toSquare.squareState
+    
+    guard let imageName = fromSquare.squareState.imageName else {
+      fatalError("Moving a piece with no image?")
+    }
+    
+    /// Configuring toSquare first is a MUST.
+    toSquare.configure(squareState: fromSquare.squareState, shouldHideUntilAnimationFinishes: true)
+    fromSquare.configure(squareState: .empty, shouldHideUntilAnimationFinishes: false)
+    
+    if updateSide {
+      boardSettings.turn.toggle()
+    }
+    
+    allSquares.forEach { $0.unhighlight(type: .kingIsInCheck) }
+    
+    if BoardHelper.isKingInCheck(onBoard: allSquareStates, boardSettings: boardSettings) {
+      SoundSingleton.shared.play(.check)
+      let kingPosition = BoardHelper.findKing(onBoard: allSquareStates, boardSettings: boardSettings)
+      boardView.square(at: kingPosition).highlight(type: .kingIsInCheck)
+      boardSettings.kingIsInCheck = true
+    } else if isCapture {
+      SoundSingleton.shared.play(.capture)
+    } else {
+      SoundSingleton.shared.play(.move)
+    }
+    
+    /// If the rooks move, that side loses castling right for the
+    /// side of the rook.
+    if move.from == Position(rank: .first, file: .h) {
+      boardSettings.whiteCastling.remove(.kingSide)
+    } else if move.from == Position(rank: .first, file: .a) {
+      boardSettings.whiteCastling.remove(.queenSide)
+    } else if move.from == Position(rank: .eighth, file: .h) {
+      boardSettings.blackCastling.remove(.kingSide)
+    } else if move.from == Position(rank: .eighth, file: .a) {
+      boardSettings.blackCastling.remove(.queenSide)
+    }
+    
+    if case .occupied(let piece, let side) = boardView.square(at: move.from).squareState {
+      if piece == .king {
+        switch side {
+          case .black:
+            boardSettings.blackCastling.removeAll()
+          case .white:
+            boardSettings.whiteCastling.removeAll()
+        }
+      }
+    }
+    
+    animate(move: move, imageName: imageName)
+    
+    boardView.square(at: move.from).highlight(type: .previousMove(move: .from))
+    boardView.square(at: move.to).highlight(type: .previousMove(move: .to))
+    
+    if updateSide {
+      if perspective != boardSettings.turn {
+        let notation = BoardHelper.notation(forMove: move,
+                                            fromSquare: oldFromSquareState,
+                                            toSquare: oldToSquareState,
+                                            onBoard: allSquareStates,
+                                            boardSettings: boardSettings)
+        if expectedMoveNotation == notation {
+          handleQuizPart()
+        } else {
+          DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.setFen(self.fenBeforeAttempt)
+            
+            if let move = self.expectedMoveNotation,
+               let explanation = self.expectedMoveExplanation
+            {
+              self.correctMoveLabel.attributedText = "Correct: ".attributed(color: .red) + move
+              self.explanationLabel.attributedText = "Explanation: ".attributed(color: .gray) + explanation
+            }
+          }
+        }
+      } else {
+        fenBeforeAttempt = currentFen
+        fenLabel.attributedText = "FEN: ".attributed(color: .gray) + fenBeforeAttempt
+        handleQuizPart()
+      }
+    }
+  }
+  
+  private func handleAnimationCompletion(move: Move) {
+    if boardSettings.enPassant == move.to,
+       case .occupied(let piece, _) = boardView.square(at: move.from).squareState,
+       piece == .pawn
+    {
+      // Remove the pawn that passed the capturing pawn.
+      let offset: Int
+      switch boardSettings.turn {
+        case .black:
+          offset = -1
+        case .white:
+          offset = 1
+      }
+      if let position = Position(row: move.to.row + offset, column: move.to.column) {
+        boardView.square(at: position).configure(squareState: .empty, shouldHideUntilAnimationFinishes: false)
+      }
+    }
+    
+    highlightedPosition = nil
+    
+    boardView.isUserInteractionEnabled = true
+  }
+  
   private func handleCastlingIfNeeded(move: Move)   {
     /// We make sure that the king is trying to move two squares away.
     guard case .occupied(let piece, _) = boardView.square(at: move.from).squareState,
@@ -445,11 +509,6 @@ final class BoardViewController: UIViewController {
     self.legalDestination = legalDestinations
   }
   
-  
-  @objc private func flipButtonTapped() {
-    boardView.flip()
-  }
-  
   private func handleQuizPart() {
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
       self.handleQuiz()
@@ -465,33 +524,41 @@ final class BoardViewController: UIViewController {
     }
     
     switch quiz {
-      case .myMove(let moveNotation, let explanation):
-        if boardSettings.turn == perspective {
-          expectedMoveNotation = moveNotation
-          expectedMoveExplanation = explanation
-        } else {
-          print("We should have a move for us, not the opponent.")
+    case .myMove(let moveNotation, let explanation):
+      if boardSettings.turn == perspective {
+        expectedMoveNotation = moveNotation
+        expectedMoveExplanation = explanation
+      } else {
+        print("We should have a move for us, not the opponent.")
+      }
+    case .opponentMoves(let possibleOpponentMoveNotations):
+      
+      if let move = expectedMoveNotation,
+         let explanation = expectedMoveExplanation
+      {
+        correctMoveLabel.attributedText = "Correct: ".attributed(color: .darkSquareColor) + move
+        explanationLabel.attributedText = "Explanation: ".attributed(color: .gray) + explanation
+      }
+      
+      if boardSettings.turn != perspective {
+        guard let moveNotation = possibleOpponentMoveNotations.randomElement() else {
+          print("Opponent has no moves.")
+          return
         }
-      case .opponentMoves(let possibleOpponentMoveNotations):
-        if boardSettings.turn != perspective {
-          guard let moveNotation = possibleOpponentMoveNotations.randomElement() else {
-            print("Opponent has no moves.")
-            return
-          }
-          let movesArray = BoardHelper.move(forNotation: moveNotation, onBoard: allSquareStates, boardSettings: boardSettings)
-          
-          if let firstMove = movesArray.first {
-            handle(move: firstMove.move, updateSide: true, isCapture: firstMove.isCapture)
-          }
-          
-          if movesArray.count > 1,
-             let secondMove = movesArray.last
-          {
-            handle(move: secondMove.move, updateSide: false, isCapture: secondMove.isCapture)
-          }
-        } else {
-          print("We should have a move for the opponent, not us.")
+        let movesArray = BoardHelper.move(forNotation: moveNotation, onBoard: allSquareStates, boardSettings: boardSettings)
+        
+        if let firstMove = movesArray.first {
+          handle(move: firstMove.move, updateSide: true, isCapture: firstMove.isCapture)
         }
+        
+        if movesArray.count > 1,
+           let secondMove = movesArray.last
+        {
+          handle(move: secondMove.move, updateSide: false, isCapture: secondMove.isCapture)
+        }
+      } else {
+        print("We should have a move for the opponent, not us.")
+      }
     }
   }
   
