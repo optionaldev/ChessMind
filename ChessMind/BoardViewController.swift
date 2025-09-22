@@ -64,7 +64,6 @@ final class BoardViewController: UIViewController {
     let correctMoveLabel = CustomLabel(fontSize: Constants.labelFontSize)
     
     navigationItem.rightBarButtonItem = flipButton
-    
     view.addSubview(boardView)
     view.addSubview(correctMoveLabel)
     view.addSubview(explanationLabel)

@@ -1,0 +1,468 @@
+{
+  "rnbqkbnr/ppp1pppp/8/3p4/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0":
+  {
+    "myMove": "Nf3",
+    "explanation": "Add more control over the e5 square. Prevent Qh5+."
+  },
+  "rnbqkbnr/ppp1pppp/8/3p4/5P2/5N2/PPPPP1PP/RNBQKB1R b KQkq - 0 0":
+  {
+      "opponentMoves": ["d4"]
+  },
+  "rnbqkbnr/ppp1pppp/8/8/3p1P2/5N2/PPPPP1PP/RNBQKB1R w KQkq - 0 0":
+  {
+      "myMove": "e4",
+      "explanation": "We take more control over the center. If he en passant, it's not a great move."
+  },
+  "rnbqkbnr/ppp1pppp/8/8/3pPP2/5N2/PPPP2PP/RNBQKB1R b KQkq e3 0 0":
+  {
+    "opponentMoves": ["dxe3", "c5", "e6", "a6"]
+  },
+  "rnbqkbnr/ppp1pppp/8/8/5P2/4pN2/PPPP2PP/RNBQKB1R w KQkq - 0 0":
+  {
+    "myMove": "d4",
+    "explanation": "We ignore the enemy pawn on e3 because it can't be defended and we will recapture with the dark square bishop."
+  },
+  "rnbqkbnr/pp2pppp/8/2p5/3pPP2/5N2/PPPP2PP/RNBQKB1R w KQkq - 0 0":
+  {
+    "myMove": "Bc4",
+    "explanation": "We counter Bg4 tactically. We create the long term threat of coordinating knight and bishop on f7. ",
+  },
+  "rnbqkbnr/pp2pppp/8/2p5/2BpPP2/5N2/PPPP2PP/RNBQK2R b KQkq - 0 0":
+  {
+    "opponentMoves": ["Nc6", "Nf6", "e6", "a6"]
+  },
+  "r1bqkbnr/pp2pppp/2n5/2p5/2BpPP2/5N2/PPPP2PP/RNBQK2R w KQkq - 0 0":
+  {
+    "myMove": "Ne5",
+    "explanation": "Taking is the only move for black and even if he takes, we team up bishop and rook (after castling) on f7. Even if e6 is played, we can team up the queen and the rook on the f file.",
+  },
+  "rnbqkb1r/pp2pppp/5n2/2p5/2BpPP2/5N2/PPPP2PP/RNBQK2R w KQkq - 0 0":
+  {
+    "myMove": "d3",
+    "explanation": "We defend the e4 pawn. For now, we don't want to push e5 because the knight can jump to d5 and become a nuisance.",
+  },
+  "rnbqkb1r/pp2pppp/5n2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQK2R b KQkq - 0 0":
+  {
+    "opponentMoves": ["e6", "Nc6", "a6"]
+  },
+  "handle e6 in rnbqkb1r/pp2pppp/5n2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQK2R b KQkq - 0 0":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "handle Nc6 in rnbqkb1r/pp2pppp/5n2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQK2R b KQkq - 0 0":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "handle a6 in rnbqkb1r/pp2pppp/5n2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQK2R b KQkq - 0 0":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  
+  
+  "handle e6 in rnbqkbnr/pp2pppp/8/2p5/2BpPP2/5N2/PPPP2PP/RNBQK2R b KQkq - 0 0":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "handle a6 in rnbqkbnr/pp2pppp/8/2p5/2BpPP2/5N2/PPPP2PP/RNBQK2R b KQkq - 0 0":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "handle e6 in rnbqkbnr/ppp1pppp/8/8/3pPP2/5N2/PPPP2PP/RNBQKB1R b KQkq e3 0 0":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  {
+    "opponentMoves": [""]
+  },
+  "handle a6 in rnbqkbnr/ppp1pppp/8/8/3pPP2/5N2/PPPP2PP/RNBQKB1R b KQkq e3 0 0":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  {
+    "opponentMoves": [""]
+  },
+  "rnbqkbnr/ppp1pppp/8/8/3P1P2/4pN2/PPP3PP/RNBQKB1R b KQkq - 0 0":
+  {
+      "opponentMoves": ["Bg4"]
+  },
+  "rn1qkbnr/ppp1pppp/8/8/3P1Pb1/4pN2/PPP3PP/RNBQKB1R w KQkq - 0 0":
+  {
+    "myMove": "h3",
+    "explanation": "We force the bishop to make a decision. If it tries to move anywhere except c8 or d7, we keep chasing it. We're not afraid of Bxf3."
+  },
+  "rn1qkbnr/ppp1pppp/8/8/3P1Pb1/4pN1P/PPP3P1/RNBQKB1R b KQkq - 0 0":
+  {
+      "opponentMoves": ["Bf5", "Be6", "Bxf3"]
+  },
+  "rn1qkbnr/ppp1pppp/8/5b2/3P1P2/4pN1P/PPP3P1/RNBQKB1R w KQkq - 0 0":
+  {
+    "myMove": "g4",
+    "explanation": "We keep gaining space and pushing the bishop away.",
+  }
+  "rn1qkbnr/ppp1pppp/4b3/8/3P1P2/4pN1P/PPP3P1/RNBQKB1R w KQkq - 0 0":
+  {
+    "myMove": "c4",
+    "explanation": "We keep gaining space. We prevent Nc6 due to the fork. From here, we can capture the pawn on e3 and we have moves like c5, Qb3.",
+  }
+  "rn1qkbnr/ppp1pppp/8/8/3P1P2/4pb1P/PPP3P1/RNBQKB1R w KQkq - 0 0":
+  {
+    "myMove": "Qxf3",
+    "explanation": "We recapture with the queen to keep the pawn structure and also put pressure on the b2 pawn or the knight if Nc6 is played.",
+  },
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  },
+  "":
+  {
+    "myMove": "",
+    "explanation": "",
+  },
+  "":
+  {
+    "opponentMoves": [""]
+  }
+}

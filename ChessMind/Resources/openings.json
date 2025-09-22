@@ -1,8 +1,38 @@
 [
-   { "name": "Englund",
+   { "name": "Bird's opening",
      "lines": [{
-      "name": "Queen first",
-      "startingPosition": "rnb1kbnr/ppppqppp/8/4P3/5B2/8/PPP1PPPP/RN1QKBNR b KQkq - 0 0"
+         "name": "King side fianchetto",
+         "startingPosition": "rnbqkbnr/pppppp1p/6p1/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+    },{
+        "name": "Queen side fianchetto",
+        "startingPosition": "rnbqkbnr/p1pppppp/1p6/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+    },{
+        "name": "Sicilian invitation",
+        "startingPosition": "rnbqkbnr/pp1ppppp/8/2p5/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+    },{
+        "name": "Knight f6",
+        "startingPosition": "rnbqkb1r/pppppppp/5n2/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+    },{
+        "name": "Knight c6",
+        "startingPosition": "r1bqkbnr/pppppppp/2n5/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+    },{
+        "name": "Swiss gambit",
+        "startingPosition": "rnbqkbnr/ppppp1pp/8/5p2/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+    },{
+        "name": "From's gambit",
+        "startingPosition": "rnbqkbnr/pppp1ppp/8/4p3/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+    },{
+        "name": "Hobbs gambit",
+        "startingPosition": "rnbqkbnr/pppppp1p/8/6p1/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+    },{
+        "name": "e6",
+        "startingPosition": "rnbqkbnr/pppp1ppp/4p3/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+    },{
+        "name": "d5 main line",
+        "startingPosition": "rnbqkbnr/ppp1pppp/8/3p4/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+    },{
+        "name": "d6",
+        "startingPosition": "rnbqkbnr/ppp1pppp/3p4/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
     }]
    },
    { "name": "Black Knight's Tango",
@@ -21,13 +51,14 @@
     "lines": [
     {
       "name": "Qb6",
-      "startingPosition": "rnb1kbnr/ppp1pppp/8/3q4/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 0"
+      "startingPosition": "rnb1kbnr/ppp1pppp/8/3q4/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 0",
+      "fileName": "scandinavian qb6"
     },{
       "name": "Advance",
       "startingPosition": ""
     },{
-      "name": "Tennison",
-      "startingPosition": ""
+      "name": "Tennison Gambit",
+      "startingPosition": "rnbqkbnr/ppp2ppp/8/4p1N1/4p3/8/PPPP1PPP/RNBQKB1R w KQkq e6 0 0"
     },{
       "name": "Nc3",
       "startingPosition": ""

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		562DABD82E8164EB0085D50F /* bird's opening.json in Resources */ = {isa = PBXBuildFile; fileRef = 562DABD72E8164E60085D50F /* bird's opening.json */; };
 		5664980F2D3C3B1100E81E44 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5664980E2D3C3B1100E81E44 /* Operators.swift */; };
 		56A430712D2E814600A27394 /* black knight's tango.json in Resources */ = {isa = PBXBuildFile; fileRef = 56A430702D2E814500A27394 /* black knight's tango.json */; };
 		6E1094822CCF777100FFA1B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094812CCF777100FFA1B7 /* AppDelegate.swift */; };
@@ -86,6 +87,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		562DABD72E8164E60085D50F /* bird's opening.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bird's opening.json"; sourceTree = "<group>"; };
 		5664980E2D3C3B1100E81E44 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		56A430702D2E814500A27394 /* black knight's tango.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "black knight's tango.json"; sourceTree = "<group>"; };
 		6E10947E2CCF777100FFA1B7 /* ChessMind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessMind.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -322,6 +324,7 @@
 		6E56B1012CF25EE2001B6B19 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				562DABD72E8164E60085D50F /* bird's opening.json */,
 				56A430702D2E814500A27394 /* black knight's tango.json */,
 				6E7700712D1FECDD000DF3C6 /* englund.json */,
 				6E76D7AE2D09FCFD000351A5 /* openings.json */,
@@ -445,6 +448,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				562DABD82E8164EB0085D50F /* bird's opening.json in Resources */,
 				6E10948E2CCF777300FFA1B7 /* LaunchScreen.storyboard in Resources */,
 				6E7700722D1FECDD000DF3C6 /* englund.json in Resources */,
 				56A430712D2E814600A27394 /* black knight's tango.json in Resources */,
