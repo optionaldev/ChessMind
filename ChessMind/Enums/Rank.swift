@@ -19,14 +19,11 @@ enum Rank: Int, CaseIterable, Strideable {
     return "\(rawValue + 1)"
   }
   
-  func offsetBy(n: Int) -> Rank {
-    return Rank(rawValue: rawValue + n)!
-  }
-  
   // MARK: Init
   
-  init?(character: Character) {
-    if let intValue = Int(character),
+  init?(character: Character?) {
+    if let character = character,
+       let intValue = Int(character),
        /// We subtract one because notation is from 1 to 8
        let rank = Rank(rawValue: intValue - 1)
     {

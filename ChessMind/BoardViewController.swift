@@ -274,7 +274,6 @@ final class BoardViewController: UIViewController {
             
             handleCastlingIfNeeded(move: nextMove)
             
-            boardSettings.enPassant = nil
             handleEnPassant(move: nextMove)
             
             handle(move: nextMove, updateSide: true, isCapture: false)
@@ -414,7 +413,7 @@ final class BoardViewController: UIViewController {
   
   private func handleAnimationCompletion(move: Move) {
     if boardSettings.enPassant == move.to,
-       case .occupied(let piece, _) = boardView.square(at: move.from).squareState,
+       case .occupied(let piece, _) = boardView.square(at: move.to).squareState,
        piece == .pawn
     {
       // Remove the pawn that passed the capturing pawn.
@@ -427,6 +426,7 @@ final class BoardViewController: UIViewController {
       }
       if let position = Position(row: move.to.row + offset, column: move.to.column) {
         boardView.square(at: position).configure(squareState: .empty, shouldHideUntilAnimationFinishes: false)
+        boardSettings.enPassant = nil
       }
     }
     
@@ -544,7 +544,8 @@ final class BoardViewController: UIViewController {
           print("Opponent has no moves.")
           return
         }
-        let movesArray = BoardHelper.move(forNotation: moveNotation, onBoard: allSquareStates, boardSettings: boardSettings)
+        
+        let movesArray = BoardHelper.moves(forNotation: moveNotation, onBoard: allSquareStates, boardSettings: boardSettings)
         
         if let firstMove = movesArray.first {
           handle(move: firstMove.move, updateSide: true, isCapture: firstMove.isCapture)

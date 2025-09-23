@@ -175,9 +175,9 @@ enum BoardHelper {
   /// can be converted into moves, max 2 for castling, max 1
   /// otherwise. Empty array if notation could not be converted into
   /// moves.
-  static func move(forNotation notation: String,
-                   onBoard board: [[SquareState]],
-                   boardSettings: BoardSettings) -> [(move: Move, isCapture: Bool)]
+  static func moves(forNotation notation: String,
+                    onBoard board: [[SquareState]],
+                    boardSettings: BoardSettings) -> [(move: Move, isCapture: Bool)]
   {
     /// We know for sure that the last two characters
     /// represent the destination rank and file, so
@@ -204,8 +204,10 @@ enum BoardHelper {
       index = notation.index(after: index)
     }
     
-    if notation.last == Constants.checkNotation || notation.last == "#" {
+    if notation.last == Constants.checkNotation || notation.last == Constants.checkmateNotation {
       /// For now, we ignore checks and checkmate symbols
+      /// We do take into account king being in check in other
+      /// parts of the code.
       notation.removeLast()
     }
     

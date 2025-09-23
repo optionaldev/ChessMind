@@ -91,11 +91,8 @@ struct Position: Equatable, CustomStringConvertible {
   
   init?(notation: String) {
     guard notation.count == 2,
-          let fileCharacter = notation.first,
-          let rankCharacter = notation.last,
-          let file = File(character: fileCharacter),
-          let rank = Rank(character: rankCharacter)
-    else
+          let file = File(character: notation.first),
+          let rank = Rank(character: notation.last) else
     {
       return nil
     }

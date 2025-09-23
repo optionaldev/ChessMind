@@ -24,6 +24,9 @@ enum Constants {
   /// Algebraic notation for a move that put the opponent in check.
   static let checkNotation: Character = "+"
   
+  /// Algebraic notation for a move that put the opponent in checkmate.
+  static let checkmateNotation: Character = "#"
+  
   /// FEN notation is split into several components separated by a
   /// space. If a component is empty, it is represented as a dash.
   static let fenEmptyField = "-"

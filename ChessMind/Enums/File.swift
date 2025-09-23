@@ -42,8 +42,10 @@ enum File: Int, CaseIterable {
   
   // MARK: Init
   
-  init?(character: Character) {
-    if let file = File.allCases.first(where: { $0.notation == character }) {
+  init?(character: Character?) {
+    if let character = character,
+       let file = File.allCases.first(where: { $0.notation == character })
+    {
       self = file
     } else {
       return nil

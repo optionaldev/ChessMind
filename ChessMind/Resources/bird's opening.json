@@ -1,4 +1,8 @@
 {
+  "rnbqkbnr/pppppppp/8/8/5P2/8/PPPPP1PP/RNBQKBNR b KQkq - 0 0":
+  {
+    "opponentMoves": ["d5"]
+  },
   "rnbqkbnr/ppp1pppp/8/3p4/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0":
   {
     "myMove": "Nf3",
@@ -22,7 +26,7 @@
     "myMove": "d4",
     "explanation": "We ignore the enemy pawn on e3 because it can't be defended and we will recapture with the dark square bishop."
   },
-  "rnbqkbnr/pp2pppp/8/2p5/3pPP2/5N2/PPPP2PP/RNBQKB1R w KQkq - 0 0":
+  "rnbqkbnr/pp2pppp/8/2p5/3pPP2/5N2/PPPP2PP/RNBQKB1R w KQkq c3 0 0":
   {
     "myMove": "Bc4",
     "explanation": "We counter Bg4 tactically. We create the long term threat of coordinating knight and bishop on f7. ",
@@ -45,52 +49,59 @@
   {
     "opponentMoves": ["e6", "Nc6", "a6"]
   },
-  "handle e6 in rnbqkb1r/pp2pppp/5n2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQK2R b KQkq - 0 0":
+  "rnbqkb1r/pp3ppp/4pn2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQK2R w KQkq - 0 0":
   {
-    "myMove": "",
-    "explanation": "",
+    "myMove": "O-O",
+    "explanation": "We castle to get the rook on the f file in case it opens up. We're also getting ready to bring the queen to e1 and rotate to g3.",
   },
-  "handle Nc6 in rnbqkb1r/pp2pppp/5n2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQK2R b KQkq - 0 0":
+  "rnbqkb1r/pp3ppp/4pn2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQ1RK1 b kq - 0 0":
   {
-    "myMove": "",
-    "explanation": "",
+    "opponentMoves": ["Be7", "a6", "Nc6", "Bd7"]
   },
-  "handle a6 in rnbqkb1r/pp2pppp/5n2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQK2R b KQkq - 0 0":
+  "rnbqk2r/pp2bppp/4pn2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQ1RK1 w kq - 0 0":
   {
-    "myMove": "",
-    "explanation": "",
+    "myMove": "Qe1",
+    "explanation": "We prepare to get the queen to g3 where it can dance around the knight until it gets to h3. It also threatens g7 in case black refuses to castle.",
   },
-  
-  
-  "handle e6 in rnbqkbnr/pp2pppp/8/2p5/2BpPP2/5N2/PPPP2PP/RNBQK2R b KQkq - 0 0":
+  "rnbqkb1r/1p3ppp/p3pn2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQ1RK1 w kq - 0 0":
   {
-    "myMove": "",
-    "explanation": "",
+    "myMove": "a4",
+    "explanation": "This gains space, prevents b5 and limits black's options in terms of counterplay.",
   },
-  "":
+  "r1bqkb1r/pp3ppp/2n1pn2/2p1N3/2BpPP2/3P4/PPP3PP/RNBQ1RK1 b kq - 0 0":
   {
-    "opponentMoves": [""]
+    "myMove": "Ne5",
+    "explanation": "We're hoping for black to take and open the f file for an attack. In case of Na5, we can give a check with the bishop. If the bishop blocks, we take with the knight. If the knight blocks, we push f5.",
   },
-  "handle a6 in rnbqkbnr/pp2pppp/8/2p5/2BpPP2/5N2/PPPP2PP/RNBQK2R b KQkq - 0 0":
+  "rnbqk2r/pp2bppp/4pn2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQ1RK1 w kq - 0 0":
   {
-    "myMove": "",
-    "explanation": "",
+    "myMove": "Qe1",
+    "explanation": "We prepare to get the queen to g3 where it can dance around the knight until it gets to h3. It also threatens g7 in case black refuses to castle.",
   },
-  "handle e6 in rnbqkbnr/ppp1pppp/8/8/3pPP2/5N2/PPPP2PP/RNBQKB1R b KQkq e3 0 0":
+  "r1bqkb1r/pp2pppp/2n2n2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQK2R w KQkq - 0 0":
   {
-    "myMove": "",
-    "explanation": "",
+    "myMove": "Ne5",
+    "explanation": "We're hoping for black to take and open the f file for an attack. Since we capture with the f pawn, we also gain a tempo since the knight has to move. The only good move is Nd7.",
   },
+  "rnbqkb1r/1p2pppp/p4n2/2p5/2BpPP2/3P1N2/PPP3PP/RNBQK2R w KQkq - 0 0":
   {
-    "opponentMoves": [""]
+    "myMove": "a4",
+    "explanation": "This gains space, prevents b5 and limits black's options in terms of counterplay.",
   },
-  "handle a6 in rnbqkbnr/ppp1pppp/8/8/3pPP2/5N2/PPPP2PP/RNBQKB1R b KQkq e3 0 0":
+  "rnbqkbnr/1p2pppp/p7/2p5/2BpPP2/5N2/PPPP2PP/RNBQK2R w KQkq - 0 0":
   {
-    "myMove": "",
-    "explanation": "",
+    "myMove": "O-O",
+    "explanation": "We're baiting black into playing b5, after which we can move the bishop do d5. The rook has to move. We bring in our knight as well and we either give a check on c6 or team up on f7. After the rook moves, the rook and queen are on forkable squares. This is possible because e6 hasn't been played yet.",
   },
+  "rnbqkbnr/ppp2ppp/4p3/8/3pPP2/5N2/PPPP2PP/RNBQKB1R w KQkq - 0 0":
   {
-    "opponentMoves": [""]
+    "myMove": "Bc4",
+    "explanation": "Best square for the bishop. Even though the diagonal is blocked, we can open it in the future with moves like f5. In case the pawn storm is coming to trap our bishop, we also have d3 and a4.",
+  },
+  "rnbqkbnr/1pp1pppp/p7/8/3pPP2/5N2/PPPP2PP/RNBQKB1R w KQkq - 0 0":
+  {
+    "myMove": "Bc4",
+    "explanation": "Best square for the bishop. It can team up with the knight on f7 or with the rook in the future if the f file opens up. We're not afraid of a pawn storm on the queen side, because our bishop can't get trapped.",
   },
   "rnbqkbnr/ppp1pppp/8/8/3P1P2/4pN2/PPP3PP/RNBQKB1R b KQkq - 0 0":
   {
@@ -109,360 +120,15 @@
   {
     "myMove": "g4",
     "explanation": "We keep gaining space and pushing the bishop away.",
-  }
+  },
   "rn1qkbnr/ppp1pppp/4b3/8/3P1P2/4pN1P/PPP3P1/RNBQKB1R w KQkq - 0 0":
   {
     "myMove": "c4",
     "explanation": "We keep gaining space. We prevent Nc6 due to the fork. From here, we can capture the pawn on e3 and we have moves like c5, Qb3.",
-  }
+  },
   "rn1qkbnr/ppp1pppp/8/8/3P1P2/4pb1P/PPP3P1/RNBQKB1R w KQkq - 0 0":
   {
     "myMove": "Qxf3",
     "explanation": "We recapture with the queen to keep the pawn structure and also put pressure on the b2 pawn or the knight if Nc6 is played.",
-  },
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
-  },
-  "":
-  {
-    "myMove": "",
-    "explanation": "",
-  },
-  "":
-  {
-    "opponentMoves": [""]
   }
 }
