@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		562DABD82E8164EB0085D50F /* bird's opening.json in Resources */ = {isa = PBXBuildFile; fileRef = 562DABD72E8164E60085D50F /* bird's opening.json */; };
 		5664980F2D3C3B1100E81E44 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5664980E2D3C3B1100E81E44 /* Operators.swift */; };
-		56A430712D2E814600A27394 /* black knight's tango.json in Resources */ = {isa = PBXBuildFile; fileRef = 56A430702D2E814500A27394 /* black knight's tango.json */; };
 		6E1094822CCF777100FFA1B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094812CCF777100FFA1B7 /* AppDelegate.swift */; };
 		6E1094842CCF777100FFA1B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094832CCF777100FFA1B7 /* SceneDelegate.swift */; };
 		6E1094862CCF777100FFA1B7 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094852CCF777100FFA1B7 /* BoardViewController.swift */; };
@@ -60,7 +59,6 @@
 		6E7700722D1FECDD000DF3C6 /* englund.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E7700712D1FECDD000DF3C6 /* englund.json */; };
 		6E7700742D1FED51000DF3C6 /* JsonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7700732D1FED51000DF3C6 /* JsonHelper.swift */; };
 		6E7700762D1FF479000DF3C6 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7700752D1FF479000DF3C6 /* DictionaryExtension.swift */; };
-		6E7700782D1FF741000DF3C6 /* scandinavian.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E7700772D1FF741000DF3C6 /* scandinavian.json */; };
 		6E8784FE2CE951E000059A48 /* HighlightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8784FD2CE951E000059A48 /* HighlightType.swift */; };
 		6EF8038A2CEA08EB0068E0AA /* FenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF803892CEA08EB0068E0AA /* FenHelper.swift */; };
 		6EF8038C2CEA0EB60068E0AA /* CharacterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF8038B2CEA0EB60068E0AA /* CharacterExtension.swift */; };
@@ -89,7 +87,6 @@
 /* Begin PBXFileReference section */
 		562DABD72E8164E60085D50F /* bird's opening.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bird's opening.json"; sourceTree = "<group>"; };
 		5664980E2D3C3B1100E81E44 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
-		56A430702D2E814500A27394 /* black knight's tango.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "black knight's tango.json"; sourceTree = "<group>"; };
 		6E10947E2CCF777100FFA1B7 /* ChessMind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessMind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1094812CCF777100FFA1B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E1094832CCF777100FFA1B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,7 +141,6 @@
 		6E7700712D1FECDD000DF3C6 /* englund.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = englund.json; sourceTree = "<group>"; };
 		6E7700732D1FED51000DF3C6 /* JsonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonHelper.swift; sourceTree = "<group>"; };
 		6E7700752D1FF479000DF3C6 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
-		6E7700772D1FF741000DF3C6 /* scandinavian.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scandinavian.json; sourceTree = "<group>"; };
 		6E8784FD2CE951E000059A48 /* HighlightType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightType.swift; sourceTree = "<group>"; };
 		6EF803892CEA08EB0068E0AA /* FenHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenHelper.swift; sourceTree = "<group>"; };
 		6EF8038B2CEA0EB60068E0AA /* CharacterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtension.swift; sourceTree = "<group>"; };
@@ -325,10 +321,8 @@
 			isa = PBXGroup;
 			children = (
 				562DABD72E8164E60085D50F /* bird's opening.json */,
-				56A430702D2E814500A27394 /* black knight's tango.json */,
 				6E7700712D1FECDD000DF3C6 /* englund.json */,
 				6E76D7AE2D09FCFD000351A5 /* openings.json */,
-				6E7700772D1FF741000DF3C6 /* scandinavian.json */,
 				6E56B10B2CF26678001B6B19 /* capture.mp3 */,
 				6E56B1022CF26058001B6B19 /* check.mp3 */,
 				6E56B1092CF2621C001B6B19 /* move.mp3 */,
@@ -451,10 +445,8 @@
 				562DABD82E8164EB0085D50F /* bird's opening.json in Resources */,
 				6E10948E2CCF777300FFA1B7 /* LaunchScreen.storyboard in Resources */,
 				6E7700722D1FECDD000DF3C6 /* englund.json in Resources */,
-				56A430712D2E814600A27394 /* black knight's tango.json in Resources */,
 				6E56B1042CF26058001B6B19 /* check.mp3 in Resources */,
 				6E10948B2CCF777300FFA1B7 /* Assets.xcassets in Resources */,
-				6E7700782D1FF741000DF3C6 /* scandinavian.json in Resources */,
 				6E56B10C2CF26678001B6B19 /* capture.mp3 in Resources */,
 				6E1094892CCF777100FFA1B7 /* Main.storyboard in Resources */,
 				6E56B10A2CF2621C001B6B19 /* move.mp3 in Resources */,
@@ -704,9 +696,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 33QXUSWHKD;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChessMind/Default/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -734,9 +726,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 33QXUSWHKD;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChessMind/Default/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
