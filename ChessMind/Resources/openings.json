@@ -1,40 +1,9 @@
 [
    {
-       "name": "Bird's opening",
+       "name": "Light square bishop knight",
        "lines": [{
-           "name": "King side fianchetto",
-           "startingPosition": "rnbqkbnr/pppppp1p/6p1/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
-       },{
-           "name": "Queen side fianchetto",
-           "startingPosition": "rnbqkbnr/p1pppppp/1p6/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
-       },{
-           "name": "Sicilian invitation",
-           "startingPosition": "rnbqkbnr/pp1ppppp/8/2p5/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
-       },{
-           "name": "Knight f6",
-           "startingPosition": "rnbqkb1r/pppppppp/5n2/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
-       },{
-           x
-           "name": "Knight c6",
-           "startingPosition": "r1bqkbnr/pppppppp/2n5/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
-       },{
-           "name": "Swiss gambit",
-           "startingPosition": "rnbqkbnr/ppppp1pp/8/5p2/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
-       },{
-           "name": "From's gambit",
-           "startingPosition": "rnbqkbnr/pppp1ppp/8/4p3/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
-       },{
-           "name": "Hobbs gambit",
-           "startingPosition": "rnbqkbnr/pppppp1p/8/6p1/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
-       },{
-           "name": "e6",
-           "startingPosition": "rnbqkbnr/pppp1ppp/4p3/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
-       },{
-           "name": "d5 main line",
-           "startingPosition": "rnbqkbnr/pppppppp/8/8/5P2/8/PPPPP1PP/RNBQKBNR b KQkq - 0 0"
-       },{
-           "name": "d6",
-           "startingPosition": "rnbqkbnr/ppp1pppp/3p4/8/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 0"
+           "name": "Light square bishop knight",
+           "startingPosition": "8/8/4k3/8/3K4/8/8/5BN1 b - - 0 0"
        }]
    }
 ]

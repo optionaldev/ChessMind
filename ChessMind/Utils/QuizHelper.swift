@@ -33,7 +33,6 @@ enum QuizHelper {
     }
     
     return filteredQuizes
-
   }
   
   static func getOpenings() -> [Opening] {

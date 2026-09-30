@@ -1,0 +1,1218 @@
+
+{
+    "8/8/4k3/8/3K4/8/8/5BN1 b - - 0 0":
+    {
+        "opponentMoves": ["Kd6"]
+    },
+    "8/8/3k4/8/3K4/8/8/5BN1 w - - 0 0":
+    {
+        "myMove": ["Bc4"],
+        "explanation": "Take away e6, control b5 & a6."
+    },
+    "8/8/3k4/8/2BK4/8/8/6N1 b - - 0 0":
+    {
+        "opponentMoves": ["Kc6"]
+    },
+    "8/8/2k5/8/2BK4/8/8/6N1 w - - 0 0":
+    {
+        "myMove": ["Nf3"],
+        "explanation": "We just bring our knight closer to the action."
+    },
+    "8/8/2k5/8/2BK4/5N2/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb6", "Kd6", "Kd7"]
+    },
+    "8/8/3k4/8/2BK4/5N2/8/8 w - - 0 0":
+    {
+        "myMove": ["Bd5"],
+        "explanation": "Force the opponent king to the 7th rank."
+    },
+    "8/8/3k4/3B4/3K4/5N2/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc7", "Kd7", "Ke7"]
+    },
+    "8/2k5/8/3B4/3K4/5N2/8/8 w - - 0 0":
+    {
+        "myMove": ["Ne5"],
+        "explanation": "Take away the d7 square."
+    },
+    "8/2k5/8/3BN3/3K4/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb6", "Kd6"]
+    },
+    "8/8/1k6/3BN3/3K4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc4"],
+        "explanation": "Prevent the king's escape towards a1."
+    },
+    "8/8/1k6/3BN3/2K5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc7", "Kh5"]
+    },
+    "8/2k5/8/3BN3/2K5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc5"],
+        "explanation": "Take away b6 and d6 squares. King is force to the last rank."
+    },
+    "8/8/8/k2BN3/2K5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc5"],
+        "explanation": "Take away the a4 square and prevent the king's escape. The bishop is guarded by the knight."
+    },
+    "8/8/2B5/k3N3/2K5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6", "Kb6"]
+    },
+    "8/8/1kB5/4N3/2K5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kb4"],
+        "explanation": "Take away the a5 square."
+    },
+    "8/8/1kB5/4N3/1K6/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6", "Ka7", "Kc7"]
+    },
+    "8/2k5/2B5/4N3/1K6/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc5"],
+        "explanation": "Force the king to the last rank.",
+        "endOfTheLine": true
+    },
+    "8/8/k1B5/4N3/1K6/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc5"],
+        "explanation": "Take away the b6 square."
+    },
+    "8/8/k1B5/2K1N3/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka5", "Ka7"]
+    },
+    "8/8/2B5/k1K1N3/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc4+"],
+        "explanation": "Force the king to a6."
+    },
+    "8/k7/2B5/2K1N3/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd6"],
+        "explanation": "General restriction and preparing for mate.",
+        "endOfTheLine": true
+    },
+    "8/k7/2B5/4N3/1K6/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc5"],
+        "explanation": "General restricting move. Prepare to guide the king towards a8.",
+        "endOfTheLine": true
+    },
+    "8/8/3k4/3BN3/3K4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Ng6"],
+        "explanation": "Take away the e7 square"
+    },
+    "8/8/k1B5/4N3/2K5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc5"],
+        "explanation": "Take away b6 square. Mate is iminent",
+        "endOfTheLine": true
+    },
+    "8/8/3k2N1/3B4/3K4/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kd7", "Kc7"]
+    },
+    "8/3k4/6N1/3B4/3K4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc5"],
+        "explanation": "Take away the d6 square."
+    },
+    "8/3k4/6N1/2KB4/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc7"]
+    },
+    "8/2k5/6N1/2KB4/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc6"],
+        "explanation": "Push the king to the last rank",
+        "endOfTheLine": true
+    },
+    "8/2k5/6N1/3B4/3K4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc5"],
+        "explanation": "Take away the b6 and d6 squares."
+    },
+    "8/2k5/6N1/2KB4/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kd7"]
+    },
+    "8/3k4/6N1/2KB4/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc4"],
+        "explanation": "Waiting move. "
+    },
+    "8/3k4/6N1/2K5/2B5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc7", "_Kd8"]
+    },
+    "8/2k5/6N1/2K5/2B5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bb5"],
+        "explanation": "Take away the d7 square."
+    },
+    "8/2k5/6N1/1BK5/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb7", "_Kd8"]
+    },
+    "8/1k6/6N1/1BK5/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nf8"],
+        "explanation": "Move the knight in the right position. Nf4 also works."
+    },
+    "5N2/1k6/8/1BK5/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc7"]
+    },
+    "5N2/2k5/8/1BK5/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Ne6+"],
+        "explanation": "Take away the c7 square."
+    },
+    "8/2k5/4N3/1BK5/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb7"]
+    },
+    "8/1k6/4N3/1BK5/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bf1"],
+        "explanation": "A stylish move. Waiting a turn to force king to last rank.",
+        "endOfTheLine": true
+    },
+    "8/3k4/8/3B4/3K4/5N2/8/8 w - - 0 0":
+    {
+        "myMove": ["Ke5"],
+        "explanation": "Take away the d6 square."
+    },
+    "8/3k4/8/3BK3/8/5N2/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc7", "_Ke7"]
+    },
+    "8/2k5/8/3BK3/8/5N2/8/8 w - - 0 0":
+    {
+        "myMove": ["Ke6"],
+        "explanation": "Take away the d7 square."
+    },
+    "8/2k5/4K3/3B4/8/5N2/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb6"]
+    },
+    "8/8/1k2K3/3B4/8/5N2/8/8 w - - 0 0":
+    {
+        "myMove": ["Nd4"],
+        "explanation": "Take away the b5 square."
+    },
+    "8/8/1k2K3/3B4/3N4/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc5", "_Kc7", "_Ka5", "_Ka6", "_Ka7"]
+    },
+    "8/8/4K3/2kB4/3N4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc2"],
+        "explanation": "Take away b4 square."
+    },
+    "8/8/4K3/2kB4/8/8/2N5/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb5", "_Kb6"]
+    },
+    "8/8/4K3/1k1B4/8/8/2N5/8 w - - 0 0":
+    {
+        "myMove": ["Kd6"],
+        "explanation": "Take away c5 square."
+    },
+    "8/8/3K4/1k1B4/8/8/2N5/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka4", "Ka5", "_Ka6", "_Kb6"]
+    },
+    "8/8/3K4/3B4/k7/8/2N5/8 w - - 0 0":
+    {
+        "myMove": ["Kc5"],
+        "explanation": "Opponent king is now stuck on the last rank."
+    },
+    "8/8/8/2KB4/k7/8/2N5/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka5"]
+    },
+    "8/8/8/k1KB4/8/8/2N5/8 w - - 0 0":
+    {
+        "myMove": ["Bc6"],
+        "explanation": "Take away the a4 square."
+    },
+    "8/8/2B5/k1K5/8/8/2N5/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6"]
+    },
+    "8/8/k1B5/2K5/8/8/2N5/8 w - - 0 0":
+    {
+        "myMove": ["Na3"],
+        "explanation": "Get the knight closer."
+    },
+    "8/8/k1B5/2K5/8/N7/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka5", "Ka7"]
+    },
+    "8/8/2B5/k1K5/8/N7/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc4+"],
+        "explanation": "Force the king out of a5. Mate in 8"
+    },
+    "8/8/2B5/k1K5/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6"]
+    },
+    "8/8/k1B5/2K5/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd6"],
+        "explanation": "Get the king closer to the corner. The black king can't escape the backrank."
+    },
+    "8/8/k1BK4/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/k7/2BK4/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Take away the b8 square. Prepare for mate."
+    },
+    "8/k1K5/2B5/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6"]
+    },
+    "8/2K5/k1B5/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bd7"],
+        "explanation": "We need a waiting move to make the black king go back to a7."
+    },
+    "8/2KB4/k7/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/k1KB4/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bb5"],
+        "explanation": "Take away the a6 square. Now the king is stuck between a7 and a8."
+    },
+    "8/k1K5/8/1B6/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka8"]
+    },
+    "k7/2K5/8/1B6/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nb6+"],
+        "explanation": "Get the knight to c8 to deliver mate."
+    },
+    "k7/2K5/3N4/1B6/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/k1K5/3N4/1B6/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc8+"],
+        "explanation": "Force the king into the corner."
+    },
+    "2N5/k1K5/8/1B6/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka8"]
+    },
+    "k1N5/2K5/8/1B6/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc6#"]
+    },
+    "8/k7/2B5/2K5/8/N7/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd6"],
+        "explanation": "Get the king closer to the corner. The black king can't escape the backrank."
+    },
+    "8/k7/2BK4/8/8/N7/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb6", "Ka6", "Kb8"]
+    },
+    "8/8/1kBK4/8/8/N7/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc4+"],
+        "explanation": "Prevent the king's escape via a5."
+    },
+    "8/8/1kBK4/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6", "Ka7"]
+    },
+    "8/8/k1BK4/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "King now prevents black king's escape from backrank."
+    },
+    "8/2K5/k1B5/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/k1K5/2B5/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bb5"],
+        "explanation": "Take away the a6 square. Now black king is stuck between a7 and a8."
+    },
+    "8/8/k1BK4/8/8/N7/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc4"],
+        "explanation": "Prevent the king's escape via a5. "
+    },
+    "1k6/8/2BK4/8/8/N7/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd7"],
+        "explanation": "Prevent the king from escaping from the corner."
+    },
+    "1k6/3K4/2B5/8/8/N7/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/k2K4/2B5/8/8/N7/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Now the king is stuck on the backrank."
+    },
+    "8/k1K5/2B5/8/8/N7/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6"]
+    },
+    "8/2K5/k1B5/8/8/N7/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc4"],
+        "explanation": "Prevent the king's escape via a5."
+    },
+    "8/8/3K4/k2B4/8/8/2N5/8 w - - 0 0":
+    {
+        "myMove": ["Bc6"],
+        "explanation": "Prevent the king's escape via a4."
+    },
+    "8/8/2BK4/k7/8/8/2N5/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb6", "Ka6"]
+    },
+    "8/8/1kBK4/8/8/8/2N5/8 w - - 0 0":
+    {
+        "myMove": ["Nd4"],
+        "explanation": "Move the knight closer to prepare to control other squares."
+    },
+    "8/8/1kBK4/8/3N4/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka5", "Ka6", "Ka7"]
+    },
+    "8/8/2BK4/k7/3N4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc5"],
+        "explanation": "Restrict the black king to the last rank for now."
+    },
+    "8/8/2B5/k1K5/3N4/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6"]
+    },
+    "8/8/k1B5/2K5/3N4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nb5"],
+        "explanation": "Bb5+ is also good, but it's better to do later due to less options for the black king."
+    },
+    "8/8/k1B5/1NK5/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka5"]
+    },
+    "8/8/2B5/kNK5/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nd6"],
+        "explanation": "Bring the knight closer to the corner. Allow the bishop to have vision of the a4 square."
+    },
+    "8/8/2BN4/k1K5/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6"]
+    },
+    "8/8/k1BN4/2K5/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bb5+"],
+        "explanation": "Force the king to make a decision. Knight now controls b7."
+    },
+    "8/8/k2N4/1BK5/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka5", "Ka7"]
+    },
+    "8/8/3N4/kBK5/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc4#"],
+        "explanation": "Opponent chose death."
+    },
+    "8/k7/3N4/1BK5/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc6"],
+        "explanation": "Move the king closer to the mating square."
+    },
+    "8/k7/2KN4/1B6/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka8", "Kb8"]
+    },
+    "k7/8/2KN4/1B6/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Prepare to mate with knight king bishop formation in a straight line."
+    },
+    "1k6/8/2KN4/1B6/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kb6"],
+        "explanation": "Get into the knight king bishop formation."
+    },
+    "1k6/8/1K1N4/1B6/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka8"]
+    },
+    "k7/8/1K1N4/1B6/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Prepare to mate with knight king bishop formation in a straight line."
+    },
+    "8/8/k1BK4/8/3N4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nb3"],
+        "explanation": "Control a5 and c5 squares with the knight such that you can shoulder with the king."
+    },
+    "8/8/k1BK4/8/8/1N6/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb6", "Ka7"]
+    },
+    "8/8/1kBK4/8/8/1N6/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd7"],
+        "explanation": "Guide the black king towards the backrank."
+    },
+    "8/3K4/1kB5/8/8/1N6/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6", "Ka7"]
+    },
+    "8/3K4/k1B5/8/8/1N6/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Lock the black king on the backrank."
+    },
+    "8/2K5/k1B5/8/8/1N6/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/k1K5/2B5/8/8/1N6/8/8 w - - 0 0":
+    {
+        "myMove": ["Bb5"],
+        "explanation": "Now the black king is stuck shuffling between a7 and a8. We just have to reroute the knight to c8.",
+        "endOfTheLine": true
+    },
+    "8/k2K4/2B5/8/8/1N6/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Make sure king is stuck on the backrank."
+    },
+    "8/k1K5/2B5/8/8/1N6/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6"]
+    },
+    "8/2K5/k1B5/8/8/1N6/8/8 w - - 0 0":
+    {
+        "myMove": ["Bd7"],
+        "explanation": "Black king can only go to a7 now. We need a waiting move."
+    },
+    "8/2KB4/k7/8/8/1N6/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/k1KB4/8/8/8/1N6/8/8 w - - 0 0":
+    {
+        "myMove": ["Bb5"],
+        "explanation": "Now the black king is stuck between a7 and a8. Reposition the knight for mate.",
+        "endOfTheLine": true
+    },
+    "8/k7/2BK4/8/8/1N6/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Black king is stuck on the backrank now."
+    },
+    "8/k7/2BK4/8/3N4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Now the black king is stuck on the backrank."
+    },
+    "8/k1K5/2B5/8/3N4/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6"]
+    },
+    "8/2K5/k1B5/8/3N4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nb3"],
+        "explanation": "Don't allow the black king to reach a5."
+    },
+    "8/8/k1BK4/8/8/8/2N5/8 w - - 0 0":
+    {
+        "myMove": ["Kc5"],
+        "explanation": "We control b4 with our king to allow the knight to move."
+    },
+    "8/8/k1B5/2K5/8/8/2N5/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka5", "Ka7"]
+    },
+    "8/8/2B5/k1K5/8/8/2N5/8 w - - 0 0":
+    {
+        "myMove": ["Na3"],
+        "explanation": "Get our knight closer to the mating square."
+    },
+    "8/k7/2B5/2K5/8/8/2N5/8 w - - 0 0":
+    {
+        "myMove": ["Nd4"],
+        "explanation": "Prevent the king from going to a5 because it would be an early mate there."
+    },
+    "8/k7/2B5/2K5/3N4/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6", "Kb8"]
+    },
+    "1k6/8/2B5/2K5/3N4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kb6"],
+        "explanation": "Make sure the black king can't escape the bankrank."
+    },
+    "1k6/8/1KB5/8/3N4/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc8"]
+    },
+    "2k5/8/1KB5/8/3N4/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Ne6"],
+        "explanation": "Prevent black king's escape via d7-e6. Ne6 only move, otherwise we delay mate by a lot."
+    },
+    "2k5/8/1KB1N3/8/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb8"]
+    },
+    "1k6/8/1KB1N3/8/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bd7"],
+        "explanation": "After this move, the black king is stuck shuffling between a8 and b8."
+    },
+    "1k6/3B4/1K2N3/8/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka8"]
+    },
+    "k7/3B4/1K2N3/8/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc7+"],
+        "explanation": "We prepare the knight king bishop formation."
+    },
+    "k7/2NB4/1K6/8/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb8"]
+    },
+    "1k6/2NB4/1K6/8/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Na6+"],
+        "explanation": "Now we have mate in 2."
+    },
+    "1k6/3B4/NK6/8/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka8"]
+    },
+    "k7/3B4/NK6/8/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc6#"]
+    },
+    "8/4k3/8/3B4/3K4/5N2/8/8 w - - 0 0":
+    {
+        "myMove": ["Ke5"],
+        "explanation": "Take away d6 and f6."
+    },
+    "8/4k3/8/3BK3/8/5N2/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kd7", "_Kd8", "_Ke8", "_Kf8"]
+    },
+    "8/3k4/8/3BK3/8/5N2/8/8 w - - 0 0":
+    {
+        "myMove": ["Nd2"],
+        "explanation": "We are rerouting the knight to c4 where it can create a 4 square force field, allowing us to shoulder with the king."
+    },
+    "8/3k4/8/3BK3/8/8/3N4/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc7", "_Kc8", "_Kd8", "_Ke7", "_Ke8"]
+    },
+    "8/2k5/8/3BK3/8/8/3N4/8 w - - 0 0":
+    {
+        "myMove": ["Nc4"],
+        "explanation": "Create a forcefield with the knight and bishop."
+    },
+    "8/2k5/8/3BK3/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb8", "Kc8", "Kd7", "_Kd8"]
+    },
+    "1k6/8/8/3BK3/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd6"],
+        "explanation": "Black king is now stuck to the backrank."
+    },
+    "1k6/8/3K4/3B4/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7", "Kc8"]
+    },
+    "8/k7/3K4/3B4/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Limit the black king to a6-a8."
+    },
+    "8/k1K5/8/3B4/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6"]
+    },
+    "8/2K5/k7/3B4/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc6"],
+        "explanation": "Prevent black king's escape via b5."
+    },
+    "2k5/8/3K4/3B4/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc6"],
+        "explanation": "Take away the e8 square. Now we have time to reposition our knight."
+    },
+    "2k5/8/2BK4/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb8", "Kd8"]
+    },
+    "1k6/8/2BK4/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd7"],
+        "explanation": "Take away the c8 square."
+    },
+    "1k6/3K4/2B5/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/k2K4/2B5/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Take away the b8 square."
+    },
+    "3k4/8/2BK4/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Na5"],
+        "explanation": "Bring the knight to control b7 in order to reposition the bishop."
+    },
+    "3k4/8/2BK4/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc8"]
+    },
+    "2k5/8/2BK4/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bd7+"],
+        "explanation": "Force the king towards the mating square."
+    },
+    "2k5/3B4/3K4/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb8", "Kd8"]
+    },
+    "3k4/3B4/3K4/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc6#"]
+    },
+    "1k6/3B4/3K4/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc6"],
+        "explanation": "Bring the king towards the mating position."
+    },
+    "1k6/3B4/2K5/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7", "Ka8"]
+    },
+    "8/k2B4/2K5/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc8"],
+        "explanation": "Take away the a6 square. We're going for the triangle mate."
+    },
+    "2B5/k7/2K5/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka8", "Kb8"]
+    },
+    "k1B5/8/2K5/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Get the king in the mating position."
+    },
+    "k1B5/2K5/8/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "2B5/k1K5/8/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc6"],
+        "explanation": "Force the king on the mating square."
+    },
+    "2B5/k1K5/2N5/8/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka8"]
+    },
+    "k1B5/2K5/2N5/8/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bb7#"]
+    },
+    "1kB5/8/2K5/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd7"],
+        "explanation": "A two step move to take away the b8 square."
+    },
+    "1kB5/3K4/8/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7", "Ka8"]
+    },
+    "2B5/k2K4/8/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Black king is now stuck between a7 and a8."
+    },
+    "2B5/k1K5/8/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka8"]
+    },
+    "k1B5/2K5/8/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bb7+"],
+        "explanation": "We're doing the triangle checkmate."
+    },
+    "k7/1BK5/8/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/kBK5/8/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc6#"]
+    },
+    "k1B5/3K4/8/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Take away the b8 square. Now the black king is stuck between a7 and a8."
+    },
+    "k7/3B4/2K5/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Take away the b8 square."
+    },
+    "k7/2KB4/8/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/k1KB4/8/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc8"],
+        "explanation": "Take away the a6 square."
+    },
+    "2k5/8/2BK4/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Na5"],
+        "explanation": "Bring the knight closer to the mating square."
+    },
+    "2k5/8/2BK4/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb8", "_Kd8"]
+    },
+    "1k6/8/2BK4/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bd7"],
+        "explanation": "Take away the c8 square."
+    },
+    "1k6/3B4/3K4/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7", "_Ka8"]
+    },
+    "8/k2B4/3K4/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Black king is now stuck between a6 and a8."
+    },
+    "8/k1KB4/8/N7/8/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6", "Ka8"]
+    },
+    "8/2KB4/k7/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Nc4"],
+        "explanation": "Going for the NKB line mate."
+    },
+    "k7/2KB4/8/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc8"],
+        "explanation": "Going for the NKB triangle mate."
+    },
+    "k7/3B4/3K4/N7/8/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "We're going for the NKB trinagla mate."
+    },
+    "8/3k4/8/3BK3/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kf6"],
+        "explanation": "Bishop and knight control the 6th rank, so we can slowly shoulder the black king towards the mating corner."
+    },
+    "8/3k4/5K2/3B4/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kc7", "_Kc8", "_Kd8", "_Ke8"]
+    },
+    "8/2k5/5K2/3B4/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Ke7"],
+        "explanation": "We take away the d file."
+    },
+    "8/2k1K3/8/3B4/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb8", "Kc8"]
+    },
+    "1k6/4K3/8/3B4/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd7"],
+        "explanation": "We continue to shoulder the king towards the mating corner."
+    },
+    "1k6/3K4/8/3B4/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "8/k2K4/8/3B4/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Continue shouldering. Prepare for NKB line mate."
+    },
+    "2k5/4K3/8/3B4/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc6"],
+        "explanation": "Bring the bishop closer to the king."
+    },
+    "2k5/4K3/2B5/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb8", "Kc7"]
+    },
+    "1k6/4K3/2B5/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd7"],
+        "explanation": "Get the king closer to the mating square."
+    },
+    "8/2k1K3/2B5/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bd7"],
+        "explanation": "This is the best way to protect the bishop."
+    },
+    "8/2kBK3/8/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Kb7", "Kb8"]
+    },
+    "8/1k1BK3/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd8"],
+        "explanation": "Kd8 is a bit better than Kd6 because after black plays Kb8, we can play Bc8."
+    },
+    "3K4/1k1B4/8/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6", "Ka7", "Ka8", "Kb8"]
+    },
+    "3K4/3B4/k7/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Now the black king is stuck between a6 and a8, and only legal move is Ka7."
+    },
+    "3K4/k2B4/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Bring the king to the final position."
+    },
+    "8/k1KB4/8/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka6", "Ka8"]
+    },
+    "8/2KB4/k7/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc6"],
+        "explanation": "We need a waiting move. Technically there's 3 waiting move, but we generally choose the one closest to our king."
+    },
+    "k7/2KB4/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Na5"],
+        "explanation": "Bring the knight in for mate."
+    },
+    "k2K4/3B4/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Bring the king to the final position. We're going for line mate."
+    },
+    "1k1K4/3B4/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Bc8"],
+        "explanation": "This is the diagonal that the bishop needs to control."
+    },
+    "1kBK4/8/8/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7", "Ka8"]
+    },
+    "2BK4/k7/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Bring the king to the final position. Now the black king is stuck between a7 and a8. We can reposition the knight."
+    },
+    "2B5/k1K5/8/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka8"]
+    },
+    "k1B5/2K5/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Na5"],
+        "explanation": "The knight is free to roam. There's more than 1 correct move, but we generally go to the outskirts with the knight if possible. We're going for triangle mate."
+    },
+    "k1BK4/8/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kc7"],
+        "explanation": "Black king is now stuck between a7 and a8. Both king and bishop are in the final positions. We just need to move the knight now."
+    },
+    "k1B5/2K5/8/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7"]
+    },
+    "2B5/k1K5/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Na5"],
+        "explanation": "The knight is free to roam. There's more than 1 correct move, but we generally go to the outskirts with the knight if possible. We're going for triangle mate."
+    },
+    "1k6/3BK3/8/8/2N5/8/8/8 w - - 0 0":
+    {
+        "myMove": ["Kd8"],
+        "explanation": "Kd8 is a bit better than Kd6 because after black plays Kb8, we can play Bc8."
+    },
+    "1k1K4/3B4/8/8/2N5/8/8/8 b - - 0 0":
+    {
+        "opponentMoves": ["Ka7", "_Ka8", "_Kb7"]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    },
+    "":
+    {
+        "opponentMoves": [""]
+    },
+    "":
+    {
+        "myMove": [""],
+        "explanation": ""
+    }
+}

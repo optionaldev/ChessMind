@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		562DABD82E8164EB0085D50F /* bird's opening.json in Resources */ = {isa = PBXBuildFile; fileRef = 562DABD72E8164E60085D50F /* bird's opening.json */; };
 		5664980F2D3C3B1100E81E44 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5664980E2D3C3B1100E81E44 /* Operators.swift */; };
 		6E1094822CCF777100FFA1B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094812CCF777100FFA1B7 /* AppDelegate.swift */; };
 		6E1094842CCF777100FFA1B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1094832CCF777100FFA1B7 /* SceneDelegate.swift */; };
@@ -56,7 +55,6 @@
 		6E56B10E2CF26697001B6B19 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E56B10D2CF26697001B6B19 /* Sound.swift */; };
 		6E56B1102CF34575001B6B19 /* CheckInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E56B10F2CF34575001B6B19 /* CheckInfo.swift */; };
 		6E76D7AF2D09FCFD000351A5 /* openings.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E76D7AE2D09FCFD000351A5 /* openings.json */; };
-		6E7700722D1FECDD000DF3C6 /* englund.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E7700712D1FECDD000DF3C6 /* englund.json */; };
 		6E7700742D1FED51000DF3C6 /* JsonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7700732D1FED51000DF3C6 /* JsonHelper.swift */; };
 		6E7700762D1FF479000DF3C6 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7700752D1FF479000DF3C6 /* DictionaryExtension.swift */; };
 		6E8784FE2CE951E000059A48 /* HighlightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8784FD2CE951E000059A48 /* HighlightType.swift */; };
@@ -65,6 +63,9 @@
 		6EF8038E2CEA81A60068E0AA /* BoardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF8038D2CEA81A60068E0AA /* BoardHelper.swift */; };
 		6EF803902CEA89400068E0AA /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF8038F2CEA89400068E0AA /* IntExtension.swift */; };
 		6EF803922CF103DF0068E0AA /* CheckType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF803912CF103DF0068E0AA /* CheckType.swift */; };
+		EA0745CA300C1D4E0045654B /* light square bishop knight.json in Resources */ = {isa = PBXBuildFile; fileRef = EA0745C6300C1D4E0045654B /* light square bishop knight.json */; };
+		EA0745CB300C1D4E0045654B /* englund gambit.json in Resources */ = {isa = PBXBuildFile; fileRef = EA0745C7300C1D4E0045654B /* englund gambit.json */; };
+		EA0745CC300C1D4E0045654B /* bird's opening.json in Resources */ = {isa = PBXBuildFile; fileRef = EA0745C5300C1D4E0045654B /* bird's opening.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +86,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		562DABD72E8164E60085D50F /* bird's opening.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bird's opening.json"; sourceTree = "<group>"; };
 		5664980E2D3C3B1100E81E44 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		6E10947E2CCF777100FFA1B7 /* ChessMind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessMind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1094812CCF777100FFA1B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,7 +138,6 @@
 		6E56B10D2CF26697001B6B19 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		6E56B10F2CF34575001B6B19 /* CheckInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInfo.swift; sourceTree = "<group>"; };
 		6E76D7AE2D09FCFD000351A5 /* openings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = openings.json; sourceTree = "<group>"; };
-		6E7700712D1FECDD000DF3C6 /* englund.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = englund.json; sourceTree = "<group>"; };
 		6E7700732D1FED51000DF3C6 /* JsonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonHelper.swift; sourceTree = "<group>"; };
 		6E7700752D1FF479000DF3C6 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		6E8784FD2CE951E000059A48 /* HighlightType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightType.swift; sourceTree = "<group>"; };
@@ -147,6 +146,9 @@
 		6EF8038D2CEA81A60068E0AA /* BoardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHelper.swift; sourceTree = "<group>"; };
 		6EF8038F2CEA89400068E0AA /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		6EF803912CF103DF0068E0AA /* CheckType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckType.swift; sourceTree = "<group>"; };
+		EA0745C5300C1D4E0045654B /* bird's opening.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bird's opening.json"; sourceTree = "<group>"; };
+		EA0745C6300C1D4E0045654B /* light square bishop knight.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "light square bishop knight.json"; sourceTree = "<group>"; };
+		EA0745C7300C1D4E0045654B /* englund gambit.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "englund gambit.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,8 +322,9 @@
 		6E56B1012CF25EE2001B6B19 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				562DABD72E8164E60085D50F /* bird's opening.json */,
-				6E7700712D1FECDD000DF3C6 /* englund.json */,
+				EA0745C5300C1D4E0045654B /* bird's opening.json */,
+				EA0745C6300C1D4E0045654B /* light square bishop knight.json */,
+				EA0745C7300C1D4E0045654B /* englund gambit.json */,
 				6E76D7AE2D09FCFD000351A5 /* openings.json */,
 				6E56B10B2CF26678001B6B19 /* capture.mp3 */,
 				6E56B1022CF26058001B6B19 /* check.mp3 */,
@@ -442,15 +445,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				562DABD82E8164EB0085D50F /* bird's opening.json in Resources */,
 				6E10948E2CCF777300FFA1B7 /* LaunchScreen.storyboard in Resources */,
-				6E7700722D1FECDD000DF3C6 /* englund.json in Resources */,
 				6E56B1042CF26058001B6B19 /* check.mp3 in Resources */,
 				6E10948B2CCF777300FFA1B7 /* Assets.xcassets in Resources */,
 				6E56B10C2CF26678001B6B19 /* capture.mp3 in Resources */,
 				6E1094892CCF777100FFA1B7 /* Main.storyboard in Resources */,
 				6E56B10A2CF2621C001B6B19 /* move.mp3 in Resources */,
 				6E76D7AF2D09FCFD000351A5 /* openings.json in Resources */,
+				EA0745CA300C1D4E0045654B /* light square bishop knight.json in Resources */,
+				EA0745CB300C1D4E0045654B /* englund gambit.json in Resources */,
+				EA0745CC300C1D4E0045654B /* bird's opening.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
