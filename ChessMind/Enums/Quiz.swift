@@ -16,5 +16,5 @@ enum Quiz {
   
   /// Not necessarly the best move, but the move that the user
   /// chose for this particular position.
-  case myMove(_ move: String, explanation: String)
+  case myMoves(_ moves: [MyMove])
 }

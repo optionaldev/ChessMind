@@ -18,15 +18,15 @@ enum QuizHelper {
     
     unfilteredQuizes.forEach { key, value in
       if let opponentMoves = value.opponentMoves {
-        if value.myMove != nil {
+        if value.myMoves != nil {
           print("An entry should not have both 'opponentMoves' and 'myMove'. Key: \(key)")
         }
         filteredQuizes[key] = .opponentMoves(opponentMoves)
-      } else if let myMove = value.myMove {
+      } else if let myMoves = value.myMoves {
         if value.opponentMoves != nil {
           print("An entry should not have both 'myMove' and 'opponentMoves'. Key: \(key)")
         }
-        filteredQuizes[key] = .myMove(myMove, explanation: value.explanation ?? "")
+          filteredQuizes[key] = .myMoves(myMoves.filter { $0.notation.contains("_") == false })
       } else {
         print("An entry should have either opponentMoves or myMove. Key: \(key)")
       }

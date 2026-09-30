@@ -58,15 +58,12 @@ final class BoardViewController: UIViewController {
         fenCopyButton.setImage(UIImage(systemName: "doc.on.doc.fill"), for: .normal)
         fenCopyButton.translatesAutoresizingMaskIntoConstraints = false
         
-        let explanationLabel = CustomLabel(fontSize: Constants.labelFontSize)
-        explanationLabel.numberOfLines = 0
-        
-        let correctMoveLabel = CustomLabel(fontSize: Constants.labelFontSize)
+        let quizCorrectnessLabel = CustomLabel(fontSize: Constants.labelFontSize)
+        quizCorrectnessLabel.numberOfLines = 0
         
         navigationItem.rightBarButtonItem = flipButton
         view.addSubview(boardView)
-        view.addSubview(correctMoveLabel)
-        view.addSubview(explanationLabel)
+        view.addSubview(quizCorrectnessLabel)
         view.addSubview(fenLabel)
         view.addSubview(fenCopyButton)
         view.backgroundColor = .white
@@ -82,12 +79,9 @@ final class BoardViewController: UIViewController {
             fenCopyButton.centerYAnchor.constraint(equalTo: fenLabel.centerYAnchor),
             fenCopyButton.leftAnchor.constraint(equalTo: fenLabel.rightAnchor, constant: 14),
             
-            correctMoveLabel.topAnchor.constraint(equalTo: fenLabel.bottomAnchor, constant: Constants.labelVerticalSpacing),
-            correctMoveLabel.leftAnchor.constraint(equalTo: fenLabel.leftAnchor),
-            
-            explanationLabel.topAnchor.constraint(equalTo: correctMoveLabel.bottomAnchor, constant: 8),
-            explanationLabel.leftAnchor.constraint(equalTo: correctMoveLabel.leftAnchor),
-            explanationLabel.widthAnchor.constraint(equalToConstant: Screen.width - 2 * Constants.labelHorizontalSpacing)
+            quizCorrectnessLabel.topAnchor.constraint(equalTo: fenLabel.bottomAnchor, constant: Constants.labelVerticalSpacing),
+            quizCorrectnessLabel.leftAnchor.constraint(equalTo: fenLabel.leftAnchor),
+            quizCorrectnessLabel.widthAnchor.constraint(equalToConstant: Screen.width - 2 * Constants.labelHorizontalSpacing)
         ])
         
         self.boardView = boardView
@@ -97,8 +91,7 @@ final class BoardViewController: UIViewController {
             $0.addGestureRecognizer(tapGestureRecognizer)
         }
         
-        self.correctMoveLabel = correctMoveLabel
-        self.explanationLabel = explanationLabel
+        self.quizCorrectnessLabel = quizCorrectnessLabel
         self.fenLabel = fenLabel
         
         /// This helps prevent the delay for playing AV stuff.
@@ -129,7 +122,7 @@ final class BoardViewController: UIViewController {
         super.viewDidAppear(animated)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.handleQuizPart()
+            self?.handleQuizWithDelay()
         }
     }
     
@@ -157,13 +150,17 @@ final class BoardViewController: UIViewController {
     /// number of
     private var boardSettings = BoardSettings()
     
-    /// While we're quizing, it's useful to know why we do a certain
-    /// move, to be abl to better remember it.
-    private var expectedMoveExplanation: String?
+    private var expectedMoves: [MyMove] = [] {
+        didSet {
+            print("expectedMoves: \(expectedMoves)")
+        }
+    }
     
-    /// After the opponent does a move, we look at quizes to see what
-    /// the expected next move should be. Only 1 move is valid.
-    private var expectedMoveNotation: String?
+    private var expectedMoveIndex: Int? {
+        didSet {
+            print("expectedMoveIndex: \(expectedMoveIndex)")
+        }
+    }
     
     /// We record current fen because if a move happens and it was the
     /// incorrect one, we need to know the FEN to which to revert.
@@ -201,8 +198,7 @@ final class BoardViewController: UIViewController {
     
     private weak var boardView: BoardView!
     private weak var fenLabel: CustomLabel!
-    private weak var explanationLabel: CustomLabel!
-    private weak var correctMoveLabel: CustomLabel!
+    private weak var quizCorrectnessLabel: CustomLabel!
     
     private func animate(move: Move, imageName: String) {
         let fromSquare = boardView.square(at: move.from)
@@ -264,6 +260,7 @@ final class BoardViewController: UIViewController {
                 case .empty:
                     guard legalDestination.contains(position) else {
                         self.highlightedPosition = nil
+                        print("Not a legal destination")
                         return
                     }
                     boardView.isUserInteractionEnabled = false
@@ -287,6 +284,7 @@ final class BoardViewController: UIViewController {
                         handleNewHighlightedSquare(position: position)
                     } else {
                         guard legalDestination.contains(position) else {
+                            print("not a legal destination")
                             return
                         }
                         /// 4) Tapped on an enemy piece. Should capture.
@@ -389,24 +387,36 @@ final class BoardViewController: UIViewController {
                                                     toSquare: oldToSquareState,
                                                     onBoard: allSquareStates,
                                                     boardSettings: boardSettings)
-                if expectedMoveNotation == notation {
-                    handleQuizPart()
-                } else {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.setFen(self.fenBeforeAttempt)
+                expectedMoveIndex = nil
+                for (index, expectedMove) in expectedMoves.enumerated() {
+                    if expectedMove.notation == notation {
+                        expectedMoveIndex = index
+                        handleQuizWithDelay()
+                        return
+                    }
+                }
+                
+                /// If we did a move that wasn't one of the expected ones, we reset the
+                /// board to what it was before the move happened
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.setFen(self.fenBeforeAttempt)
+                    
+                    var quizCorrectnessAttributedString = NSAttributedString()
+                    
+                    for expectedMove in self.expectedMoves {
+                        quizCorrectnessAttributedString = "Correct: ".attributed(color: .red) + expectedMove.notation + "\n"
                         
-                        if let move = self.expectedMoveNotation,
-                           let explanation = self.expectedMoveExplanation
-                        {
-                            self.correctMoveLabel.attributedText = "Correct: ".attributed(color: .red) + move
-                            self.explanationLabel.attributedText = "Explanation: ".attributed(color: .gray) + explanation
+                        if let explanation = expectedMove.explanation {
+                            quizCorrectnessAttributedString = quizCorrectnessAttributedString + "Explanation: ".attributed(color: .gray) + explanation
                         }
+                        
+                        self.quizCorrectnessLabel.attributedText = quizCorrectnessAttributedString
                     }
                 }
             } else {
                 fenBeforeAttempt = currentFen
                 fenLabel.attributedText = "FEN: ".attributed(color: .gray) + fenBeforeAttempt
-                handleQuizPart()
+                handleQuizWithDelay()
             }
         }
     }
@@ -508,7 +518,7 @@ final class BoardViewController: UIViewController {
         self.legalDestination = legalDestinations
     }
     
-    private func handleQuizPart() {
+    private func handleQuizWithDelay() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.handleQuiz()
         }
@@ -522,21 +532,23 @@ final class BoardViewController: UIViewController {
             return
         }
         
+        print("handleQuiz called \(quiz) | boardSettings.turn: \(boardSettings.turn) | perspective: \(perspective)")
         switch quiz {
-        case .myMove(let moveNotation, let explanation):
+        case .myMoves(let myMoves):
             if boardSettings.turn == perspective {
-                expectedMoveNotation = moveNotation
-                expectedMoveExplanation = explanation
+                expectedMoves = myMoves
             } else {
                 print("We should have a move for us, not the opponent.")
             }
         case .opponentMoves(let possibleOpponentMoveNotations):
-            
-            if let move = expectedMoveNotation,
-               let explanation = expectedMoveExplanation
-            {
-                correctMoveLabel.attributedText = "Correct: ".attributed(color: .darkSquareColor) + move
-                explanationLabel.attributedText = "Explanation: ".attributed(color: .gray) + explanation
+            if let expectedMoveIndex {
+                if let explanation = expectedMoves[expectedMoveIndex].explanation {
+                    quizCorrectnessLabel.attributedText = "Correct: ".attributed(color: .darkSquareColor) + expectedMoves[expectedMoveIndex].notation +
+                                                          "Explanation: ".attributed(color: .gray) + explanation
+                                                          
+                } else {
+                    quizCorrectnessLabel.attributedText = "Correct: ".attributed(color: .darkSquareColor) + expectedMoves[expectedMoveIndex].notation
+                }
             }
             
             if boardSettings.turn != perspective {

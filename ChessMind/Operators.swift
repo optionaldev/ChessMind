@@ -15,3 +15,11 @@ func + (lhs: NSAttributedString, rhs: String) -> NSAttributedString {
   
   return result
 }
+
+func + (lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString {
+    let result = NSMutableAttributedString(attributedString: lhs)
+    
+    result.append(rhs)
+    
+    return result
+}
